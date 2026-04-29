@@ -1,10 +1,61 @@
+// Job aggregators, agencies, and middlemen — never show these, direct employer links only
+const BLOCKED_DOMAINS = [
+  // Foreign-facing Japan job boards
+  'gaijinpot.com',
+  'daijob.com',
+  'careercross.com',
+  'jobsinjapan.com',
+  'ohayosensei.com',
+  'eslcafe.com',
+  'tokyojobs.com',
+  'expat.com',
+  'careerjet.com',
+  'careerjet.co.jp',
+  // General aggregators
+  'indeed.com',
+  'indeed.co.jp',
+  'linkedin.com',
+  'glassdoor.com',
+  'seek.com.au',
+  'monster.com',
+  'ziprecruiter.com',
+  // Japanese aggregators
+  'rikunabi.com',
+  'mynavi.jp',
+  'en-japan.com',
+  'doda.jp',
+  'bizreach.jp',
+  'type.jp',
+  'recruit.co.jp',
+  'townwork.net',
+  // Dispatch / ALT agencies
+  'interac.co.jp',
+  'borderlink.co.jp',
+  'altia-central.co.jp',
+  'heart.co.jp',
+  'joytalk.co.jp',
+  'nova.co.jp',
+  'gaba.co.jp',
+  'passionworks.co.jp',
+  'jtjs.jp',
+  // Recruitment agencies
+  'jac-recruitment.co.jp',
+  'robertwalters.co.jp',
+  'michaelpage.co.jp',
+  'hays.co.jp',
+  'manpower.co.jp',
+  'adecco.co.jp',
+  'randstad.co.jp',
+];
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  // Cache results for 30 minutes so we don't burn API quota on every page load
   res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate');
 
   try {
-    // 1. Ask Exa to find relevant job pages across the web
+    // Only show listings published in the last 3 weeks
+    const threeWeeksAgo = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString();
+
     const exaRes = await fetch('https://api.exa.ai/search', {
       method: 'POST',
       headers: {
@@ -12,11 +63,13 @@ module.exports = async function handler(req, res) {
         'x-api-key': process.env.Exa,
       },
       body: JSON.stringify({
-        query: 'English speaker job Japan direct hire Board of Education ALT foreigner visa sponsorship 外国人 求人 直接雇用',
-        numResults: 10,
+        query: 'English speaker direct hire job Japan Board of Education city government company careers page ALT foreigner visa sponsorship 外国人 直接雇用 採用 教育委員会',
+        numResults: 15,
         contents: { text: { maxCharacters: 1000 } },
         type: 'neural',
         useAutoprompt: true,
+        startPublishedDate: threeWeeksAgo,
+        excludeDomains: BLOCKED_DOMAINS,
       }),
     });
 
@@ -30,10 +83,18 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ jobs: [] });
     }
 
-    // 2. Send all titles + descriptions to Google Translate in one batch request
+    // Check all links in parallel — filter out any that are broken or unreachable
+    const aliveChecks = await Promise.all(results.map(r => isLinkAlive(r.url)));
+    const liveResults = results.filter((_, i) => aliveChecks[i]);
+
+    if (liveResults.length === 0) {
+      return res.status(200).json({ jobs: [] });
+    }
+
+    // Batch translate titles + descriptions in one API call
     const texts = [
-      ...results.map(r => r.title || ''),
-      ...results.map(r => (r.text || '').slice(0, 800)),
+      ...liveResults.map(r => r.title || ''),
+      ...liveResults.map(r => (r.text || '').slice(0, 800)),
     ];
 
     const translateRes = await fetch(
@@ -51,10 +112,9 @@ module.exports = async function handler(req, res) {
     }
 
     const { data: { translations } } = await translateRes.json();
-    const n = results.length;
+    const n = liveResults.length;
 
-    // 3. Build job objects from the combined Exa + translation data
-    const jobs = results.map((r, i) => {
+    const jobs = liveResults.map((r, i) => {
       const titleT = translations[i];
       const descT  = translations[i + n];
 
@@ -113,6 +173,21 @@ module.exports = async function handler(req, res) {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Checks whether a URL actually loads — filters out dead/expired job pages
+async function isLinkAlive(url) {
+  try {
+    const res = await fetch(url, {
+      method: 'HEAD',
+      signal: AbortSignal.timeout(4000),
+      redirect: 'follow',
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; KakehashiBot/1.0)' },
+    });
+    return res.status < 400;
+  } catch {
+    return false;
+  }
+}
 
 function detectType(text) {
   if (/\b(alt|english teach|efl|english instruct|board of edu)\b/.test(text)) return 'education';
