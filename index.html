@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Japan Direct Jobs — Direct Hire in Japan</title>
+  <title>Kakehashi Jobs — Direct Hire in Japan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -496,7 +496,7 @@
 const { useState, useMemo, useEffect } = React;
 
 /* ─── DATA ──────────────────────────────────────────────────────────────── */
-const JOBS = [
+const DEMO_JOBS = [
 { id: 1, titleEn: "Board of Education — ALT Coordinator", titleJp: "教育委員会 — 外国語指導助手コーディネーター", employer: "Osaka City Board of Education", short: "OCB", location: "Osaka", pref: "osaka", type: "education", contract: "full-time", visa: true, jlpt: "n4", jpLevel: "basic", enLevel: "native", otherLangs: [], industry: "education", careerLevel: "entry", employerType: "boe", remoteOk: false, overseasOk: false, salary: "¥250,000 – ¥290,000 / mo", salaryRank: 2, posted: "2 days ago", deadline: "May 30, 2026", url: "#", source: "Osaka City Official Site", mhlw: true,
   desc: "Osaka City Board of Education is seeking a full-time ALT Coordinator to directly oversee and support 40+ ALT placements across public elementary and junior-high schools. No agency involvement — this is a direct municipal hire.",
   descJp: "大阪市教育委員会は、市内の公立小中学校に配置された40名以上のALTを監督・支援するフルタイムのALTコーディネーターを募集しています。",
@@ -702,7 +702,10 @@ function JobCard({ job, sel, onClick }) {
       </div>
       <div className="card-foot">
         <span className="posted-txt"><IClock /> Posted {job.posted}</span>
-        {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
+        <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
+          {job.isLive && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
+          {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
+        </div>
       </div>
     </div>);
 
@@ -799,7 +802,7 @@ function App() {
   const [sel, setSel] = useState(null);
   const [sort, setSort] = useState("recent");
   const [dark, setDark] = useState(() => {
-    const s = localStorage.getItem("jdj-theme");
+    const s = localStorage.getItem("kj-theme");
     return s ? s === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
   const EMPTY_FILTERS = {
@@ -809,11 +812,21 @@ function App() {
     visaOnly: false, remoteOk: false, overseasOk: false
   };
   const [filters, setFilters] = useState(EMPTY_FILTERS);
+  const [liveJobs, setLiveJobs] = useState([]);
+  const [liveLoading, setLiveLoading] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    localStorage.setItem("jdj-theme", dark ? "dark" : "light");
+    localStorage.setItem("kj-theme", dark ? "dark" : "light");
   }, [dark]);
+
+  useEffect(() => {
+    fetch('/api/jobs')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => { if (data.jobs) setLiveJobs(data.jobs); })
+      .catch(e => console.warn('Live jobs unavailable:', e))
+      .finally(() => setLiveLoading(false));
+  }, []);
 
   function clear() {setFilters(EMPTY_FILTERS);setQ("");}
 
@@ -824,12 +837,13 @@ function App() {
   const CAREER_MAP = { "Entry level": "entry", "Mid-career": "mid", "Senior": "senior", "Manager": "manager", "Director / Executive": "executive" };
 
   const list = useMemo(() => {
-    let r = [...JOBS];
+    const allJobs = [...liveJobs, ...DEMO_JOBS];
+    let r = [...allJobs];
     if (q.trim()) {
       const lq = q.toLowerCase();
       r = r.filter((j) => j.titleEn.toLowerCase().includes(lq) || j.employer.toLowerCase().includes(lq) || j.location.toLowerCase().includes(lq) || j.titleJp.includes(q));
     }
-    if (filters.prefs.size) r = r.filter((j) => filters.prefs.has(j.pref));
+    if (filters.prefs.size) r = r.filter((j) => j.pref === 'japan' || filters.prefs.has(j.pref));
     if (filters.contracts.size) r = r.filter((j) => filters.contracts.has(j.contract));
     if (filters.industries.size) r = r.filter((j) => filters.industries.has(j.industry));
     if (filters.employerTypes.size) r = r.filter((j) => filters.employerTypes.has(j.employerType));
@@ -851,7 +865,7 @@ function App() {
     if (filters.overseasOk) r = r.filter((j) => j.overseasOk);
     if (sort === "salary") r.sort((a, b) => b.salaryRank - a.salaryRank);
     return r;
-  }, [q, filters, sort]);
+  }, [q, filters, sort, liveJobs]);
 
   return (
     <div className="app">
@@ -866,7 +880,7 @@ function App() {
             </Svg>
           </div>
           <div>
-            <div className="nav-brand-name">Japan Direct Jobs</div>
+            <div className="nav-brand-name">Kakehashi Jobs</div>
             <div className="nav-brand-sub">Direct hire in Japan</div>
           </div>
         </a>
@@ -902,7 +916,11 @@ function App() {
         <Sidebar filters={filters} set={setFilters} clear={clear} />
         <div className="job-list">
           <div className="results-row">
-            <p className="results-count"><strong>{list.length}</strong> jobs found</p>
+            <p className="results-count">
+              <strong>{list.length}</strong> jobs found
+              {liveLoading && <span style={{marginLeft:'8px',fontSize:'11px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· Loading live listings…</span>}
+              {!liveLoading && liveJobs.length > 0 && <span style={{marginLeft:'8px',fontSize:'11px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· {liveJobs.length} live</span>}
+            </p>
             <div className="sort-row">
               <span className="sort-lbl">Sort by</span>
               <select className="sort-select" value={sort} onChange={(e) => setSort(e.target.value)}>
@@ -922,7 +940,7 @@ function App() {
 
       {/* FOOTER */}
       <footer>
-        <p>© 2026 Japan Direct Jobs. Listings sourced from public employer websites. Not responsible for third-party content.</p>
+        <p>© 2026 Kakehashi Jobs. Listings sourced from public employer websites. Not responsible for third-party content.</p>
         <div className="foot-links">
           <a href="privacy.html">Privacy Policy</a>
           <a href="compliance.html">MHLW Compliance</a>
