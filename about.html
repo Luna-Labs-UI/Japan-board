@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About — Kakehashi Jobs</title>
+  <title>About — Japan Direct Jobs</title>
   <link rel="stylesheet" href="shared.css"/>
   <style>
     /* About-specific extras */
@@ -57,7 +57,7 @@
       </svg>
     </div>
     <div>
-      <div class="nav-brand-name">Kakehashi Jobs</div>
+      <div class="nav-brand-name">Japan Direct Jobs</div>
       <div class="nav-brand-sub">Direct hire in Japan</div>
     </div>
   </a>
@@ -81,7 +81,7 @@
       About us
     </div>
     <h1>Built for foreigners<br/>navigating Japan's job market</h1>
-    <p>Kakehashi (橋) means "bridge" in Japanese. That's exactly what we're trying to be — a direct bridge between foreign talent and Japanese employers who want to hire them without an agency in the middle.</p>
+    <p>Japan Direct Jobs connects foreign talent directly with Japanese employers — no agencies, no middlemen, just straightforward access to real opportunities.</p>
   </div>
 
   <div class="section">
@@ -199,21 +199,21 @@
     <h2>Get in touch</h2>
     <div class="info-card">
       <h3>General enquiries</h3>
-      <p>Email: <a href="mailto:hello@kakehashijobs.com">hello@kakehashijobs.com</a><br/>We read every message and typically respond within 2 business days.</p>
+      <p>Email: <a href="mailto:hello@japandirectjobs.com">hello@japandirectjobs.com</a><br/>We read every message and typically respond within 2 business days.</p>
     </div>
     <div class="info-card">
       <h3>Employers — list a role</h3>
-      <p>If you're a company or Board of Education hiring directly and want a free listing on Kakehashi Jobs, email <a href="mailto:listings@kakehashijobs.com">listings@kakehashijobs.com</a> with your role details. We'll review for MHLW compliance and publish within 48 hours.</p>
+      <p>If you're a company or Board of Education hiring directly and want a free listing on Japan Direct Jobs, email <a href="mailto:listings@japandirectjobs.com">listings@japandirectjobs.com</a> with your role details. We'll review for MHLW compliance and publish within 48 hours.</p>
     </div>
     <div class="info-card">
       <h3>Report a listing issue</h3>
-      <p>Spotted outdated information, a misleading job ad, or an agency listing that slipped through? Email <a href="mailto:listings@kakehashijobs.com">listings@kakehashijobs.com</a> — we'll investigate within 3 business days.</p>
+      <p>Spotted outdated information, a misleading job ad, or an agency listing that slipped through? Email <a href="mailto:listings@japandirectjobs.com">listings@japandirectjobs.com</a> — we'll investigate within 3 business days.</p>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>© 2026 Kakehashi Jobs. Listings sourced from public employer websites.</p>
+  <p>© 2026 Japan Direct Jobs. Listings sourced from public employer websites.</p>
   <div class="foot-links">
     <a href="privacy.html">Privacy Policy</a>
     <a href="compliance.html">MHLW Compliance</a>
@@ -229,14 +229,14 @@
   const MOON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
   const SUN  = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
   const navGlobe = document.getElementById('nav-globe');
-  let dark = localStorage.getItem('kj-theme')
-    ? localStorage.getItem('kj-theme') === 'dark'
+  let dark = localStorage.getItem('jdj-theme')
+    ? localStorage.getItem('jdj-theme') === 'dark'
     : window.matchMedia('(prefers-color-scheme: dark)').matches;
   function apply(d){
     root.setAttribute('data-theme', d ? 'dark' : 'light');
     icon.innerHTML = d ? SUN : MOON;
     if(navGlobe) navGlobe.setAttribute('stroke', d ? '#09090B' : 'white');
-    localStorage.setItem('kj-theme', d ? 'dark' : 'light');
+    localStorage.setItem('jdj-theme', d ? 'dark' : 'light');
   }
   apply(dark);
   btn.addEventListener('click', function(){ dark = !dark; apply(dark); });

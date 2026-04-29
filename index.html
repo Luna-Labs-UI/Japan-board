@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kakehashi Jobs — Direct Hire in Japan</title>
+  <title>Japan Direct Jobs — Direct Hire in Japan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -799,7 +799,7 @@ function App() {
   const [sel, setSel] = useState(null);
   const [sort, setSort] = useState("recent");
   const [dark, setDark] = useState(() => {
-    const s = localStorage.getItem("kj-theme");
+    const s = localStorage.getItem("jdj-theme");
     return s ? s === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
   const EMPTY_FILTERS = {
@@ -812,7 +812,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    localStorage.setItem("kj-theme", dark ? "dark" : "light");
+    localStorage.setItem("jdj-theme", dark ? "dark" : "light");
   }, [dark]);
 
   function clear() {setFilters(EMPTY_FILTERS);setQ("");}
@@ -866,7 +866,7 @@ function App() {
             </Svg>
           </div>
           <div>
-            <div className="nav-brand-name">Kakehashi Jobs</div>
+            <div className="nav-brand-name">Japan Direct Jobs</div>
             <div className="nav-brand-sub">Direct hire in Japan</div>
           </div>
         </a>
@@ -922,7 +922,7 @@ function App() {
 
       {/* FOOTER */}
       <footer>
-        <p>© 2026 Kakehashi Jobs. Listings sourced from public employer websites. Not responsible for third-party content.</p>
+        <p>© 2026 Japan Direct Jobs. Listings sourced from public employer websites. Not responsible for third-party content.</p>
         <div className="foot-links">
           <a href="privacy.html">Privacy Policy</a>
           <a href="compliance.html">MHLW Compliance</a>
