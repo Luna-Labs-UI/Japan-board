@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Kakehashi Jobs</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    /* About-specific extras */
+    .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:9px;padding:20px;text-align:center;box-shadow:var(--shadow-sm);transition:background .2s,border-color .2s}
+    .stat-num{font-size:30px;font-weight:700;letter-spacing:-.04em;color:var(--text-1);line-height:1}
+    .stat-lbl{font-size:12px;color:var(--text-3);font-family:'Inter',sans-serif;margin-top:4px}
+    .team-card{display:flex;gap:14px;align-items:flex-start;background:var(--bg-card);border:1px solid var(--border);border-radius:9px;padding:18px 20px;margin-bottom:10px;box-shadow:var(--shadow-sm);transition:background .2s,border-color .2s}
+    .avatar{width:44px;height:44px;border-radius:50%;background:var(--bg-muted);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--text-3);flex-shrink:0;font-family:'Inter',sans-serif}
+    .team-name{font-size:14px;font-weight:600;letter-spacing:-.01em;margin-bottom:2px}
+    .team-role{font-size:12px;color:var(--text-3);font-family:'Inter',sans-serif;margin-bottom:5px}
+    .team-bio{font-size:13px;color:var(--text-2);line-height:1.6}
+    .principle-list{display:flex;flex-direction:column;gap:10px;margin-bottom:0}
+    .principle-item{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow-sm);transition:background .2s,border-color .2s}
+    .principle-num{font-size:11px;font-family:'Inter',sans-serif;font-weight:700;color:var(--text-3);background:var(--bg-muted);border:1px solid var(--border);border-radius:6px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+    .principle-title{font-size:14px;font-weight:600;letter-spacing:-.01em;margin-bottom:3px}
+    .principle-desc{font-size:13px;color:var(--text-2);line-height:1.6}
+    .roadmap-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
+    .roadmap-item:last-child{border-bottom:none}
+    .roadmap-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px}
+    .dot-done{background:#10B981}
+    .dot-now{background:#3B82F6;box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+    .dot-next{background:var(--border-strong)}
+    .roadmap-phase{font-size:11px;font-family:'Inter',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:2px}
+    .roadmap-title{font-size:14px;font-weight:600;margin-bottom:3px}
+    .roadmap-desc{font-size:13px;color:var(--text-2);line-height:1.55}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .compare-card{border-radius:9px;border:1px solid var(--border);padding:16px 18px}
+    .compare-card.us{border-color:var(--tag-green-bd);background:var(--tag-green-bg)}
+    .compare-card.them{background:var(--bg-card)}
+    .compare-title{font-size:12px;font-family:'Inter',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+    .compare-title.green{color:var(--tag-green-fg)}
+    .compare-title.muted{color:var(--text-3)}
+    .compare-list{display:flex;flex-direction:column;gap:5px}
+    .compare-list li{font-size:13px;line-height:1.5;display:flex;align-items:flex-start;gap:7px}
+    .compare-list li::before{content:'·';flex-shrink:0;color:inherit}
+    .compare-card.us .compare-list{color:var(--tag-green-fg)}
+    .compare-card.them .compare-list{color:var(--text-2)}
+    @media(max-width:600px){
+      .mission-grid,.compare-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-brand" href="Japan Job Board.html">
+    <div class="nav-logo">
+      <svg id="nav-globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-brand-name">Kakehashi Jobs</div>
+      <div class="nav-brand-sub">Direct hire in Japan</div>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a class="nav-link" href="Japan Job Board.html">Job board</a>
+    <a class="nav-link" href="Privacy Policy.html">Privacy</a>
+    <a class="nav-link" href="MHLW Compliance.html">Compliance</a>
+    <a class="nav-link active" href="About.html">About</a>
+    <button class="theme-btn" id="theme-toggle" title="Toggle colour mode" aria-label="Toggle colour mode">
+      <svg id="theme-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-tag">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      About us
+    </div>
+    <h1>Built for foreigners<br/>navigating Japan's job market</h1>
+    <p>Kakehashi (橋) means "bridge" in Japanese. That's exactly what we're trying to be — a direct bridge between foreign talent and Japanese employers who want to hire them without an agency in the middle.</p>
+  </div>
+
+  <div class="section">
+    <h2>The problem we're solving</h2>
+    <p>Japan has tens of thousands of foreign residents — many of them ALTs, English instructors, or entry-level workers — who want to transition into careers that match their actual skills. But the job search landscape in Japan is stacked against them:</p>
+    <div class="compare-grid">
+      <div class="compare-card us">
+        <div class="compare-title green">What we offer</div>
+        <ul class="compare-list">
+          <li>Direct-hire roles only — no agency middlemen</li>
+          <li>Listings from BOEs, government, and real companies</li>
+          <li>Japanese descriptions translated to English</li>
+          <li>Visa sponsorship clearly labelled</li>
+          <li>MHLW-compliant salary and hours disclosure</li>
+          <li>Up-to-date listings, sourced from official sources</li>
+        </ul>
+      </div>
+      <div class="compare-card them">
+        <div class="compare-title muted">The current landscape</div>
+        <ul class="compare-list">
+          <li>Dominated by dispatch agencies taking a cut</li>
+          <li>Job descriptions entirely in Japanese</li>
+          <li>Visa sponsorship buried or unclear</li>
+          <li>Salary ranges vague or missing</li>
+          <li>Listings months out of date</li>
+          <li>No translation or guidance for foreign applicants</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Our numbers</h2>
+    <div class="mission-grid">
+      <div class="stat-card"><div class="stat-num">8</div><div class="stat-lbl">Active listings at launch</div></div>
+      <div class="stat-card"><div class="stat-num">5</div><div class="stat-lbl">Prefectures covered</div></div>
+      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Direct-hire roles</div></div>
+      <div class="stat-card"><div class="stat-num">0</div><div class="stat-lbl">Agencies on the platform</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-3)">Numbers reflect the current community preview phase. API integration for live listings is in development.</p>
+  </div>
+
+  <div class="section">
+    <h2>Our principles</h2>
+    <div class="principle-list">
+      <div class="principle-item">
+        <div class="principle-num">1</div>
+        <div><div class="principle-title">Transparency over convenience</div><div class="principle-desc">Every listing shows salary, hours, and contract type upfront. No bait-and-switch. If an employer won't provide that information, they don't list with us.</div></div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">2</div>
+        <div><div class="principle-title">No middlemen, no hidden fees</div><div class="principle-desc">We will never charge candidates a placement fee. When we eventually enable employer listings, those fees will be published openly. The hiring relationship is between you and the employer — we stay out of it.</div></div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">3</div>
+        <div><div class="principle-title">Privacy by default</div><div class="principle-desc">We don't collect your CV, your contact details, or your application history. You apply directly on the employer's site. Your data is yours.</div></div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">4</div>
+        <div><div class="principle-title">Accuracy over volume</div><div class="principle-desc">We'd rather show 20 verified, up-to-date listings than 2,000 stale ones. Every listing is manually reviewed or algorithmically verified against a live source before it appears.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Who it's for</h2>
+    <ul>
+      <li>ALTs (Assistant Language Teachers) looking to transition out of teaching into corporate roles</li>
+      <li>Foreign nationals on Instructor or Engineer visas seeking a change of status</li>
+      <li>Entry-level workers who want roles that don't require near-native Japanese</li>
+      <li>Experienced bilingual professionals seeking Japan-based roles with visa support</li>
+      <li>Anyone tired of wading through agency-dominated job boards with zero transparency</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Roadmap</h2>
+    <div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot dot-done"></div>
+        <div>
+          <div class="roadmap-phase">Phase 1 — Complete</div>
+          <div class="roadmap-title">Community preview</div>
+          <div class="roadmap-desc">Static job board with curated listings, filters, bilingual descriptions, and MHLW-compliant data display.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot dot-now"></div>
+        <div>
+          <div class="roadmap-phase">Phase 2 — Now</div>
+          <div class="roadmap-title">Live API integration</div>
+          <div class="roadmap-desc">Connect to Hello Work feeds, BOE official portals, and verified company career pages. Auto-translate Japanese listings via DeepL API. Show source freshness timestamps.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot dot-next"></div>
+        <div>
+          <div class="roadmap-phase">Phase 3 — Next</div>
+          <div class="roadmap-title">Resource hub</div>
+          <div class="roadmap-desc">Guides on converting classroom experience to a Japanese CV (履歴書 / 職務経歴書), JLPT study resources, and visa change-of-status walkthroughs.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot dot-next"></div>
+        <div>
+          <div class="roadmap-phase">Phase 4 — Future</div>
+          <div class="roadmap-title">MHLW-licensed placement</div>
+          <div class="roadmap-desc">Apply for a Fee-Charging Employment Placement licence (有料職業紹介事業許可) to offer opt-in candidate matching for employers who want it. Fully transparent fees.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Get in touch</h2>
+    <div class="info-card">
+      <h3>General enquiries</h3>
+      <p>Email: <a href="mailto:hello@kakehashijobs.com">hello@kakehashijobs.com</a><br/>We read every message and typically respond within 2 business days.</p>
+    </div>
+    <div class="info-card">
+      <h3>Employers — list a role</h3>
+      <p>If you're a company or Board of Education hiring directly and want a free listing on Kakehashi Jobs, email <a href="mailto:listings@kakehashijobs.com">listings@kakehashijobs.com</a> with your role details. We'll review for MHLW compliance and publish within 48 hours.</p>
+    </div>
+    <div class="info-card">
+      <h3>Report a listing issue</h3>
+      <p>Spotted outdated information, a misleading job ad, or an agency listing that slipped through? Email <a href="mailto:listings@kakehashijobs.com">listings@kakehashijobs.com</a> — we'll investigate within 3 business days.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Kakehashi Jobs. Listings sourced from public employer websites.</p>
+  <div class="foot-links">
+    <a href="Privacy Policy.html">Privacy Policy</a>
+    <a href="MHLW Compliance.html">MHLW Compliance</a>
+    <a href="About.html">About</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const root = document.documentElement;
+  const btn  = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  const MOON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  const SUN  = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  const navGlobe = document.getElementById('nav-globe');
+  let dark = localStorage.getItem('kj-theme')
+    ? localStorage.getItem('kj-theme') === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  function apply(d){
+    root.setAttribute('data-theme', d ? 'dark' : 'light');
+    icon.innerHTML = d ? SUN : MOON;
+    if(navGlobe) navGlobe.setAttribute('stroke', d ? '#09090B' : 'white');
+    localStorage.setItem('kj-theme', d ? 'dark' : 'light');
+  }
+  apply(dark);
+  btn.addEventListener('click', function(){ dark = !dark; apply(dark); });
+})();
+</script>
+</body>
+</html>
