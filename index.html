@@ -703,7 +703,8 @@ function JobCard({ job, sel, onClick }) {
       <div className="card-foot">
         <span className="posted-txt"><IClock /> Posted {job.posted}</span>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
-          {job.isLive && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
+          {job.isVerified && <span className="tag tag-green" style={{fontSize:'10px'}}>✓ Verified</span>}
+          {job.isLive && !job.isVerified && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
         </div>
       </div>
