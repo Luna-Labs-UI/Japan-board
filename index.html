@@ -773,9 +773,14 @@ function Detail({ job, onClose }) {
           </div>
         </div>
         <div className="detail-ft">
-          <a href={job.url} target="_blank" rel="noopener noreferrer" className="apply-btn">
-            Apply on {job.source} <IExtLink />
-          </a>
+          {job.url && job.url !== '#'
+            ? <a href={job.url} target="_blank" rel="noopener noreferrer" className="apply-btn">
+                Apply on {job.source} <IExtLink />
+              </a>
+            : <div className="apply-btn" style={{opacity:0.45,cursor:'not-allowed',userSelect:'none'}}>
+                Demo listing — link not available
+              </div>
+          }
           <p className="apply-note">You'll be redirected to the employer's official site. We don't store your information.</p>
         </div>
       </div>
