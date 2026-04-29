@@ -497,54 +497,9 @@ const { useState, useMemo, useEffect } = React;
 
 /* ─── DATA ──────────────────────────────────────────────────────────────── */
 const DEMO_JOBS = [
-{ id: 1, titleEn: "Board of Education — ALT Coordinator", titleJp: "教育委員会 — 外国語指導助手コーディネーター", employer: "Osaka City Board of Education", short: "OCB", location: "Osaka", pref: "osaka", type: "education", contract: "full-time", visa: true, jlpt: "n4", jpLevel: "basic", enLevel: "native", otherLangs: [], industry: "education", careerLevel: "entry", employerType: "boe", remoteOk: false, overseasOk: false, salary: "¥250,000 – ¥290,000 / mo", salaryRank: 2, posted: "2 days ago", deadline: "May 30, 2026", url: "#", source: "Osaka City Official Site", mhlw: true,
-  desc: "Osaka City Board of Education is seeking a full-time ALT Coordinator to directly oversee and support 40+ ALT placements across public elementary and junior-high schools. No agency involvement — this is a direct municipal hire.",
-  descJp: "大阪市教育委員会は、市内の公立小中学校に配置された40名以上のALTを監督・支援するフルタイムのALTコーディネーターを募集しています。",
-  req: ["Native or near-native English speaker", "Prior ALT or teaching experience (min. 1 year)", "Basic Japanese communication (JLPT N4 or equivalent)", "Valid work visa or eligibility for sponsorship", "Strong organisational and intercultural skills"],
-  benefits: ["Commuting allowance", "Health insurance", "Paid annual leave (10 days+)", "Municipal pension enrollment"],
-  hours: "Mon–Fri, 8:30–17:15" },
-{ id: 2, titleEn: "IT Support Specialist (English/Japanese)", titleJp: "ITサポートスペシャリスト（英語・日本語）", employer: "SoftBank Corp.", short: "SB", location: "Tokyo", pref: "tokyo", type: "it", contract: "full-time", visa: true, jlpt: "n3", jpLevel: "conversational", enLevel: "fluent", otherLangs: [], industry: "it", careerLevel: "mid", employerType: "company", remoteOk: true, overseasOk: false, salary: "¥300,000 – ¥380,000 / mo", salaryRank: 3, posted: "1 day ago", deadline: "June 15, 2026", url: "#", source: "SoftBank Careers Portal", mhlw: true,
-  desc: "Join SoftBank's multilingual IT helpdesk team in Tokyo. You'll provide first-line technical support to both Japanese and international employees, troubleshoot hardware/software issues, and help localise internal documentation into English.",
-  descJp: "ソフトバンク株式会社の多言語ITヘルプデスクチームに加わり、英語・日本語での技術サポートを提供します。",
-  req: ["Conversational Japanese (JLPT N3+)", "Experience with Windows/Mac OS, Office 365", "Strong written English for documentation", "CompTIA A+ or equivalent preferred", "Team-player with patience for user support"],
-  benefits: ["Full relocation support", "Visa sponsorship", "Annual bonus", "Flexible hours", "Remote work 2 days/week"],
-  hours: "Mon–Fri, 9:00–18:00 (flex)" },
-{ id: 3, titleEn: "English Content Writer & Localisation Editor", titleJp: "英語コンテンツライター・ローカライズ編集者", employer: "Kyoto Prefecture Tourism Bureau", short: "KT", location: "Kyoto", pref: "kyoto", type: "admin", contract: "full-time", visa: false, jlpt: "n3", jpLevel: "conversational", enLevel: "native", otherLangs: ["French", "Spanish"], industry: "tourism", careerLevel: "entry", employerType: "government", remoteOk: false, overseasOk: false, salary: "¥220,000 – ¥260,000 / mo", salaryRank: 1, posted: "5 days ago", deadline: "May 20, 2026", url: "#", source: "Kyoto Prefecture Job Portal", mhlw: true,
-  desc: "Kyoto Prefecture Tourism Bureau is hiring a dedicated English writer to create and edit tourism guides, press releases, and social media content for international visitors.",
-  descJp: "京都府観光局では、訪日外国人向けの観光ガイドやプレスリリースを作成・編集する英語ライターを募集しています。",
-  req: ["Native-level English writing ability", "JLPT N3 or higher", "Portfolio of published writing preferred", "Interest in Japanese culture and tourism", "Proficiency in Google Workspace"],
-  benefits: ["Commuting allowance", "Health & social insurance", "Annual leave 10 days", "Cultural immersion opportunities"],
-  hours: "Mon–Fri, 9:00–17:30" },
-{ id: 4, titleEn: "Business Development Rep — APAC Markets", titleJp: "ビジネス開発担当（APACマーケット）", employer: "Mercari Inc.", short: "MC", location: "Tokyo", pref: "tokyo", type: "sales", contract: "full-time", visa: true, jlpt: "n4", jpLevel: "basic", enLevel: "native", otherLangs: ["Chinese, Mandarin"], industry: "sales", careerLevel: "mid", employerType: "company", remoteOk: false, overseasOk: false, salary: "¥350,000 – ¥450,000 / mo", salaryRank: 4, posted: "3 days ago", deadline: "June 30, 2026", url: "#", source: "Mercari Careers", mhlw: true,
-  desc: "Mercari's APAC expansion team is looking for a driven BDR to identify and open new partnership opportunities across Southeast Asia and Australia. You'll manage CRM pipelines and work cross-functionally with product and marketing.",
-  descJp: "メルカリのAPAC拡大チームが、東南アジアおよびオーストラリアでの新しいパートナーシップ機会を開拓するBDRを募集しています。",
-  req: ["2+ years in B2B sales or BDR role", "Strong spoken English (native/near-native)", "Basic Japanese (N4+)", "Familiar with Salesforce or similar CRM", "Proactive, results-oriented mindset"],
-  benefits: ["Stock options", "Full visa sponsorship", "Relocation package", "Annual performance bonus", "Gym allowance"],
-  hours: "Mon–Fri, flexible; APAC timezone overlap" },
-{ id: 5, titleEn: "Elementary School English Instructor (Direct BOE)", titleJp: "小学校英語指導教員（教育委員会直接雇用）", employer: "Sapporo City Board of Education", short: "SCB", location: "Sapporo", pref: "hokkaido", type: "education", contract: "contract", visa: true, jlpt: "n5", jpLevel: "none", enLevel: "native", otherLangs: [], industry: "education", careerLevel: "entry", employerType: "boe", remoteOk: false, overseasOk: true, salary: "¥200,000 – ¥230,000 / mo", salaryRank: 1, posted: "Today", deadline: "May 15, 2026", url: "#", source: "Sapporo City Official Recruitment", mhlw: true,
-  desc: "Sapporo City BOE is directly hiring English instructors for elementary schools — no dispatch agency. 1-year renewable contract. You'll work alongside Japanese homeroom teachers to deliver communicative English lessons.",
-  descJp: "札幌市教育委員会は、市内の小学校に直接雇用する英語指導員を募集しています。派遣会社を通さない直接採用です。",
-  req: ["Bachelor's degree in any field", "Native or near-native English speaker", "No prior teaching experience required (training provided)", "Enthusiasm for working with children", "Visa eligibility or willingness to apply for Instructor visa"],
-  benefits: ["1-year renewable contract", "Transportation allowance", "Health insurance", "Training & development support"],
-  hours: "Mon–Fri, ~8:00–16:30" },
-{ id: 6, titleEn: "QA Localisation Tester — Japanese/English", titleJp: "QAローカライゼーションテスター（日本語/英語）", employer: "Capcom Co., Ltd.", short: "CC", location: "Osaka", pref: "osaka", type: "it", contract: "contract", visa: false, jlpt: "n3", jpLevel: "conversational", enLevel: "fluent", otherLangs: ["German"], industry: "gaming", careerLevel: "entry", employerType: "company", remoteOk: false, overseasOk: false, salary: "¥210,000 – ¥250,000 / mo", salaryRank: 1, posted: "1 week ago", deadline: "May 25, 2026", url: "#", source: "Capcom Recruitment Site", mhlw: true,
-  desc: "Capcom is seeking bilingual QA testers to identify localisation issues in video game builds. You'll compare Japanese and English in-game text, report bugs systematically, and ensure cultural appropriateness of translated content.",
-  descJp: "カプコンでは、ゲームビルドのローカライゼーション問題を特定するバイリンガルQAテスターを募集しています。",
-  req: ["Strong reading ability in both English and Japanese (N3+)", "Attention to detail and systematic thinking", "Interest in video games", "Experience with bug tracking tools (JIRA etc.) preferred", "Currently residing in Japan with valid work permit"],
-  benefits: ["Game industry experience", "Potential for contract extension", "Staff discount on Capcom titles"],
-  hours: "Mon–Fri, 10:00–19:00" },
-{ id: 7, titleEn: "Administrative Assistant — International Affairs", titleJp: "行政事務アシスタント（国際交流課）", employer: "Fukuoka Prefectural Government", short: "FPG", location: "Fukuoka", pref: "fukuoka", type: "admin", contract: "full-time", visa: true, jlpt: "n2", jpLevel: "business", enLevel: "fluent", otherLangs: ["Portuguese", "Tagalog"], industry: "government", careerLevel: "entry", employerType: "government", remoteOk: false, overseasOk: false, salary: "¥230,000 – ¥270,000 / mo", salaryRank: 2, posted: "4 days ago", deadline: "June 5, 2026", url: "#", source: "Fukuoka Prefecture Official Job Listings", mhlw: true,
-  desc: "Fukuoka Prefecture's International Affairs Division needs an admin assistant to support sister-city exchange programs, translate official correspondence, and coordinate events for foreign residents. N2 minimum.",
-  descJp: "福岡県国際交流課では、姉妹都市交流プログラムの支援、公式文書の翻訳、在留外国人向けイベントの調整を行う行政事務アシスタントを募集しています。",
-  req: ["JLPT N2 or higher (mandatory)", "Proficiency in English", "Organisational skills and attention to detail", "Government or NGO experience preferred", "Ability to work with diverse stakeholders"],
-  benefits: ["Prefectural government benefits package", "Stable long-term employment", "Commuting allowance", "Retirement fund enrollment"],
-  hours: "Mon–Fri, 8:30–17:15" },
-{ id: 8, titleEn: "Bilingual Customer Success Manager", titleJp: "バイリンガル・カスタマーサクセスマネージャー", employer: "Freee K.K.", short: "FR", location: "Tokyo", pref: "tokyo", type: "sales", contract: "full-time", visa: true, jlpt: "n3", jpLevel: "conversational", enLevel: "native", otherLangs: [], industry: "finance", careerLevel: "mid", employerType: "company", remoteOk: true, overseasOk: false, salary: "¥320,000 – ¥420,000 / mo", salaryRank: 4, posted: "6 days ago", deadline: "June 20, 2026", url: "#", source: "freee Careers", mhlw: true,
-  desc: "Freee (Japan's leading cloud accounting platform) is hiring a bilingual CSM to manage relationships with international SMB clients. You'll onboard accounts, run training sessions in English, and relay user feedback to the product team.",
-  descJp: "freee株式会社では、海外中小企業クライアントとの関係を管理するバイリンガルのカスタマーサクセスマネージャーを募集しています。",
-  req: ["JLPT N3 minimum", "Experience in SaaS customer success or account management", "Strong written & spoken English", "Empathy-driven communication style", "Understanding of accounting/finance a plus"],
-  benefits: ["Visa sponsorship", "Remote-friendly (3 days WFH)", "Annual bonus", "Learning & development budget", "Comprehensive health insurance"],
-  hours: "Mon–Fri, flexible core 10:00–15:00" }];
+// Demo jobs removed — site now shows live listings only
+// Add real jobs via data/manual-jobs.json or data/trusted-urls.json
+];
 
 
 const JOB_TYPES = [{ v: "education", l: "Education / BOE", n: 2 }, { v: "it", l: "IT / Tech", n: 2 }, { v: "sales", l: "Sales / BDR / CSM", n: 2 }, { v: "admin", l: "Admin / Government", n: 2 }];
