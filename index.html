@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kakehashi Jobs — Direct Hire in Japan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    /* ═══════════════════════════════════════════
+       LIGHT THEME
+    ═══════════════════════════════════════════ */
+    [data-theme="light"] {
+      --bg:            #FFFFFF;
+      --bg-alt:        #FAFAFA;
+      --bg-card:       #FFFFFF;
+      --bg-muted:      #F5F5F5;
+      --bg-hover:      #F5F5F5;
+      --border:        #E5E5E5;
+      --border-strong: #D4D4D4;
+      --text-1:        #0A0A0A;
+      --text-2:        #404040;
+      --text-3:        #737373;
+      --text-4:        #A3A3A3;
+      --primary:       #171717;
+      --primary-fg:    #FAFAFA;
+      --primary-hover: #404040;
+      --ring:          #0A0A0A;
+      --shadow-sm:     0 1px 2px -1px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.1);
+      --shadow-md:     0 2px 4px -2px rgba(0,0,0,.1), 0 4px 6px -1px rgba(0,0,0,.1);
+      --shadow-xl:     0 8px 10px -6px rgba(0,0,0,.1), 0 20px 25px -5px rgba(0,0,0,.1);
+      --shadow-2xl:    0 25px 50px -12px rgba(0,0,0,.25);
+      --overlay:       rgba(0,0,0,.45);
+      /* coloured tags */
+      --tag-green-bg:  #ECFDF5; --tag-green-fg:  #065F46; --tag-green-bd:  #A7F3D0;
+      --tag-blue-bg:   #EFF6FF; --tag-blue-fg:   #1D4ED8; --tag-blue-bd:   #BFDBFE;
+      --tag-amber-bg:  #FFFBEB; --tag-amber-fg:  #92400E; --tag-amber-bd:  #FDE68A;
+      --tag-purple-bg: #F5F3FF; --tag-purple-fg: #5B21B6; --tag-purple-bd: #DDD6FE;
+      --notice-bg:     #FFFBEB; --notice-fg:     #92400E; --notice-bd:     #FDE68A;
+    }
+
+    /* ═══════════════════════════════════════════
+       DARK THEME
+    ═══════════════════════════════════════════ */
+    [data-theme="dark"] {
+      --bg:            #09090B;
+      --bg-alt:        #09090B;
+      --bg-card:       #18181B;
+      --bg-muted:      #27272A;
+      --bg-hover:      #27272A;
+      --border:        #27272A;
+      --border-strong: #3F3F46;
+      --text-1:        #FAFAFA;
+      --text-2:        #D4D4D4;
+      --text-3:        #A1A1AA;
+      --text-4:        #71717A;
+      --primary:       #FAFAFA;
+      --primary-fg:    #09090B;
+      --primary-hover: #E5E5E5;
+      --ring:          #FAFAFA;
+      --shadow-sm:     none;
+      --shadow-md:     none;
+      --shadow-xl:     none;
+      --shadow-2xl:    0 25px 50px -12px rgba(0,0,0,.6);
+      --overlay:       rgba(0,0,0,.65);
+      /* coloured tags — darkened */
+      --tag-green-bg:  #052e16; --tag-green-fg:  #6EE7B7; --tag-green-bd:  #065F46;
+      --tag-blue-bg:   #172554; --tag-blue-fg:   #93C5FD; --tag-blue-bd:   #1E3A8A;
+      --tag-amber-bg:  #1C1007; --tag-amber-fg:  #FCD34D; --tag-amber-bd:  #92400E;
+      --tag-purple-bg: #2E1065; --tag-purple-fg: #C4B5FD; --tag-purple-bd: #4C1D95;
+      --notice-bg:     #1C1007; --notice-fg:     #FCD34D; --notice-bd:     #92400E;
+    }
+
+    /* ═══════════════════════════════════════════
+       GLOBAL RESET + BASE
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { height: 100%; }
+    body {
+      font-family: 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px; line-height: 1.5;
+      background: var(--bg-alt);
+      color: var(--text-1);
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+
+    /* ── Transitions on theme swap ── */
+    body, .nav, .hero, .sidebar, .job-card,
+    .detail-panel, .detail-header, .detail-footer,
+    footer, .mobile-filter-bar, .sort-select,
+    .search-input, .filter-checkbox, .tag,
+    .mobile-chip, .badge-updated {
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    /* ═══════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════ */
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      height: 56px; padding: 0 24px;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text-1);
+    }
+    .nav-logo {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-brand-name { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
+    .nav-brand-sub  { font-size: 11px; color: var(--text-3); font-family: 'Inter', sans-serif; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+    .badge-live {
+      display: flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 99px;
+      border: 1px solid var(--border); background: var(--bg-muted);
+      font-family: 'Inter', sans-serif; font-size: 11px; color: var(--text-3);
+    }
+    .badge-live .dot {
+      width: 6px; height: 6px; background: #10B981; border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+    /* Theme toggle */
+    .theme-btn {
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid var(--border); background: transparent;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-3); transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .theme-btn:hover { background: var(--bg-muted); color: var(--text-1); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0 16px; height: 36px; border-radius: 8px; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: -0.02em; text-decoration: none; white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-primary { background: var(--primary); color: var(--primary-fg); }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-ghost {
+      background: transparent; color: var(--text-3); border: none;
+      padding: 0 8px;
+    }
+    .btn-ghost:hover { background: var(--bg-hover); color: var(--text-1); }
+    .btn-sm { height: 28px; font-size: 12px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 52px 24px 44px; text-align: center;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 99px;
+      border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+      color: var(--text-3); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 14px;
+    }
+    .hero h1 em { color: var(--text-3); font-style: normal; }
+    .hero p {
+      font-size: 15px; color: var(--text-2);
+      max-width: 520px; margin: 0 auto 28px; line-height: 1.65;
+    }
+    .search-row {
+      max-width: 560px; margin: 0 auto;
+      display: flex; gap: 8px;
+    }
+    .search-wrap { flex: 1; position: relative; }
+    .search-icon {
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      color: var(--text-4); pointer-events: none;
+    }
+    .search-input {
+      width: 100%; height: 40px; padding: 0 12px 0 36px;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg); color: var(--text-1);
+      font-family: 'Geist', sans-serif; font-size: 14px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--ring); }
+    .search-input::placeholder { color: var(--text-4); }
+
+    /* ── MOBILE CHIPS ── */
+    .mobile-chips {
+      display: none;
+      padding: 11px 16px; gap: 7px;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .mobile-chips::-webkit-scrollbar { display: none; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 12px; border-radius: 99px; flex-shrink: 0; cursor: pointer;
+      border: 1px solid var(--border); background: var(--bg);
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      color: var(--text-2); white-space: nowrap;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .chip:hover  { background: var(--bg-muted); }
+    .chip.active { background: var(--primary); color: var(--primary-fg); border-color: var(--primary); }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 1200px; margin: 0 auto;
+      padding: 24px; width: 100%;
+      display: flex; gap: 28px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .sidebar-hd span { font-size: 13px; font-weight: 600; }
+    .btn-clear {
+      font-size: 12px; color: var(--text-3); cursor: pointer;
+      background: none; border: none; font-family: 'Inter', sans-serif;
+      text-decoration: underline; text-underline-offset: 2px; padding: 0;
+    }
+    .btn-clear:hover { color: var(--text-1); }
+    .filter-section { margin-bottom: 20px; }
+    .filter-label {
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--text-3); margin-bottom: 8px;
+    }
+    .filter-options { display: flex; flex-direction: column; gap: 2px; }
+    .filter-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 8px; border-radius: 6px; cursor: pointer;
+      user-select: none; transition: background 0.1s;
+    }
+    .filter-row:hover  { background: var(--bg-hover); }
+    .filter-row.on     { background: var(--bg-hover); }
+    .cb {
+      width: 15px; height: 15px; flex-shrink: 0;
+      border: 1.5px solid var(--border); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cb.on { background: var(--primary); border-color: var(--primary); }
+    .filter-row-label { font-size: 13px; color: var(--text-2); flex: 1; }
+    .filter-row-count {
+      font-size: 11px; font-family: 'Inter', sans-serif; color: var(--text-3);
+      background: var(--bg-muted); border-radius: 99px; padding: 1px 6px;
+    }
+    .divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+    /* ── FILTER SELECTS ── */
+    .filter-select {
+      width: 100%; height: 32px; padding: 0 28px 0 9px;
+      border: 1px solid var(--border); border-radius: 6px;
+      background: var(--bg); color: var(--text-1);
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      outline: none; cursor: pointer; appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A3A3A3' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 9px center;
+      transition: border-color 0.15s, background 0.2s, color 0.2s;
+    }
+    .filter-select:focus { border-color: var(--ring); }
+
+    /* ── TOGGLE SWITCH ── */
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 8px; border-radius: 6px; cursor: pointer; user-select: none;
+      transition: background 0.1s;
+    }
+    .toggle-row:hover { background: var(--bg-hover); }
+    .toggle-lbl { font-size: 13px; color: var(--text-2); }
+    .toggle-sw {
+      width: 36px; height: 20px; border-radius: 99px; border: none;
+      cursor: pointer; position: relative; flex-shrink: 0;
+      transition: background 0.18s;
+    }
+    .toggle-sw.on  { background: var(--primary); }
+    .toggle-sw.off { background: var(--border-strong); }
+    .toggle-knob {
+      position: absolute; width: 14px; height: 14px;
+      background: white; border-radius: 50%; top: 3px;
+      transition: left 0.18s;
+    }
+    .toggle-sw.on  .toggle-knob { left: 19px; }
+    .toggle-sw.off .toggle-knob { left: 3px; }
+
+    /* ── SIDEBAR SCROLL ── */
+    .sidebar { width: 240px; flex-shrink: 0; max-height: calc(100vh - 56px); overflow-y: auto; position: sticky; top: 80px; align-self: flex-start; scrollbar-width: none; padding-bottom: 32px; }
+    .sidebar::-webkit-scrollbar { display: none; }
+
+    /* ── JOB LIST ── */
+    .job-list { flex: 1; min-width: 0; }
+    .results-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .results-count { font-size: 13px; color: var(--text-3); }
+    .results-count strong { color: var(--text-1); }
+    .sort-row { display: flex; align-items: center; gap: 6px; }
+    .sort-lbl { font-size: 12px; color: var(--text-3); }
+    .sort-select {
+      height: 28px; padding: 0 8px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--bg);
+      color: var(--text-1); font-family: 'Inter', sans-serif; font-size: 12px;
+      outline: none; cursor: pointer;
+    }
+
+    /* ── JOB CARD ── */
+    .job-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 9px; padding: 18px 20px;
+      margin-bottom: 10px; cursor: pointer;
+      display: flex; flex-direction: column; gap: 11px;
+      transition: box-shadow 0.15s, border-color 0.15s, background 0.2s;
+    }
+    .job-card:hover   { box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+    .job-card.sel     { border-color: var(--primary); }
+    .card-top         { display: flex; gap: 12px; align-items: flex-start; }
+    .logo-box {
+      width: 40px; height: 40px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--text-3);
+      flex-shrink: 0; font-family: 'Inter', sans-serif; letter-spacing: -.02em;
+    }
+    .card-title   { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+    .card-jp      { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+    .card-employer{ font-size: 12px; color: var(--text-2); margin-top: 3px; }
+    .card-meta    { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+    .meta {
+      display: flex; align-items: center; gap: 3px;
+      font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif;
+    }
+    .card-foot    { display: flex; align-items: center; justify-content: space-between; }
+    .posted-txt   { font-size: 11px; color: var(--text-3); font-family: 'Inter', sans-serif; }
+
+    /* ── TAGS ── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 2px 8px; border-radius: 99px;
+      font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 500;
+      white-space: nowrap; border: 1px solid;
+    }
+    .tag-default { background: var(--bg-muted); color: var(--text-2); border-color: var(--border); }
+    .tag-green  { background: var(--tag-green-bg);  color: var(--tag-green-fg);  border-color: var(--tag-green-bd); }
+    .tag-blue   { background: var(--tag-blue-bg);   color: var(--tag-blue-fg);   border-color: var(--tag-blue-bd); }
+    .tag-amber  { background: var(--tag-amber-bg);  color: var(--tag-amber-fg);  border-color: var(--tag-amber-bd); }
+    .tag-purple { background: var(--tag-purple-bg); color: var(--tag-purple-fg); border-color: var(--tag-purple-bd); }
+
+    /* ── DETAIL PANEL ── */
+    .overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--overlay); backdrop-filter: blur(2px);
+      display: flex; justify-content: flex-end;
+    }
+    .detail-panel {
+      width: min(540px, 100vw); height: 100vh;
+      background: var(--bg); overflow-y: auto;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow-2xl);
+      animation: slideIn .22s ease;
+    }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .detail-hd {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 15px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .detail-hd-txt { font-size: 13px; font-weight: 600; color: var(--text-2); }
+    .detail-body { padding: 24px; flex: 1; }
+    .detail-employer { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+    .detail-logo {
+      width: 52px; height: 52px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: var(--text-3);
+      flex-shrink: 0; font-family: 'Inter', sans-serif;
+    }
+    .detail-title  { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; margin-bottom: 3px; }
+    .detail-jp     { font-size: 12px; color: var(--text-3); margin-bottom: 5px; }
+    .detail-co     { font-size: 13px; color: var(--text-2); }
+    .detail-tags   { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 22px; }
+    .section { margin-bottom: 22px; }
+    .section-hd {
+      font-size: 10px; font-family: 'Inter', sans-serif; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em; color: var(--text-3);
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .section-hd::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .spec-item { display: flex; flex-direction: column; gap: 2px; }
+    .spec-lbl { font-size: 11px; font-family: 'Inter', sans-serif; color: var(--text-3); }
+    .spec-val { font-size: 13px; font-weight: 500; color: var(--text-1); }
+    .notice {
+      display: flex; align-items: flex-start; gap: 8px;
+      background: var(--notice-bg); border: 1px solid var(--notice-bd);
+      border-radius: 8px; padding: 11px 13px; margin-bottom: 12px;
+      font-size: 12px; color: var(--notice-fg); line-height: 1.5;
+    }
+    .jp-original {
+      background: var(--bg-muted); border: 1px solid var(--border);
+      border-radius: 8px; padding: 13px;
+      font-size: 13px; color: var(--text-3); line-height: 1.8;
+      font-family: 'Geist', monospace;
+    }
+    .desc { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+    .list-items { display: flex; flex-direction: column; gap: 5px; }
+    .list-item {
+      display: flex; align-items: flex-start; gap: 7px;
+      font-size: 13px; color: var(--text-2); line-height: 1.5;
+    }
+    .list-item::before { content: '·'; color: var(--text-3); flex-shrink: 0; }
+    .detail-ft {
+      position: sticky; bottom: 0;
+      background: var(--bg); border-top: 1px solid var(--border);
+      padding: 16px 24px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .apply-btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; height: 44px; border-radius: 8px;
+      background: var(--primary); color: var(--primary-fg);
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      letter-spacing: -.02em; border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.15s;
+    }
+    .apply-btn:hover { background: var(--primary-hover); }
+    .apply-note { font-size: 11px; color: var(--text-3); text-align: center; font-family: 'Inter', sans-serif; }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center; padding: 64px 24px;
+    }
+    .empty p { font-size: 13px; color: var(--text-3); margin-top: 6px; }
+    .empty h3 { font-size: 15px; font-weight: 600; color: var(--text-2); }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border); background: var(--bg);
+      padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    footer p   { font-size: 12px; color: var(--text-3); }
+    .foot-links { display: flex; gap: 16px; }
+    .foot-links a { font-size: 12px; color: var(--text-3); text-decoration: none; }
+    .foot-links a:hover { color: var(--text-1); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .sidebar        { display: none; }
+      .mobile-chips   { display: flex; }
+      .main           { padding: 14px; }
+      .hero           { padding: 32px 16px 28px; }
+      .hero h1        { font-size: 26px; }
+      .search-row     { flex-direction: column; }
+      .nav            { padding: 0 16px; }
+      .nav-brand-sub  { display: none; }
+      .detail-panel   { width: 100vw; }
+      footer          { flex-direction: column; align-items: flex-start; }
+      .results-row    { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+    @media (max-width: 480px) {
+      .job-card  { padding: 13px; }
+      .spec-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { useState, useMemo, useEffect } = React;
+
+/* ─── DATA ──────────────────────────────────────────────────────────────── */
+const JOBS = [
+{ id: 1, titleEn: "Board of Education — ALT Coordinator", titleJp: "教育委員会 — 外国語指導助手コーディネーター", employer: "Osaka City Board of Education", short: "OCB", location: "Osaka", pref: "osaka", type: "education", contract: "full-time", visa: true, jlpt: "n4", jpLevel: "basic", enLevel: "native", otherLangs: [], industry: "education", careerLevel: "entry", employerType: "boe", remoteOk: false, overseasOk: false, salary: "¥250,000 – ¥290,000 / mo", salaryRank: 2, posted: "2 days ago", deadline: "May 30, 2026", url: "#", source: "Osaka City Official Site", mhlw: true,
+  desc: "Osaka City Board of Education is seeking a full-time ALT Coordinator to directly oversee and support 40+ ALT placements across public elementary and junior-high schools. No agency involvement — this is a direct municipal hire.",
+  descJp: "大阪市教育委員会は、市内の公立小中学校に配置された40名以上のALTを監督・支援するフルタイムのALTコーディネーターを募集しています。",
+  req: ["Native or near-native English speaker", "Prior ALT or teaching experience (min. 1 year)", "Basic Japanese communication (JLPT N4 or equivalent)", "Valid work visa or eligibility for sponsorship", "Strong organisational and intercultural skills"],
+  benefits: ["Commuting allowance", "Health insurance", "Paid annual leave (10 days+)", "Municipal pension enrollment"],
+  hours: "Mon–Fri, 8:30–17:15" },
+{ id: 2, titleEn: "IT Support Specialist (English/Japanese)", titleJp: "ITサポートスペシャリスト（英語・日本語）", employer: "SoftBank Corp.", short: "SB", location: "Tokyo", pref: "tokyo", type: "it", contract: "full-time", visa: true, jlpt: "n3", jpLevel: "conversational", enLevel: "fluent", otherLangs: [], industry: "it", careerLevel: "mid", employerType: "company", remoteOk: true, overseasOk: false, salary: "¥300,000 – ¥380,000 / mo", salaryRank: 3, posted: "1 day ago", deadline: "June 15, 2026", url: "#", source: "SoftBank Careers Portal", mhlw: true,
+  desc: "Join SoftBank's multilingual IT helpdesk team in Tokyo. You'll provide first-line technical support to both Japanese and international employees, troubleshoot hardware/software issues, and help localise internal documentation into English.",
+  descJp: "ソフトバンク株式会社の多言語ITヘルプデスクチームに加わり、英語・日本語での技術サポートを提供します。",
+  req: ["Conversational Japanese (JLPT N3+)", "Experience with Windows/Mac OS, Office 365", "Strong written English for documentation", "CompTIA A+ or equivalent preferred", "Team-player with patience for user support"],
+  benefits: ["Full relocation support", "Visa sponsorship", "Annual bonus", "Flexible hours", "Remote work 2 days/week"],
+  hours: "Mon–Fri, 9:00–18:00 (flex)" },
+{ id: 3, titleEn: "English Content Writer & Localisation Editor", titleJp: "英語コンテンツライター・ローカライズ編集者", employer: "Kyoto Prefecture Tourism Bureau", short: "KT", location: "Kyoto", pref: "kyoto", type: "admin", contract: "full-time", visa: false, jlpt: "n3", jpLevel: "conversational", enLevel: "native", otherLangs: ["French", "Spanish"], industry: "tourism", careerLevel: "entry", employerType: "government", remoteOk: false, overseasOk: false, salary: "¥220,000 – ¥260,000 / mo", salaryRank: 1, posted: "5 days ago", deadline: "May 20, 2026", url: "#", source: "Kyoto Prefecture Job Portal", mhlw: true,
+  desc: "Kyoto Prefecture Tourism Bureau is hiring a dedicated English writer to create and edit tourism guides, press releases, and social media content for international visitors.",
+  descJp: "京都府観光局では、訪日外国人向けの観光ガイドやプレスリリースを作成・編集する英語ライターを募集しています。",
+  req: ["Native-level English writing ability", "JLPT N3 or higher", "Portfolio of published writing preferred", "Interest in Japanese culture and tourism", "Proficiency in Google Workspace"],
+  benefits: ["Commuting allowance", "Health & social insurance", "Annual leave 10 days", "Cultural immersion opportunities"],
+  hours: "Mon–Fri, 9:00–17:30" },
+{ id: 4, titleEn: "Business Development Rep — APAC Markets", titleJp: "ビジネス開発担当（APACマーケット）", employer: "Mercari Inc.", short: "MC", location: "Tokyo", pref: "tokyo", type: "sales", contract: "full-time", visa: true, jlpt: "n4", jpLevel: "basic", enLevel: "native", otherLangs: ["Chinese, Mandarin"], industry: "sales", careerLevel: "mid", employerType: "company", remoteOk: false, overseasOk: false, salary: "¥350,000 – ¥450,000 / mo", salaryRank: 4, posted: "3 days ago", deadline: "June 30, 2026", url: "#", source: "Mercari Careers", mhlw: true,
+  desc: "Mercari's APAC expansion team is looking for a driven BDR to identify and open new partnership opportunities across Southeast Asia and Australia. You'll manage CRM pipelines and work cross-functionally with product and marketing.",
+  descJp: "メルカリのAPAC拡大チームが、東南アジアおよびオーストラリアでの新しいパートナーシップ機会を開拓するBDRを募集しています。",
+  req: ["2+ years in B2B sales or BDR role", "Strong spoken English (native/near-native)", "Basic Japanese (N4+)", "Familiar with Salesforce or similar CRM", "Proactive, results-oriented mindset"],
+  benefits: ["Stock options", "Full visa sponsorship", "Relocation package", "Annual performance bonus", "Gym allowance"],
+  hours: "Mon–Fri, flexible; APAC timezone overlap" },
+{ id: 5, titleEn: "Elementary School English Instructor (Direct BOE)", titleJp: "小学校英語指導教員（教育委員会直接雇用）", employer: "Sapporo City Board of Education", short: "SCB", location: "Sapporo", pref: "hokkaido", type: "education", contract: "contract", visa: true, jlpt: "n5", jpLevel: "none", enLevel: "native", otherLangs: [], industry: "education", careerLevel: "entry", employerType: "boe", remoteOk: false, overseasOk: true, salary: "¥200,000 – ¥230,000 / mo", salaryRank: 1, posted: "Today", deadline: "May 15, 2026", url: "#", source: "Sapporo City Official Recruitment", mhlw: true,
+  desc: "Sapporo City BOE is directly hiring English instructors for elementary schools — no dispatch agency. 1-year renewable contract. You'll work alongside Japanese homeroom teachers to deliver communicative English lessons.",
+  descJp: "札幌市教育委員会は、市内の小学校に直接雇用する英語指導員を募集しています。派遣会社を通さない直接採用です。",
+  req: ["Bachelor's degree in any field", "Native or near-native English speaker", "No prior teaching experience required (training provided)", "Enthusiasm for working with children", "Visa eligibility or willingness to apply for Instructor visa"],
+  benefits: ["1-year renewable contract", "Transportation allowance", "Health insurance", "Training & development support"],
+  hours: "Mon–Fri, ~8:00–16:30" },
+{ id: 6, titleEn: "QA Localisation Tester — Japanese/English", titleJp: "QAローカライゼーションテスター（日本語/英語）", employer: "Capcom Co., Ltd.", short: "CC", location: "Osaka", pref: "osaka", type: "it", contract: "contract", visa: false, jlpt: "n3", jpLevel: "conversational", enLevel: "fluent", otherLangs: ["German"], industry: "gaming", careerLevel: "entry", employerType: "company", remoteOk: false, overseasOk: false, salary: "¥210,000 – ¥250,000 / mo", salaryRank: 1, posted: "1 week ago", deadline: "May 25, 2026", url: "#", source: "Capcom Recruitment Site", mhlw: true,
+  desc: "Capcom is seeking bilingual QA testers to identify localisation issues in video game builds. You'll compare Japanese and English in-game text, report bugs systematically, and ensure cultural appropriateness of translated content.",
+  descJp: "カプコンでは、ゲームビルドのローカライゼーション問題を特定するバイリンガルQAテスターを募集しています。",
+  req: ["Strong reading ability in both English and Japanese (N3+)", "Attention to detail and systematic thinking", "Interest in video games", "Experience with bug tracking tools (JIRA etc.) preferred", "Currently residing in Japan with valid work permit"],
+  benefits: ["Game industry experience", "Potential for contract extension", "Staff discount on Capcom titles"],
+  hours: "Mon–Fri, 10:00–19:00" },
+{ id: 7, titleEn: "Administrative Assistant — International Affairs", titleJp: "行政事務アシスタント（国際交流課）", employer: "Fukuoka Prefectural Government", short: "FPG", location: "Fukuoka", pref: "fukuoka", type: "admin", contract: "full-time", visa: true, jlpt: "n2", jpLevel: "business", enLevel: "fluent", otherLangs: ["Portuguese", "Tagalog"], industry: "government", careerLevel: "entry", employerType: "government", remoteOk: false, overseasOk: false, salary: "¥230,000 – ¥270,000 / mo", salaryRank: 2, posted: "4 days ago", deadline: "June 5, 2026", url: "#", source: "Fukuoka Prefecture Official Job Listings", mhlw: true,
+  desc: "Fukuoka Prefecture's International Affairs Division needs an admin assistant to support sister-city exchange programs, translate official correspondence, and coordinate events for foreign residents. N2 minimum.",
+  descJp: "福岡県国際交流課では、姉妹都市交流プログラムの支援、公式文書の翻訳、在留外国人向けイベントの調整を行う行政事務アシスタントを募集しています。",
+  req: ["JLPT N2 or higher (mandatory)", "Proficiency in English", "Organisational skills and attention to detail", "Government or NGO experience preferred", "Ability to work with diverse stakeholders"],
+  benefits: ["Prefectural government benefits package", "Stable long-term employment", "Commuting allowance", "Retirement fund enrollment"],
+  hours: "Mon–Fri, 8:30–17:15" },
+{ id: 8, titleEn: "Bilingual Customer Success Manager", titleJp: "バイリンガル・カスタマーサクセスマネージャー", employer: "Freee K.K.", short: "FR", location: "Tokyo", pref: "tokyo", type: "sales", contract: "full-time", visa: true, jlpt: "n3", jpLevel: "conversational", enLevel: "native", otherLangs: [], industry: "finance", careerLevel: "mid", employerType: "company", remoteOk: true, overseasOk: false, salary: "¥320,000 – ¥420,000 / mo", salaryRank: 4, posted: "6 days ago", deadline: "June 20, 2026", url: "#", source: "freee Careers", mhlw: true,
+  desc: "Freee (Japan's leading cloud accounting platform) is hiring a bilingual CSM to manage relationships with international SMB clients. You'll onboard accounts, run training sessions in English, and relay user feedback to the product team.",
+  descJp: "freee株式会社では、海外中小企業クライアントとの関係を管理するバイリンガルのカスタマーサクセスマネージャーを募集しています。",
+  req: ["JLPT N3 minimum", "Experience in SaaS customer success or account management", "Strong written & spoken English", "Empathy-driven communication style", "Understanding of accounting/finance a plus"],
+  benefits: ["Visa sponsorship", "Remote-friendly (3 days WFH)", "Annual bonus", "Learning & development budget", "Comprehensive health insurance"],
+  hours: "Mon–Fri, flexible core 10:00–15:00" }];
+
+
+const JOB_TYPES = [{ v: "education", l: "Education / BOE", n: 2 }, { v: "it", l: "IT / Tech", n: 2 }, { v: "sales", l: "Sales / BDR / CSM", n: 2 }, { v: "admin", l: "Admin / Government", n: 2 }];
+const PREFECTURES = [{ v: "tokyo", l: "Tokyo", n: 3 }, { v: "osaka", l: "Osaka", n: 2 }, { v: "kyoto", l: "Kyoto", n: 1 }, { v: "hokkaido", l: "Hokkaido", n: 1 }, { v: "fukuoka", l: "Fukuoka", n: 1 }];
+const CONTRACTS = [{ v: "full-time", l: "Full-time", n: 6 }, { v: "contract", l: "Contract / Fixed-term", n: 2 }, { v: "part-time", l: "Part-time", n: 0 }, { v: "temporary", l: "Temporary", n: 0 }, { v: "internship", l: "Internship", n: 0 }];
+const EN_LEVELS = ["Any", "Basic", "Conversational", "Business level", "Fluent", "Native level"];
+const JP_LEVELS = ["Any", "None", "Basic", "Conversational", "Business level", "Fluent", "Native level"];
+const OTHER_LANGS = ["Chinese, Mandarin", "German", "French", "Hindi", "Portuguese", "Spanish", "Tagalog", "Turkish"];
+const INDUSTRIES = [{ v: "education", l: "Education", n: 2 }, { v: "it", l: "IT / Technology", n: 2 }, { v: "sales", l: "Sales / Marketing", n: 2 }, { v: "government", l: "Government / Public", n: 2 }, { v: "tourism", l: "Tourism", n: 1 }, { v: "gaming", l: "Gaming", n: 1 }, { v: "finance", l: "Finance", n: 1 }];
+const CAREER_LEVELS = ["Any", "Entry level", "Mid-career", "Senior", "Manager", "Director / Executive"];
+const EMPLOYER_TYPES = [{ v: "company", l: "Company", n: 4 }, { v: "boe", l: "Board of Education", n: 2 }, { v: "government", l: "Prefectural / City Gov't", n: 2 }, { v: "npo", l: "NPO / NGO", n: 0 }];
+
+/* ─── ICONS ─────────────────────────────────────────────────────────────── */
+const Svg = ({ children, size = 14, ...p }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...p}>{children}</svg>;
+const ISearch = ({ size = 15 }) => <Svg size={size}><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></Svg>;
+const IPin = () => <Svg size={12}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></Svg>;
+const IClock = () => <Svg size={12}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></Svg>;
+const IBriefcase = () => <Svg size={12}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></Svg>;
+const ICheck = () => <Svg size={10} stroke="white" strokeWidth={3}><polyline points="20 6 9 17 4 12" /></Svg>;
+const IX = ({ size = 15 }) => <Svg size={size}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></Svg>;
+const IExtLink = () => <Svg size={14}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></Svg>;
+const IGlobe = () => <Svg size={14}><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></Svg>;
+const IShield = ({ size = 12 }) => <Svg size={size}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></Svg>;
+const IYen = () => <Svg size={12}><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /><line x1="5" y1="12" x2="19" y2="12" /></Svg>;
+const ISun = () => <Svg size={15}><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></Svg>;
+const IMoon = () => <Svg size={15}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></Svg>;
+
+/* ─── HELPERS ────────────────────────────────────────────────────────────── */
+const TYPE_META = { education: { cls: "tag-blue", lbl: "Education" }, it: { cls: "tag-purple", lbl: "IT / Tech" }, sales: { cls: "tag-green", lbl: "Sales / BDR" }, admin: { cls: "tag-amber", lbl: "Admin / Gov" }, tourism: { cls: "tag-blue", lbl: "Tourism" }, gaming: { cls: "tag-purple", lbl: "Gaming" }, finance: { cls: "tag-green", lbl: "Finance" }, government: { cls: "tag-amber", lbl: "Government" } };
+const JLPT_LBL = { n5: "N5", n4: "N4", n3: "N3", n2: "N2", n1: "N1" };
+const JP_PROF = { none: "No Japanese", basic: "Basic JP", conversational: "Conv. JP", business: "Business JP", fluent: "Fluent JP", native: "Native JP" };
+
+/* ─── HELPERS ────────────────────────────────────────────────────────────── */
+function CbRow({ on, toggle, label, count }) {
+  return (
+    <div className={`filter-row${on ? " on" : ""}`} onClick={toggle}>
+      <div className={`cb${on ? " on" : ""}`}>{on && <ICheck />}</div>
+      <span className="filter-row-label">{label}</span>
+      {count != null && <span className="filter-row-count">{count}</span>}
+    </div>);
+
+}
+function ToggleRow({ on, toggle, label }) {
+  return (
+    <div className="toggle-row" onClick={toggle}>
+      <span className="toggle-lbl">{label}</span>
+      <button className={`toggle-sw${on ? " on" : " off"}`} onClick={(e) => {e.stopPropagation();toggle();}}>
+        <span className="toggle-knob" />
+      </button>
+    </div>);
+
+}
+
+/* ─── SIDEBAR ────────────────────────────────────────────────────────────── */
+function Sidebar({ filters, set, clear }) {
+  const tog = (key, v) => set((f) => {const s = new Set(f[key]);s.has(v) ? s.delete(v) : s.add(v);return { ...f, [key]: s };});
+  const sel = (key, v) => set((f) => ({ ...f, [key]: v }));
+  const dirty = Object.values(filters).some((x) =>
+  x instanceof Set ? x.size > 0 : typeof x === "string" ? x !== "Any" : x
+  );
+  return (
+    <div className="sidebar" style={{ padding: "0px 0px 1px", margin: "0px" }}>
+      <div className="sidebar-hd">
+        <span>Filters</span>
+        {dirty && <button className="btn-clear" onClick={clear}>Clear all</button>}
+      </div>
+
+      {/* Job Keywords handled by hero search — omit duplicate here */}
+
+      <div className="filter-section">
+        <div className="filter-label">Location</div>
+        <div className="filter-options">{PREFECTURES.map((p) => <CbRow key={p.v} on={filters.prefs.has(p.v)} toggle={() => tog("prefs", p.v)} label={p.l} count={p.n} />)}</div>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">English proficiency</div>
+        <select className="filter-select" value={filters.enLevel} onChange={(e) => sel("enLevel", e.target.value)}>
+          {EN_LEVELS.map((l) => <option key={l} value={l}>{l === "Any" ? "Any Language Proficiencies" : l}</option>)}
+        </select>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Japanese proficiency</div>
+        <select className="filter-select" value={filters.jpLevel} onChange={(e) => sel("jpLevel", e.target.value)}>
+          {JP_LEVELS.map((l) => <option key={l} value={l}>{l === "Any" ? "Any Language Proficiencies" : l}</option>)}
+        </select>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Other language</div>
+        <div className="filter-options">{OTHER_LANGS.map((l) => <CbRow key={l} on={filters.otherLang.has(l)} toggle={() => tog("otherLang", l)} label={l} />)}</div>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Industry</div>
+        <div className="filter-options">{INDUSTRIES.map((i) => <CbRow key={i.v} on={filters.industries.has(i.v)} toggle={() => tog("industries", i.v)} label={i.l} count={i.n} />)}</div>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Career level</div>
+        <select className="filter-select" value={filters.careerLevel} onChange={(e) => sel("careerLevel", e.target.value)}>
+          {CAREER_LEVELS.map((l) => <option key={l} value={l}>{l}</option>)}
+        </select>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Employment terms</div>
+        <div className="filter-options">{CONTRACTS.map((c) => <CbRow key={c.v} on={filters.contracts.has(c.v)} toggle={() => tog("contracts", c.v)} label={c.l} count={c.n} />)}</div>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Employer type</div>
+        <div className="filter-options">{EMPLOYER_TYPES.map((e) => <CbRow key={e.v} on={filters.employerTypes.has(e.v)} toggle={() => tog("employerTypes", e.v)} label={e.l} count={e.n} />)}</div>
+      </div>
+      <div className="divider" />
+
+      <div className="filter-section">
+        <div className="filter-label">Options</div>
+        <ToggleRow on={filters.visaOnly}   toggle={() => set((f) => ({ ...f, visaOnly:   !f.visaOnly }))}   label="Visa sponsored only" />
+        <ToggleRow on={filters.remoteOk}   toggle={() => set((f) => ({ ...f, remoteOk:   !f.remoteOk }))}   label="Remote work OK" />
+        <ToggleRow on={filters.overseasOk} toggle={() => set((f) => ({ ...f, overseasOk: !f.overseasOk }))} label="Overseas application OK" />
+      </div>
+    </div>);
+
+}
+
+/* ─── JOB CARD ───────────────────────────────────────────────────────────── */
+function JobCard({ job, sel, onClick }) {
+  const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
+  return (
+    <div className={`job-card${sel ? " sel" : ""}`} onClick={onClick}>
+      <div className="card-top">
+        <div className="logo-box">{job.short}</div>
+        <div>
+          <div className="card-title">{job.titleEn}</div>
+          <div className="card-jp">{job.titleJp}</div>
+          <div className="card-employer">{job.employer}</div>
+        </div>
+      </div>
+      <div className="card-meta">
+        <span className="meta"><IPin />{job.location}</span>
+        <span className="meta"><IBriefcase />{job.contract === "full-time" ? "Full-time" : "Contract"}</span>
+        <span className="meta"><IYen />{job.salary}</span>
+        <span className={`tag ${t.cls}`}>{t.lbl}</span>
+        <span className="tag tag-default">{JP_PROF[job.jpLevel] || job.jpLevel}</span>
+        {job.remoteOk && <span className="tag tag-blue">Remote OK</span>}
+        {job.overseasOk && <span className="tag tag-amber">Overseas OK</span>}
+      </div>
+      <div className="card-foot">
+        <span className="posted-txt"><IClock /> Posted {job.posted}</span>
+        {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
+      </div>
+    </div>);
+
+}
+
+/* ─── DETAIL PANEL ───────────────────────────────────────────────────────── */
+function Detail({ job, onClose }) {
+  const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
+  return (
+    <div className="overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="detail-panel">
+        <div className="detail-hd">
+          <span className="detail-hd-txt">Job details</span>
+          <button className="btn btn-ghost btn-sm" onClick={onClose} style={{ width: 28, justifyContent: "center", padding: 0 }}><IX /></button>
+        </div>
+        <div className="detail-body">
+          <div className="detail-employer">
+            <div className="detail-logo">{job.short}</div>
+            <div>
+              <div className="detail-title">{job.titleEn}</div>
+              <div className="detail-jp">{job.titleJp}</div>
+              <div className="detail-co">{job.employer} · {job.location}</div>
+            </div>
+          </div>
+          <div className="detail-tags">
+            <span className={`tag ${t.cls}`}>{t.lbl}</span>
+            <span className="tag tag-default">{job.contract === "full-time" ? "Full-time" : "Contract"}</span>
+            <span className="tag tag-default">JLPT {JLPT_LBL[job.jlpt]}+</span>
+            {job.visa && <span className="tag tag-green"><IShield size={10} />Visa sponsored</span>}
+            {job.mhlw && <span className="tag tag-blue">MHLW compliant</span>}
+          </div>
+
+          <div className="section">
+            <div className="section-hd">Compensation &amp; hours</div>
+            <div className="spec-grid">
+              <div className="spec-item"><span className="spec-lbl">Monthly salary</span><span className="spec-val">{job.salary}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Working hours</span><span className="spec-val">{job.hours}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Application deadline</span><span className="spec-val">{job.deadline}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Source</span><span className="spec-val">{job.source}</span></div>
+            </div>
+          </div>
+
+          <div className="section">
+            <div className="section-hd">Role overview</div>
+            <div className="notice"><IGlobe /><div>This description has been <strong>translated from Japanese</strong>. See original below.</div></div>
+            <p className="desc">{job.desc}</p>
+          </div>
+
+          <div className="section">
+            <div className="section-hd">Original Japanese</div>
+            <div className="jp-original">{job.descJp}</div>
+          </div>
+
+          <div className="section">
+            <div className="section-hd">Requirements</div>
+            <div className="list-items">{job.req.map((r, i) => <div key={i} className="list-item">{r}</div>)}</div>
+          </div>
+
+          <div className="section">
+            <div className="section-hd">Benefits</div>
+            <div className="list-items">{job.benefits.map((b, i) => <div key={i} className="list-item">{b}</div>)}</div>
+          </div>
+        </div>
+        <div className="detail-ft">
+          <a href={job.url} target="_blank" rel="noopener noreferrer" className="apply-btn">
+            Apply on {job.source} <IExtLink />
+          </a>
+          <p className="apply-note">You'll be redirected to the employer's official site. We don't store your information.</p>
+        </div>
+      </div>
+    </div>);
+
+}
+
+/* ─── MOBILE CHIPS ───────────────────────────────────────────────────────── */
+function MobileChips({ filters, set }) {
+  const togVisa = () => set((f) => ({ ...f, visaOnly: !f.visaOnly }));
+  const togRemote = () => set((f) => ({ ...f, remoteOk: !f.remoteOk }));
+  const togOverseas = () => set((f) => ({ ...f, overseasOk: !f.overseasOk }));
+  const togInd = (v) => set((f) => {const s = new Set(f.industries);s.has(v) ? s.delete(v) : s.add(v);return { ...f, industries: s };});
+  return (
+    <div className="mobile-chips">
+      <div className={`chip${filters.visaOnly ? " active" : ""}`} onClick={togVisa}><IShield size={11} />Visa sponsored</div>
+      <div className={`chip${filters.remoteOk ? " active" : ""}`} onClick={togRemote}>Remote OK</div>
+      <div className={`chip${filters.overseasOk ? " active" : ""}`} onClick={togOverseas}>Overseas OK</div>
+      {INDUSTRIES.map((i) => <div key={i.v} className={`chip${filters.industries.has(i.v) ? " active" : ""}`} onClick={() => togInd(i.v)}>{i.l}</div>)}
+    </div>);
+
+}
+
+/* ─── APP ────────────────────────────────────────────────────────────────── */
+function App() {
+  const [q, setQ] = useState("");
+  const [sel, setSel] = useState(null);
+  const [sort, setSort] = useState("recent");
+  const [dark, setDark] = useState(() => {
+    const s = localStorage.getItem("kj-theme");
+    return s ? s === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+  const EMPTY_FILTERS = {
+    prefs: new Set(), contracts: new Set(), industries: new Set(),
+    employerTypes: new Set(), otherLang: new Set(),
+    enLevel: "Any", jpLevel: "Any", careerLevel: "Any",
+    visaOnly: false, remoteOk: false, overseasOk: false
+  };
+  const [filters, setFilters] = useState(EMPTY_FILTERS);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    localStorage.setItem("kj-theme", dark ? "dark" : "light");
+  }, [dark]);
+
+  function clear() {setFilters(EMPTY_FILTERS);setQ("");}
+
+  // Map display label → data field value for proficiency matching
+  const EN_MAP = { "Basic": "basic", "Conversational": "conversational", "Business level": "business", "Fluent": "fluent", "Native level": "native" };
+  const JP_MAP = { "None": "none", "Basic": "basic", "Conversational": "conversational", "Business level": "business", "Fluent": "fluent", "Native level": "native" };
+  const LVL_ORD = { none: 0, basic: 1, conversational: 2, business: 3, fluent: 4, native: 5 };
+  const CAREER_MAP = { "Entry level": "entry", "Mid-career": "mid", "Senior": "senior", "Manager": "manager", "Director / Executive": "executive" };
+
+  const list = useMemo(() => {
+    let r = [...JOBS];
+    if (q.trim()) {
+      const lq = q.toLowerCase();
+      r = r.filter((j) => j.titleEn.toLowerCase().includes(lq) || j.employer.toLowerCase().includes(lq) || j.location.toLowerCase().includes(lq) || j.titleJp.includes(q));
+    }
+    if (filters.prefs.size) r = r.filter((j) => filters.prefs.has(j.pref));
+    if (filters.contracts.size) r = r.filter((j) => filters.contracts.has(j.contract));
+    if (filters.industries.size) r = r.filter((j) => filters.industries.has(j.industry));
+    if (filters.employerTypes.size) r = r.filter((j) => filters.employerTypes.has(j.employerType));
+    if (filters.otherLang.size) r = r.filter((j) => j.otherLangs.some((l) => filters.otherLang.has(l)));
+    if (filters.enLevel !== "Any") {
+      const minOrd = LVL_ORD[EN_MAP[filters.enLevel] ?? filters.enLevel.toLowerCase()] ?? 0;
+      r = r.filter((j) => LVL_ORD[j.enLevel] >= minOrd);
+    }
+    if (filters.jpLevel !== "Any") {
+      const minOrd = LVL_ORD[JP_MAP[filters.jpLevel] ?? filters.jpLevel.toLowerCase()] ?? 0;
+      r = r.filter((j) => LVL_ORD[j.jpLevel] >= minOrd);
+    }
+    if (filters.careerLevel !== "Any") {
+      const cv = CAREER_MAP[filters.careerLevel];
+      if (cv) r = r.filter((j) => j.careerLevel === cv);
+    }
+    if (filters.visaOnly) r = r.filter((j) => j.visa);
+    if (filters.remoteOk) r = r.filter((j) => j.remoteOk);
+    if (filters.overseasOk) r = r.filter((j) => j.overseasOk);
+    if (sort === "salary") r.sort((a, b) => b.salaryRank - a.salaryRank);
+    return r;
+  }, [q, filters, sort]);
+
+  return (
+    <div className="app">
+      {/* NAV */}
+      <nav className="nav">
+        <a className="nav-brand" href="#">
+          <div className="nav-logo">
+            <Svg size={16} stroke={dark ? "#09090B" : "white"} strokeWidth={2.5}>
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </Svg>
+          </div>
+          <div>
+            <div className="nav-brand-name">Kakehashi Jobs</div>
+            <div className="nav-brand-sub">Direct hire in Japan</div>
+          </div>
+        </a>
+        <div className="nav-actions">
+          <div className="badge-live"><span className="dot" />Live listings</div>
+          <button className="theme-btn" onClick={() => setDark((d) => !d)} title={dark ? "Switch to light mode" : "Switch to dark mode"} aria-label="Toggle colour mode">
+            {dark ? <ISun /> : <IMoon />}
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <div className="hero">
+        <div className="hero-pill">
+          <IShield size={10} />No agencies. Direct hire only.
+        </div>
+        <h1>Find your next job<br /><em>in Japan</em></h1>
+        <p>Roles for ALTs, foreigners, and English-speakers — sourced directly from boards of education and companies. No recruitment agencies.</p>
+        <div className="search-row">
+          <div className="search-wrap">
+            <span className="search-icon"><ISearch size={14} /></span>
+            <input className="search-input" type="text" placeholder="Search jobs, employers, or cities…" value={q} onChange={(e) => setQ(e.target.value)} />
+          </div>
+          <button className="btn btn-primary"><ISearch size={13} />Search</button>
+        </div>
+      </div>
+
+      {/* MOBILE CHIPS */}
+      <MobileChips filters={filters} set={setFilters} />
+
+      {/* MAIN */}
+      <div className="main">
+        <Sidebar filters={filters} set={setFilters} clear={clear} />
+        <div className="job-list">
+          <div className="results-row">
+            <p className="results-count"><strong>{list.length}</strong> jobs found</p>
+            <div className="sort-row">
+              <span className="sort-lbl">Sort by</span>
+              <select className="sort-select" value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="recent">Most recent</option>
+                <option value="salary">Highest salary</option>
+              </select>
+            </div>
+          </div>
+          {list.length === 0 ?
+          <div className="empty"><ISearch size={36} /><h3>No jobs match your filters</h3><p>Try adjusting your search or <button className="btn-clear" onClick={clear}>clear all filters</button></p></div> :
+          list.map((j) => <JobCard key={j.id} job={j} sel={sel?.id === j.id} onClick={() => setSel(j)} />)
+          }
+        </div>
+      </div>
+
+      {sel && <Detail job={sel} onClose={() => setSel(null)} />}
+
+      {/* FOOTER */}
+      <footer>
+        <p>© 2026 Kakehashi Jobs. Listings sourced from public employer websites. Not responsible for third-party content.</p>
+        <div className="foot-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="compliance.html">MHLW Compliance</a>
+          <a href="about.html">About</a>
+        </div>
+      </footer>
+    </div>);
+
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
