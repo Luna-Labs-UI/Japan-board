@@ -99,7 +99,7 @@ async function searchBOEJobs(since) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.Exa },
     body: JSON.stringify({
-      query: '外国語指導助手 募集 教育委員会 直接雇用 外国人英語指導 ALT',
+      query: '外国語指導助手 募集 教育委員会 直接雇用 外国人英語指導 ALT 在留資格 ビザ支援',
       numResults: 12,
       contents: { text: { maxCharacters: 1000 } },
       type: 'neural',
@@ -161,7 +161,7 @@ async function translateAndBuild(results) {
       pref:         detectPref(combined),
       type:         detectType(combined),
       contract:     /part.time|パート/i.test(combined) ? 'part-time' : 'full-time',
-      visa:         /visa.spon/i.test(combined),
+      visa:         r.isTrusted || /visa.spon|ビザ.*スポンサー|在留資格|就労ビザ|sponsor.*visa|work.*visa/i.test(combined),
       jlpt:         jpReq.jlpt,
       jpLevel:      jpReq.jpLevel,
       otherLangs:   [],
@@ -184,6 +184,8 @@ async function translateAndBuild(results) {
       hours:        'See listing',
       isLive:       true,
       isVerified:   !!r.isTrusted,
+      // Trusted sources (embassies, BOE pages) hire foreigners by definition
+      // For search results, require explicit visa mention
     };
   });
 }
