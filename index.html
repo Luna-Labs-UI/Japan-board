@@ -575,7 +575,7 @@ const IMoon = () => <Svg size={15}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
 const TYPE_META = { education: { cls: "tag-blue", lbl: "Education" }, it: { cls: "tag-purple", lbl: "IT / Tech" }, sales: { cls: "tag-green", lbl: "Sales / BDR" }, admin: { cls: "tag-amber", lbl: "Admin / Gov" }, tourism: { cls: "tag-blue", lbl: "Tourism" }, gaming: { cls: "tag-purple", lbl: "Gaming" }, finance: { cls: "tag-green", lbl: "Finance" }, government: { cls: "tag-amber", lbl: "Government" } };
 const JLPT_LBL = { n5: "N5", n4: "N4", n3: "N3", n2: "N2", n1: "N1" };
-const JP_PROF = { none: "No Japanese", basic: "Basic JP", conversational: "Conv. JP", business: "Business JP", fluent: "Fluent JP", native: "Native JP" };
+const JP_PROF = { none: "No Japanese req.", basic: "Casual Japanese", conversational: "JLPT N3+", business: "JLPT N2", fluent: "JLPT N1+", native: "JLPT N1" };
 
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
 function CbRow({ on, toggle, label, count }) {
@@ -733,7 +733,9 @@ function Detail({ job, onClose }) {
           <div className="detail-tags">
             <span className={`tag ${t.cls}`}>{t.lbl}</span>
             <span className="tag tag-default">{job.contract === "full-time" ? "Full-time" : "Contract"}</span>
-            <span className="tag tag-default">JLPT {JLPT_LBL[job.jlpt]}+</span>
+            {job.jlpt === 'none'
+              ? <span className="tag tag-green">No Japanese req.</span>
+              : <span className="tag tag-default">JLPT {JLPT_LBL[job.jlpt]}+</span>}
             {job.visa && <span className="tag tag-green"><IShield size={10} />Visa sponsored</span>}
             {job.mhlw && <span className="tag tag-blue">MHLW compliant</span>}
           </div>

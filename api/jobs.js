@@ -130,6 +130,8 @@ module.exports = async function handler(req, res) {
       try { domain = new URL(r.url).hostname.replace(/^www\./, ''); } catch (_) {}
 
       const combined = (titleEn + ' ' + descEn).toLowerCase();
+      const rawText  = (r.text || '');
+      const jpReq    = detectJpRequirement(combined + ' ' + rawText);
 
       return {
         id:           `live-${i}`,
@@ -142,8 +144,8 @@ module.exports = async function handler(req, res) {
         type:         detectType(combined),
         contract:     /part.time|パート/i.test(combined) ? 'part-time' : 'full-time',
         visa:         /visa.spon/i.test(combined),
-        jlpt:         detectJlpt(combined),
-        jpLevel:      'none',
+        jlpt:         jpReq.jlpt,
+        jpLevel:      jpReq.jpLevel,
         enLevel:      'native',
         otherLangs:   [],
         industry:     detectType(combined),
@@ -213,9 +215,35 @@ function detectLocation(text) {
   return null;
 }
 
-function detectJlpt(text) {
-  const m = text.match(/jlpt\s*(n[1-5])/i) || text.match(/\b(n[1-5])\b/i);
-  return m ? m[1].toLowerCase() : 'n5';
+function detectJpRequirement(text) {
+  // No Japanese required
+  if (/日本語不問|日本語不要|日本語力は問わない|no japanese|japanese not required|english only|英語のみ/i.test(text)) {
+    return { jlpt: 'none', jpLevel: 'none' };
+  }
+  // JLPT N1 / native
+  if (/jlpt\s*n1|n1以上|ネイティブ.*日本語|native.*japanese|fluent.*japanese|日本語.*堪能|日本語.*流暢/i.test(text)) {
+    return { jlpt: 'n1', jpLevel: 'native' };
+  }
+  // JLPT N2 / business
+  if (/jlpt\s*n2|n2以上|ビジネス.*日本語|business.*japanese|business level.*japanese/i.test(text)) {
+    return { jlpt: 'n2', jpLevel: 'business' };
+  }
+  // JLPT N3 / conversational
+  if (/jlpt\s*n3|n3以上|日常会話|conversational.*japanese|japanese.*conversational/i.test(text)) {
+    return { jlpt: 'n3', jpLevel: 'conversational' };
+  }
+  // N4/N5 / casual
+  if (/jlpt\s*n[45]|n[45]以上|簡単.*日本語|基礎.*日本語|挨拶程度|basic.*japanese|casual.*japanese/i.test(text)) {
+    return { jlpt: 'n4', jpLevel: 'basic' };
+  }
+  // If the ad itself is written in Japanese with no explicit level stated,
+  // assume at least casual Japanese is expected in that workplace
+  const hasJapaneseScript = /[぀-ヿ一-鿿]/.test(text);
+  if (hasJapaneseScript) {
+    return { jlpt: 'n4', jpLevel: 'basic' };
+  }
+  // English ad with no mention = no Japanese required
+  return { jlpt: 'none', jpLevel: 'none' };
 }
 
 function extractSalary(text) {
