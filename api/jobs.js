@@ -15,8 +15,29 @@ const BLOCKED_DOMAINS = [
   'hays.co.jp','manpower.co.jp','adecco.co.jp','randstad.co.jp',
 ];
 
+const ALLOWED_ORIGINS = (process.env.SITE_ORIGIN || '')
+  .split(',').map(s => s.trim()).filter(Boolean);
+
+function isAllowedRequest(req) {
+  const origin  = req.headers['origin']  || '';
+  const referer = req.headers['referer'] || '';
+  // If no origin/referer header, allow (same-origin browser fetch omits these)
+  if (!origin && !referer) return true;
+  const check = origin || referer;
+  if (ALLOWED_ORIGINS.length === 0) return true; // no env var set → open (dev mode)
+  return ALLOWED_ORIGINS.some(o => check.startsWith(o));
+}
+
+function toGoUrl(rawUrl) {
+  return '/go?id=' + Buffer.from(rawUrl).toString('base64url');
+}
+
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (!isAllowedRequest(req)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  res.setHeader('Access-Control-Allow-Origin', process.env.SITE_ORIGIN || '*');
   res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate');
 
   try {
@@ -62,7 +83,12 @@ function loadManualJobs() {
   try {
     const file = path.join(process.cwd(), 'data', 'manual-jobs.json');
     const jobs = JSON.parse(fs.readFileSync(file, 'utf8'));
-    return jobs.map((j, i) => ({ ...j, id: `manual-${i}`, isLive: false }));
+    return jobs.map((j, i) => ({
+      ...j,
+      id: `manual-${i}`,
+      isLive: false,
+      url: j.url ? toGoUrl(j.url) : j.url,
+    }));
   } catch {
     return [];
   }
@@ -195,7 +221,7 @@ async function translateAndBuild(results) {
       salaryRank:   2,
       posted:       formatPosted(r.publishedDate),
       deadline:     'See listing',
-      url:          r.url,
+      url:          toGoUrl(r.url),
       source:       r.isTrusted ? domain + ' (verified)' : domain,
       mhlw:         false,
       desc:         descEn,
