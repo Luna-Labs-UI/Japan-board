@@ -29,7 +29,7 @@ function isAllowedRequest(req) {
 }
 
 function toGoUrl(rawUrl) {
-  return '/go?id=' + Buffer.from(rawUrl).toString('base64url');
+  return '/api/go?id=' + Buffer.from(rawUrl).toString('base64url');
 }
 
 module.exports = async function handler(req, res) {
