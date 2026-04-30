@@ -650,6 +650,21 @@ function Sidebar({ filters, set, clear }) {
 
 }
 
+/* ─── FAVICON BOX ───────────────────────────────────────────────────────── */
+function FaviconBox({ short, domain, className, imgSize = 24 }) {
+  const [err, setErr] = React.useState(false);
+  const src = domain && !err
+    ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
+    : null;
+  return (
+    <div className={className}>
+      {src
+        ? <img src={src} width={imgSize} height={imgSize} style={{borderRadius:3,display:'block'}} onError={() => setErr(true)} alt="" />
+        : short}
+    </div>
+  );
+}
+
 /* ─── JOB CARD ───────────────────────────────────────────────────────────── */
 function SkeletonCard() {
   return (
@@ -680,7 +695,7 @@ function JobCard({ job, sel, onClick }) {
   return (
     <div className={`job-card${sel ? " sel" : ""}`} onClick={onClick}>
       <div className="card-top">
-        <div className="logo-box">{job.short}</div>
+        <FaviconBox short={job.short} domain={job.domain} className="logo-box" imgSize={22} />
         <div>
           <div className="card-title">{job.titleEn}</div>
           {job.titleJp && <div className="card-jp">{job.titleJp}</div>}
@@ -720,7 +735,7 @@ function Detail({ job, onClose }) {
         </div>
         <div className="detail-body">
           <div className="detail-employer">
-            <div className="detail-logo">{job.short}</div>
+            <FaviconBox short={job.short} domain={job.domain} className="detail-logo" imgSize={30} />
             <div>
               <div className="detail-title">{job.titleEn}</div>
               {job.titleJp && <div className="detail-jp">{job.titleJp}</div>}
