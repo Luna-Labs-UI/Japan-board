@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "titleEn": "Administrative Assistant",
+    "titleJp": "",
+    "employer": "Australian Embassy Tokyo",
+    "short": "AE",
+    "location": "Tokyo, Japan",
+    "pref": "tokyo",
+    "type": "admin",
+    "contract": "full-time",
+    "visa": true,
+    "jlpt": "none",
+    "jpLevel": "none",
+    "enLevel": "native",
+    "otherLangs": [],
+    "industry": "government",
+    "careerLevel": "entry",
+    "employerType": "government",
+    "remoteOk": false,
+    "overseasOk": false,
+    "salary": "See listing",
+    "salaryRank": 2,
+    "posted": "2026-04-30",
+    "deadline": "See listing",
+    "url": "https://dfatcareers.nga.net.au/cp/index.cfm?CurATC=LES&CurBID=62AFB35D-9273-4A11-8DCC-9DB401354197&rmuh=4F1346259FAA045638F775E366EEBACFD7524430",
+    "source": "DFAT Careers",
+    "mhlw": false,
+    "desc": "Entry-level administrative position at the Australian Embassy in Tokyo. Open to locally employed staff. Apply directly via the DFAT careers portal.",
+    "descJp": "",
+    "req": [],
+    "benefits": [],
+    "hours": "See listing"
+  }
+]
