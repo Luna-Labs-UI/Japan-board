@@ -921,7 +921,10 @@ function App() {
         <div className="job-list">
           <div className="results-row">
             <p className="results-count">
-              <strong>{list.length}</strong> jobs found
+              {liveLoading
+                ? <span className="skeleton-line" style={{display:'inline-block',width:22,height:14,borderRadius:3,verticalAlign:'middle',marginRight:4}} />
+                : <strong>{list.length}</strong>}
+              {' '}jobs found
               {liveLoading && <span style={{marginLeft:'8px',fontSize:'11px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· Loading live listings…</span>}
               {!liveLoading && liveJobs.length > 0 && <span style={{marginLeft:'8px',fontSize:'11px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· {liveJobs.length} live</span>}
             </p>
