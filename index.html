@@ -642,6 +642,7 @@ function Sidebar({ filters, set, clear }) {
 
       <div className="filter-section">
         <div className="filter-label">Options</div>
+        <ToggleRow on={filters.altFriendly} toggle={() => set((f) => ({ ...f, altFriendly: !f.altFriendly }))} label="ALT / entry-level friendly" />
         <ToggleRow on={filters.visaOnly}   toggle={() => set((f) => ({ ...f, visaOnly:   !f.visaOnly }))}   label="Visa sponsored only" />
         <ToggleRow on={filters.remoteOk}   toggle={() => set((f) => ({ ...f, remoteOk:   !f.remoteOk }))}   label="Remote work OK" />
         <ToggleRow on={filters.overseasOk} toggle={() => set((f) => ({ ...f, overseasOk: !f.overseasOk }))} label="Overseas application OK" />
@@ -717,6 +718,7 @@ function JobCard({ job, sel, onClick }) {
           {job.isVerified && <span className="tag tag-green" style={{fontSize:'10px'}}>✓ Verified</span>}
           {job.isLive && !job.isVerified && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
+          {job.visaRenewal && <span className="tag tag-blue" style={{fontSize:'10px'}}>Visa renewal OK</span>}
         </div>
       </div>
     </div>);
@@ -749,6 +751,7 @@ function Detail({ job, onClose }) {
               ? <span className="tag tag-green">No Japanese req.</span>
               : <span className="tag tag-default">JLPT {JLPT_LBL[job.jlpt]}+</span>}
             {job.visa && <span className="tag tag-green"><IShield size={10} />Visa sponsored</span>}
+            {job.visaRenewal && <span className="tag tag-blue">Visa renewal OK</span>}
             {job.mhlw && <span className="tag tag-blue">MHLW compliant</span>}
           </div>
 
@@ -772,6 +775,13 @@ function Detail({ job, onClose }) {
             <div className="section">
               <div className="section-hd">Original Japanese</div>
               <div className="jp-original">{job.descJp}</div>
+            </div>
+          )}
+
+          {job.responsibilities && job.responsibilities.length > 0 && (
+            <div className="section">
+              <div className="section-hd">Responsibilities</div>
+              <div className="list-items">{job.responsibilities.map((r, i) => <div key={i} className="list-item">{r}</div>)}</div>
             </div>
           )}
 
@@ -813,6 +823,7 @@ function MobileChips({ filters, set }) {
   const togInd = (v) => set((f) => {const s = new Set(f.industries);s.has(v) ? s.delete(v) : s.add(v);return { ...f, industries: s };});
   return (
     <div className="mobile-chips">
+      <div className={`chip${filters.altFriendly ? " active" : ""}`} onClick={() => set(f => ({...f, altFriendly: !f.altFriendly}))}>ALT Friendly</div>
       <div className={`chip${filters.visaOnly ? " active" : ""}`} onClick={togVisa}><IShield size={11} />Visa sponsored</div>
       <div className={`chip${filters.remoteOk ? " active" : ""}`} onClick={togRemote}>Remote OK</div>
       <div className={`chip${filters.overseasOk ? " active" : ""}`} onClick={togOverseas}>Overseas OK</div>
@@ -834,7 +845,7 @@ function App() {
     prefs: new Set(), contracts: new Set(), industries: new Set(),
     employerTypes: new Set(), otherLang: new Set(),
     enLevel: "Any", jpLevel: "Any", careerLevel: "Any",
-    visaOnly: false, remoteOk: false, overseasOk: false
+    visaOnly: false, remoteOk: false, overseasOk: false, altFriendly: false
   };
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [liveJobs, setLiveJobs] = useState([]);
@@ -888,6 +899,7 @@ function App() {
     if (filters.visaOnly) r = r.filter((j) => j.visa);
     if (filters.remoteOk) r = r.filter((j) => j.remoteOk);
     if (filters.overseasOk) r = r.filter((j) => j.overseasOk);
+    if (filters.altFriendly) r = r.filter((j) => j.altFriendly);
     if (sort === "salary") r.sort((a, b) => b.salaryRank - a.salaryRank);
     return r;
   }, [q, filters, sort, liveJobs]);
