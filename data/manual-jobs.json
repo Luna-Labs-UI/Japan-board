@@ -28,7 +28,7 @@
     "desc": "Safe transport for officials; vehicle maintenance; admin and property support.",
     "descJp": "",
     "req": ["Pre-existing work rights in Japan required (visa sponsorship not available)"],
-    "benefits": [],
+    "benefits": ["Paid annual leave", "Health insurance", "Sick leave"],
     "hours": "Full-time (Ongoing)"
   },
   {
@@ -60,7 +60,7 @@
     "desc": "Social media strategy, content creation, and cultural event promotion.",
     "descJp": "",
     "req": ["Pre-existing work rights in Japan required (visa sponsorship not available)", "Fluent Japanese and English required"],
-    "benefits": [],
+    "benefits": ["Paid annual leave", "Health insurance"],
     "hours": "Full-time"
   },
   {
@@ -92,7 +92,7 @@
     "desc": "Managing UK-Japan tech collaboration and policy research.",
     "descJp": "",
     "req": ["Pre-existing work rights in Japan required (visa sponsorship not available)", "Professional-level Japanese required"],
-    "benefits": [],
+    "benefits": ["Paid annual leave (25 days)", "Health insurance", "Performance-based increments"],
     "hours": "Full-time (Permanent)"
   },
   {
@@ -124,7 +124,7 @@
     "desc": "Managing household operations; staff supervision; event logistics.",
     "descJp": "",
     "req": ["Subject to a 6-month trial period for the first contract", "Visa sponsorship status not specified — confirm with hiring manager"],
-    "benefits": [],
+    "benefits": ["Health insurance", "Annual leave", "Sick leave", "Retirement plan contribution"],
     "hours": "Full-time"
   },
   {
@@ -156,7 +156,7 @@
     "desc": "Preparing and serving American diner cuisine (breakfast/lunch) within the embassy cafeteria. Includes transportation allowance and requires a security background check.",
     "descJp": "",
     "req": ["Must already reside in Japan with a valid work visa", "Working holiday and student visas not accepted", "High school diploma required", "Chef or service experience required", "English-speaking required"],
-    "benefits": ["Transportation allowance"],
+    "benefits": ["Transportation allowance", "Security background check covered by embassy"],
     "hours": "Up to 40 hrs/wk"
   },
   {
@@ -188,7 +188,7 @@
     "desc": "Cleaning, laundry, and ironing; setting up and serving at official events (breakfast/lunch/dinner). Requires physical fitness and discretion.",
     "descJp": "",
     "req": ["One-year contract, renewable", "Subject to 6-month trial period", "Visa sponsorship not available"],
-    "benefits": [],
+    "benefits": ["Renewable contract"],
     "hours": "Part-time (30 hrs/wk)"
   },
   {
@@ -220,7 +220,7 @@
     "desc": "Designing MLL lessons, conducting linguistic audits, coaching staff on language strategies, and leading co-curricular activities. Estimated ¥7.7–8.8M annually (teacher scale, depending on degree level).",
     "descJp": "",
     "req": ["5+ years experience required", "Teaching license required", "Starts August 2026"],
-    "benefits": [],
+    "benefits": ["Visa sponsorship", "Health insurance", "Professional development opportunities", "Competitive teacher-scale salary (est. ¥7.7–8.8M/yr)"],
     "hours": "Full-time (Starts Aug 2026)"
   },
   {
@@ -252,7 +252,7 @@
     "desc": "English instruction at senior high and special education schools across Nagano Prefecture. Base school 3–4 days/wk; visit schools 1–2 days/wk.",
     "descJp": "",
     "req": ["Must already have a valid work visa (sponsorship not available)", "Salary is fixed — housing not provided or subsidized", "Conversational Japanese preferred"],
-    "benefits": [],
+    "benefits": ["Japanese social insurance (shakai hoken — health, pension, unemployment)", "Paid national public holidays", "Fixed monthly salary (¥335,000)"],
     "hours": "Base school: 3–4 days/wk; Visit school: 1–2 days/wk"
   },
   {
@@ -348,7 +348,7 @@
     "desc": "Coordinating personnel transfers (housing, schools, banking) for SEA3000 General Purpose Frigate Project staff; bilingual admin support and stakeholder liaison.",
     "descJp": "",
     "req": ["Must have an appropriate work visa for Japan (sponsorship not provided)", "Must be eligible for an Australian Government security clearance", "N2-level Japanese or higher required"],
-    "benefits": [],
+    "benefits": ["Paid annual leave", "Health insurance", "Sick leave"],
     "hours": "Full-time (Ongoing)"
   }
 ]

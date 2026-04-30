@@ -683,7 +683,7 @@ function JobCard({ job, sel, onClick }) {
         <div className="logo-box">{job.short}</div>
         <div>
           <div className="card-title">{job.titleEn}</div>
-          <div className="card-jp">{job.titleJp}</div>
+          {job.titleJp && <div className="card-jp">{job.titleJp}</div>}
           <div className="card-employer">{job.employer}</div>
         </div>
       </div>
@@ -723,7 +723,7 @@ function Detail({ job, onClose }) {
             <div className="detail-logo">{job.short}</div>
             <div>
               <div className="detail-title">{job.titleEn}</div>
-              <div className="detail-jp">{job.titleJp}</div>
+              {job.titleJp && <div className="detail-jp">{job.titleJp}</div>}
               <div className="detail-co">{job.employer} · {job.location}</div>
             </div>
           </div>
@@ -749,24 +749,30 @@ function Detail({ job, onClose }) {
 
           <div className="section">
             <div className="section-hd">Role overview</div>
-            <div className="notice"><IGlobe /><div>This description has been <strong>translated from Japanese</strong>. See original below.</div></div>
+            {job.descJp && <div className="notice"><IGlobe /><div>This description has been <strong>translated from Japanese</strong>. See original below.</div></div>}
             <p className="desc">{job.desc}</p>
           </div>
 
-          <div className="section">
-            <div className="section-hd">Original Japanese</div>
-            <div className="jp-original">{job.descJp}</div>
-          </div>
+          {job.descJp && (
+            <div className="section">
+              <div className="section-hd">Original Japanese</div>
+              <div className="jp-original">{job.descJp}</div>
+            </div>
+          )}
 
-          <div className="section">
-            <div className="section-hd">Requirements</div>
-            <div className="list-items">{job.req.map((r, i) => <div key={i} className="list-item">{r}</div>)}</div>
-          </div>
+          {job.req && job.req.length > 0 && (
+            <div className="section">
+              <div className="section-hd">Requirements</div>
+              <div className="list-items">{job.req.map((r, i) => <div key={i} className="list-item">{r}</div>)}</div>
+            </div>
+          )}
 
-          <div className="section">
-            <div className="section-hd">Benefits</div>
-            <div className="list-items">{job.benefits.map((b, i) => <div key={i} className="list-item">{b}</div>)}</div>
-          </div>
+          {job.benefits && job.benefits.length > 0 && (
+            <div className="section">
+              <div className="section-hd">Benefits</div>
+              <div className="list-items">{job.benefits.map((b, i) => <div key={i} className="list-item">{b}</div>)}</div>
+            </div>
+          )}
         </div>
         <div className="detail-ft">
           {job.url && job.url !== '#'
