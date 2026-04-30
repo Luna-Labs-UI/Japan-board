@@ -449,6 +449,23 @@
     .apply-btn:hover { background: var(--primary-hover); }
     .apply-note { font-size: 11px; color: var(--text-3); text-align: center; font-family: 'Inter', sans-serif; }
 
+    /* ── SKELETON LOADER ── */
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+    .skeleton-line {
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--bg-muted) 25%, var(--bg-hover) 50%, var(--bg-muted) 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite linear;
+    }
+    .skeleton-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 9px; padding: 18px 20px;
+      margin-bottom: 10px; display: flex; flex-direction: column; gap: 11px;
+    }
+
     /* ── EMPTY STATE ── */
     .empty {
       text-align: center; padding: 64px 24px;
@@ -634,6 +651,30 @@ function Sidebar({ filters, set, clear }) {
 }
 
 /* ─── JOB CARD ───────────────────────────────────────────────────────────── */
+function SkeletonCard() {
+  return (
+    <div className="skeleton-card">
+      <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
+        <div className="skeleton-line" style={{width:40,height:40,borderRadius:8,flexShrink:0}} />
+        <div style={{flex:1,display:'flex',flexDirection:'column',gap:7}}>
+          <div className="skeleton-line" style={{height:14,width:'58%'}} />
+          <div className="skeleton-line" style={{height:11,width:'38%'}} />
+          <div className="skeleton-line" style={{height:12,width:'28%'}} />
+        </div>
+      </div>
+      <div style={{display:'flex',gap:7,flexWrap:'wrap'}}>
+        <div className="skeleton-line" style={{height:20,width:72,borderRadius:99}} />
+        <div className="skeleton-line" style={{height:20,width:88,borderRadius:99}} />
+        <div className="skeleton-line" style={{height:20,width:64,borderRadius:99}} />
+      </div>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <div className="skeleton-line" style={{height:11,width:80}} />
+        <div className="skeleton-line" style={{height:20,width:110,borderRadius:99}} />
+      </div>
+    </div>
+  );
+}
+
 function JobCard({ job, sel, onClick }) {
   const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
   return (
@@ -892,9 +933,11 @@ function App() {
               </select>
             </div>
           </div>
-          {list.length === 0 ?
-          <div className="empty"><ISearch size={36} /><h3>No jobs match your filters</h3><p>Try adjusting your search or <button className="btn-clear" onClick={clear}>clear all filters</button></p></div> :
-          list.map((j) => <JobCard key={j.id} job={j} sel={sel?.id === j.id} onClick={() => setSel(j)} />)
+          {liveLoading
+            ? [1,2,3,4,5].map(i => <SkeletonCard key={i} />)
+            : list.length === 0
+              ? <div className="empty"><ISearch size={36} /><h3>No jobs found right now</h3><p>We check sources regularly — check back soon or <button className="btn-clear" onClick={clear}>clear filters</button></p></div>
+              : list.map((j) => <JobCard key={j.id} job={j} sel={sel?.id === j.id} onClick={() => setSel(j)} />)
           }
         </div>
       </div>

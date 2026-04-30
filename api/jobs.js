@@ -23,15 +23,16 @@ module.exports = async function handler(req, res) {
     const threeWeeksAgo = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString();
 
     // ── Run all three sources in parallel ──────────────────────────────────
-    const [manualJobs, trustedResults, boeResults] = await Promise.all([
+    const [manualJobs, trustedResults, boeResults, embassyResults] = await Promise.all([
       loadManualJobs(),
       fetchTrustedUrls(),
       searchBOEJobs(threeWeeksAgo),
+      searchEmbassyJobs(threeWeeksAgo),
     ]);
 
     // Combine, deduplicate by URL
     const seen = new Set();
-    const rawResults = [...trustedResults, ...boeResults].filter(r => {
+    const rawResults = [...trustedResults, ...boeResults, ...embassyResults].filter(r => {
       if (seen.has(r.url)) return false;
       seen.add(r.url);
       return true;
@@ -114,6 +115,26 @@ async function searchBOEJobs(since) {
   return results || [];
 }
 
+// ── Source 4: Embassy and international organisation entry-level jobs ──────
+async function searchEmbassyJobs(since) {
+  const res = await fetch('https://api.exa.ai/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.Exa },
+    body: JSON.stringify({
+      query: 'embassy Japan local staff vacancy entry level foreign national hire Tokyo consulate international school Japan teaching staff vacancy',
+      numResults: 10,
+      contents: { text: { maxCharacters: 1000 } },
+      type: 'neural',
+      useAutoprompt: true,
+      startPublishedDate: since,
+      excludeDomains: BLOCKED_DOMAINS,
+    }),
+  });
+  if (!res.ok) return [];
+  const { results } = await res.json();
+  return results || [];
+}
+
 // ── Translate + build job objects ─────────────────────────────────────────
 async function translateAndBuild(results) {
   const texts = [
@@ -157,7 +178,7 @@ async function translateAndBuild(results) {
       titleJp,
       employer:     domain,
       short:        titleEn.split(/\s+/).slice(0, 2).map(w => (w[0] || '').toUpperCase()).join('').slice(0, 3) || 'JB',
-      location:     detectLocation(combined) || 'Japan',
+      location:     detectLocation(combined, r.url),
       pref:         detectPref(combined),
       type:         detectType(combined),
       contract:     /part.time|パート/i.test(combined) ? 'part-time' : 'full-time',
@@ -233,11 +254,12 @@ function detectJpRequirement(text) {
 }
 
 function detectType(text) {
-  if (/\b(alt|english teach|efl|english instruct|board of edu|外国語指導)\b/.test(text)) return 'education';
+  if (/\b(alt|english teach|efl|english instruct|board of edu|外国語指導|international school|school.*teach)\b/.test(text)) return 'education';
   if (/\b(engineer|developer|programmer|software|it support|tech)\b/.test(text))          return 'it';
   if (/\b(sales|account exec|business dev|bdr|csm)\b/.test(text))                         return 'sales';
+  if (/\b(embassy|consulate|diplomatic|consular|foreign service|fsn|locally employed|international.*club)\b/.test(text)) return 'admin';
   if (/\b(admin|government|prefecture|municipal|civil serv)\b/.test(text))                 return 'admin';
-  return 'education';
+  return 'admin';
 }
 
 function detectPref(text) {
@@ -252,11 +274,14 @@ function detectPref(text) {
   return 'japan';
 }
 
-function detectLocation(text) {
+function detectLocation(text, url = '') {
+  if (/embassy|consulate|diplomatic|usembassy|diplo\.de|eeas\.europa|dfat|fco\.tal|nga\.net|americanclub|international.*school/i.test(url + ' ' + text)) {
+    return 'Tokyo, Japan';
+  }
   const cities = ['Tokyo','Osaka','Kyoto','Sapporo','Fukuoka','Nagoya','Yokohama',
                   'Kobe','Hiroshima','Sendai','Satte','Saitama','Chiba','Nara','Okinawa'];
-  for (const c of cities) if (text.includes(c.toLowerCase())) return c;
-  return null;
+  for (const c of cities) if (text.includes(c.toLowerCase())) return `${c}, Japan`;
+  return 'Tokyo, Japan';
 }
 
 function extractSalary(text) {
