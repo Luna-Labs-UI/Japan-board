@@ -1009,6 +1009,12 @@ function App() {
       localStorage.setItem("kj-likes", JSON.stringify([...next]));
       return next;
     });
+    // Optimistic update immediately so count never flickers to 0
+    setLikeCounts(prev => ({
+      ...prev,
+      [id]: Math.max(0, (prev[id] || 0) + (wasLiked ? -1 : 1)),
+    }));
+    // Reconcile with server — only trust the server count when KV is live (count > 0)
     fetch('/api/likes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1016,11 +1022,9 @@ function App() {
     })
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(data => {
-        if (data.count != null) setLikeCounts(prev => ({ ...prev, [id]: data.count }));
+        if (data.count > 0) setLikeCounts(prev => ({ ...prev, [id]: data.count }));
       })
-      .catch(() => {
-        setLikeCounts(prev => ({ ...prev, [id]: Math.max(0, (prev[id] || 0) + (wasLiked ? -1 : 1)) }));
-      });
+      .catch(() => {});
   }
 
   function triggerShare(job) {
