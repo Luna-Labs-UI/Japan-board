@@ -369,12 +369,17 @@
       flex-shrink: 0; font-family: 'Inter', sans-serif; letter-spacing: -.02em;
     }
     .card-title   { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+    .card-salary  { color: var(--salary-green); font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; flex-shrink: 0; white-space: nowrap; }
     .card-jp      { font-size: 12px; color: var(--text-3); margin-top: 1px; }
     .card-employer{ font-size: 12px; color: var(--text-2); margin-top: 3px; }
     .card-meta    { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
     .meta {
       display: flex; align-items: center; gap: 3px;
       font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif;
+    }
+    .card-req {
+      font-size: 13px; color: var(--text-3); line-height: 1.4;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .card-foot    { display: flex; align-items: center; justify-content: space-between; }
     .posted-txt   { font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif; }
@@ -838,20 +843,24 @@ function SkeletonCard() {
 
 function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFlash }) {
   const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
+  const reqSnippet = job.req && job.req.length > 0
+    ? job.req[0]
+    : job.desc ? job.desc.split(/[.!?]/)[0] : null;
   return (
     <div className={`job-card${sel ? " sel" : ""}`} onClick={onClick}>
       <div className="card-top">
         <FaviconBox short={job.short} domain={job.domain} className="logo-box" imgSize={22} />
-        <div>
-          <div className="card-title">{job.titleEn}</div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:8}}>
+            <div className="card-title">{job.titleEn}</div>
+            <span className="card-salary">{job.salary}</span>
+          </div>
           {job.titleJp && <div className="card-jp">{job.titleJp}</div>}
           <div className="card-employer">{job.employer}</div>
         </div>
       </div>
       <div className="card-meta">
-        <span className="meta"><IPin />{job.location}</span>
-        <span className="meta"><IBriefcase />{job.contract === "full-time" ? "Full-time" : "Contract"}</span>
-        <span className="meta"><IBanknote /><strong style={{color:'var(--salary-green)'}}>{job.salary}</strong></span>
+        <span className="meta"><IPin />{job.location}・{job.contract === "full-time" ? "Full-time" : "Contract"}</span>
         <span className={`tag ${t.cls}`}>{t.lbl}</span>
         <span className="tag tag-default">{JP_PROF[job.jpLevel] || job.jpLevel}</span>
         {job.remoteOk
@@ -860,8 +869,9 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
         {job.overseasOk && <span className="tag tag-amber">Overseas OK</span>}
         {job.directReply && <span className="tag tag-green"><IReply />Direct reply</span>}
       </div>
+      {reqSnippet && <div className="card-req">{reqSnippet}</div>}
       <div className="card-foot">
-        <span className="posted-txt"><IClock /> Posted {job.posted}</span>
+        <span className="posted-txt">Posted {job.posted}</span>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
           {job.isVerified && <span className="tag tag-green">✓ Verified</span>}
           {job.isLive && !job.isVerified && <span className="tag tag-amber">Live</span>}
