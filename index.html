@@ -467,7 +467,29 @@
       margin-bottom: 10px; display: flex; flex-direction: column; gap: 11px;
     }
 
-    /* ── ACTION BUTTONS (like / share) ── */
+    /* ── LIKE BUTTON (Note.com style) ── */
+    .like-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 6px; border-radius: 6px; border: none;
+      background: transparent; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      color: var(--text-4); transition: color 0.15s;
+      line-height: 1;
+    }
+    .like-btn:hover { color: #E11D48; }
+    [data-theme="dark"] .like-btn:hover { color: #FB7185; }
+    .like-btn.liked { color: #E11D48; }
+    [data-theme="dark"] .like-btn.liked { color: #FB7185; }
+    .like-btn .like-count { font-size: 12px; font-variant-numeric: tabular-nums; }
+    @keyframes heartPop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.35); }
+      70%  { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    .like-btn.pop .like-icon { animation: heartPop 0.35s ease; }
+
+    /* ── SHARE / ACTION BUTTONS ── */
     .action-btn {
       display: inline-flex; align-items: center; gap: 4px;
       padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border);
@@ -476,8 +498,6 @@
       color: var(--text-3); transition: background 0.12s, color 0.12s, border-color 0.12s;
     }
     .action-btn:hover { background: var(--bg-hover); color: var(--text-1); border-color: var(--border-strong); }
-    .action-btn.liked { color: #E11D48; border-color: #FECDD3; background: #FFF1F2; }
-    [data-theme="dark"] .action-btn.liked { color: #FB7185; border-color: #9F1239; background: #1C0711; }
     .action-btn.shared { color: #2563EB; border-color: #BFDBFE; background: #EFF6FF; }
     [data-theme="dark"] .action-btn.shared { color: #93C5FD; border-color: #1E3A8A; background: #172554; }
 
@@ -714,6 +734,24 @@ function FaviconBox({ short, domain, className, imgSize = 24 }) {
   );
 }
 
+/* ─── LIKE BUTTON ────────────────────────────────────────────────────────── */
+function LikeBtn({ liked, onLike, stopProp, size = 14 }) {
+  const [popping, setPopping] = React.useState(false);
+  function handleClick(e) {
+    if (stopProp) e.stopPropagation();
+    onLike();
+    if (!liked) { setPopping(true); setTimeout(() => setPopping(false), 350); }
+  }
+  const count = liked ? 1 : 0;
+  return (
+    <button className={`like-btn${liked ? " liked" : ""}${popping ? " pop" : ""}`}
+      title={liked ? "Unlike" : "Like this job"} onClick={handleClick}>
+      <span className="like-icon"><IHeart filled={liked} size={size} /></span>
+      <span className="like-count">{count}</span>
+    </button>
+  );
+}
+
 /* ─── SHARE HELPER ───────────────────────────────────────────────────────── */
 async function shareJob(job, onShared) {
   const url = job.url && job.url !== '#' ? job.url : window.location.href;
@@ -781,10 +819,7 @@ function JobCard({ job, sel, onClick, liked, onLike, onShare, shareFlash }) {
           {job.isLive && !job.isVerified && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
           {job.visaRenewal && <span className="tag tag-blue" style={{fontSize:'10px'}}>Visa renewal OK</span>}
-          <button className={`action-btn${liked ? " liked" : ""}`} title={liked ? "Unlike" : "Save to liked"}
-            onClick={(e) => { e.stopPropagation(); onLike(); }}>
-            <IHeart filled={liked} size={12} />
-          </button>
+          <LikeBtn liked={liked} onLike={onLike} stopProp size={13} />
           <button className={`action-btn${shareFlash ? " shared" : ""}`} title="Share this job"
             onClick={(e) => { e.stopPropagation(); onShare(); }}>
             <IShareNode />
@@ -804,9 +839,7 @@ function Detail({ job, onClose, liked, onLike, onShare, shareFlash }) {
         <div className="detail-hd">
           <span className="detail-hd-txt">Job details</span>
           <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
-            <button className={`action-btn${liked ? " liked" : ""}`} title={liked ? "Unlike" : "Save to liked"} onClick={onLike}>
-              <IHeart filled={liked} size={13} />{liked ? "Liked" : "Like"}
-            </button>
+            <LikeBtn liked={liked} onLike={onLike} size={14} />
             <button className={`action-btn${shareFlash ? " shared" : ""}`} title="Share this job" onClick={onShare}>
               <IShareNode />{shareFlash ? "Copied!" : "Share"}
             </button>
