@@ -95,6 +95,26 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
 
+    /* ── Skip navigation ── */
+    .skip-link {
+      position: absolute; left: -9999px; top: 8px; z-index: 200;
+      background: var(--primary); color: var(--primary-fg);
+      padding: 8px 16px; border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; white-space: nowrap;
+    }
+    .skip-link:focus { left: 8px; }
+
+    /* ── Focus visible ── */
+    :focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .search-input:focus-visible { outline: none; border-color: var(--ring); }
+    .filter-select:focus-visible { outline: none; border-color: var(--ring); }
+    .sort-select:focus-visible   { outline: none; border-color: var(--ring); }
+
     /* ── Transitions on theme swap ── */
     body, .nav, .hero, .sidebar, .job-card,
     .detail-panel, .detail-header, .detail-footer,
@@ -127,14 +147,14 @@
       flex-shrink: 0;
     }
     .nav-brand-name { font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
-    .nav-brand-sub  { font-size: 11px; color: var(--text-3); font-family: 'Inter', sans-serif; }
+    .nav-brand-sub  { font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif; }
     .nav-actions { display: flex; align-items: center; gap: 8px; }
 
     .badge-live {
       display: flex; align-items: center; gap: 5px;
       padding: 3px 10px; border-radius: 99px;
       border: 1px solid var(--border); background: var(--bg-muted);
-      font-family: 'Inter', sans-serif; font-size: 11px; color: var(--text-3);
+      font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-3);
     }
     .badge-live .dot {
       width: 6px; height: 6px; background: #10B981; border-radius: 50%;
@@ -177,7 +197,7 @@
       display: inline-flex; align-items: center; gap: 6px;
       padding: 4px 12px; border-radius: 99px;
       border: 1px solid var(--border);
-      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
       color: var(--text-3); margin-bottom: 20px;
     }
     .hero h1 {
@@ -248,9 +268,9 @@
     .btn-clear:hover { color: var(--text-1); }
     .filter-section { margin-bottom: 20px; }
     .filter-label {
-      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .08em;
-      color: var(--text-3); margin-bottom: 8px;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--text-2); margin-bottom: 8px;
     }
     .filter-options { display: flex; flex-direction: column; gap: 2px; }
     .filter-row {
@@ -268,7 +288,7 @@
     .cb.on { background: var(--primary); border-color: var(--primary); }
     .filter-row-label { font-size: 13px; color: var(--text-2); flex: 1; }
     .filter-row-count {
-      font-size: 11px; font-family: 'Inter', sans-serif; color: var(--text-3);
+      font-size: 12px; font-family: 'Inter', sans-serif; color: var(--text-3);
       background: var(--bg-muted); border-radius: 99px; padding: 1px 6px;
     }
     .divider { height: 1px; background: var(--border); margin: 14px 0; }
@@ -349,7 +369,7 @@
       flex-shrink: 0; font-family: 'Inter', sans-serif; letter-spacing: -.02em;
     }
     .card-title   { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
-    .card-jp      { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+    .card-jp      { font-size: 12px; color: var(--text-3); margin-top: 1px; }
     .card-employer{ font-size: 12px; color: var(--text-2); margin-top: 3px; }
     .card-meta    { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
     .meta {
@@ -357,13 +377,13 @@
       font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif;
     }
     .card-foot    { display: flex; align-items: center; justify-content: space-between; }
-    .posted-txt   { font-size: 11px; color: var(--text-3); font-family: 'Inter', sans-serif; }
+    .posted-txt   { font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif; }
 
     /* ── TAGS ── */
     .tag {
       display: inline-flex; align-items: center; gap: 3px;
       padding: 2px 8px; border-radius: 99px;
-      font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 500;
+      font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 500;
       white-space: nowrap; border: 1px solid;
     }
     .tag-default { background: var(--bg-muted); color: var(--text-2); border-color: var(--border); }
@@ -408,14 +428,14 @@
     .detail-tags   { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 22px; }
     .section { margin-bottom: 22px; }
     .section-hd {
-      font-size: 10px; font-family: 'Inter', sans-serif; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .08em; color: var(--text-3);
+      font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .06em; color: var(--text-2);
       margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
     }
     .section-hd::after { content: ''; flex: 1; height: 1px; background: var(--border); }
     .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .spec-item { display: flex; flex-direction: column; gap: 2px; }
-    .spec-lbl { font-size: 11px; font-family: 'Inter', sans-serif; color: var(--text-3); }
+    .spec-lbl { font-size: 12px; font-family: 'Inter', sans-serif; color: var(--text-3); }
     .spec-val { font-size: 13px; font-weight: 500; color: var(--text-1); }
     .notice {
       display: flex; align-items: flex-start; gap: 8px;
@@ -450,7 +470,7 @@
       transition: background 0.15s;
     }
     .apply-btn:hover { background: var(--primary-hover); }
-    .apply-note { font-size: 11px; color: var(--text-3); text-align: center; font-family: 'Inter', sans-serif; }
+    .apply-note { font-size: 12px; color: var(--text-3); text-align: center; font-family: 'Inter', sans-serif; }
 
     /* ── SKELETON LOADER ── */
     @keyframes shimmer {
@@ -623,19 +643,32 @@ function parsePostedDate(posted) {
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
 function CbRow({ on, toggle, label, count }) {
   return (
-    <div className={`filter-row${on ? " on" : ""}`} onClick={toggle}>
-      <div className={`cb${on ? " on" : ""}`}>{on && <ICheck />}</div>
+    <div
+      className={`filter-row${on ? " on" : ""}`}
+      onClick={toggle}
+      role="checkbox"
+      aria-checked={on}
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } }}
+    >
+      <div className={`cb${on ? " on" : ""}`} aria-hidden="true">{on && <ICheck />}</div>
       <span className="filter-row-label">{label}</span>
-      {count != null && <span className="filter-row-count">{count}</span>}
+      {count != null && <span className="filter-row-count" aria-label={`${count} jobs`}>{count}</span>}
     </div>);
 
 }
 function ToggleRow({ on, toggle, label }) {
   return (
     <div className="toggle-row" onClick={toggle}>
-      <span className="toggle-lbl">{label}</span>
-      <button className={`toggle-sw${on ? " on" : " off"}`} onClick={(e) => {e.stopPropagation();toggle();}}>
-        <span className="toggle-knob" />
+      <span className="toggle-lbl" id={`toggle-lbl-${label.replace(/\s+/g,'-').toLowerCase()}`}>{label}</span>
+      <button
+        className={`toggle-sw${on ? " on" : " off"}`}
+        role="switch"
+        aria-checked={on}
+        aria-labelledby={`toggle-lbl-${label.replace(/\s+/g,'-').toLowerCase()}`}
+        onClick={(e) => {e.stopPropagation();toggle();}}
+      >
+        <span className="toggle-knob" aria-hidden="true" />
       </button>
     </div>);
 
@@ -724,7 +757,7 @@ function Sidebar({ filters, set, clear }) {
         <select className="filter-select" value={filters.minSalary} onChange={(e) => sel("minSalary", e.target.value)}>
           {SALARY_FILTERS.map((s) => <option key={s.v} value={s.v}>{s.l}</option>)}
         </select>
-        <p style={{fontSize:'11px',color:'var(--text-4)',marginTop:'5px',fontFamily:'Inter,sans-serif',lineHeight:1.4}}>Approximate — excludes unspecified salaries</p>
+        <p style={{fontSize:'12px',color:'var(--text-3)',marginTop:'5px',fontFamily:'Inter,sans-serif',lineHeight:1.4}}>Approximate — excludes unspecified salaries</p>
       </div>
       <div className="divider" />
 
@@ -830,13 +863,13 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
       <div className="card-foot">
         <span className="posted-txt"><IClock /> Posted {job.posted}</span>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
-          {job.isVerified && <span className="tag tag-green" style={{fontSize:'10px'}}>✓ Verified</span>}
-          {job.isLive && !job.isVerified && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
+          {job.isVerified && <span className="tag tag-green">✓ Verified</span>}
+          {job.isLive && !job.isVerified && <span className="tag tag-amber">Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
-          {job.visaRenewal && <span className="tag tag-blue" style={{fontSize:'10px'}}>Visa renewal OK</span>}
+          {job.visaRenewal && <span className="tag tag-blue">Visa renewal OK</span>}
           <LikeBtn liked={liked} count={likeCount} onLike={onLike} stopProp size={13} />
           <div className="copy-wrap">
-            <button className="action-btn" title="Copy link"
+            <button className="action-btn" title="Copy link" aria-label="Copy link to clipboard"
               onClick={(e) => { e.stopPropagation(); onShare(); }}>
               <ICopy size={12} />
             </button>
@@ -859,10 +892,10 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
           <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
             <LikeBtn liked={liked} count={likeCount} onLike={onLike} size={14} />
             <div className="copy-wrap">
-              <button className="action-btn" title="Copy link" onClick={onShare}><ICopy size={13} /></button>
+              <button className="action-btn" title="Copy link" aria-label="Copy link to clipboard" onClick={onShare}><ICopy size={13} /></button>
               {shareFlash && <span className="copy-tooltip">Copied!</span>}
             </div>
-            <button className="btn btn-ghost btn-sm" onClick={onClose} style={{ width: 28, justifyContent: "center", padding: 0 }}><IX /></button>
+            <button className="btn btn-ghost btn-sm" onClick={onClose} aria-label="Close job details" style={{ width: 28, justifyContent: "center", padding: 0 }}><IX /></button>
           </div>
         </div>
         <div className="detail-body">
@@ -955,16 +988,23 @@ function MobileChips({ filters, set }) {
   const togRemote = () => set((f) => ({ ...f, remoteOk: !f.remoteOk }));
   const togOverseas = () => set((f) => ({ ...f, overseasOk: !f.overseasOk }));
   const togInd = (v) => set((f) => {const s = new Set(f.industries);s.has(v) ? s.delete(v) : s.add(v);return { ...f, industries: s };});
+  const chipProps = (active, onClick) => ({
+    role: "button",
+    tabIndex: 0,
+    "aria-pressed": active,
+    onClick,
+    onKeyDown: (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); onClick(); } }
+  });
   return (
-    <div className="mobile-chips">
-      <div className={`chip${filters.datePosted === "7" ? " active" : ""}`} onClick={() => set(f => ({...f, datePosted: f.datePosted === "7" ? "any" : "7"}))}>
+    <div className="mobile-chips" role="toolbar" aria-label="Quick filters">
+      <div className={`chip${filters.datePosted === "7" ? " active" : ""}`} {...chipProps(filters.datePosted === "7", () => set(f => ({...f, datePosted: f.datePosted === "7" ? "any" : "7"})))}>
         <IClock />This week
       </div>
-      <div className={`chip${filters.altFriendly ? " active" : ""}`} onClick={() => set(f => ({...f, altFriendly: !f.altFriendly}))}>ALT Friendly</div>
-      <div className={`chip${filters.visaOnly ? " active" : ""}`} onClick={togVisa}><IShield size={11} />Visa sponsored</div>
-      <div className={`chip${filters.remoteOk ? " active" : ""}`} onClick={togRemote}>Remote OK</div>
-      <div className={`chip${filters.overseasOk ? " active" : ""}`} onClick={togOverseas}>Overseas OK</div>
-      {INDUSTRIES.map((i) => <div key={i.v} className={`chip${filters.industries.has(i.v) ? " active" : ""}`} onClick={() => togInd(i.v)}>{i.l}</div>)}
+      <div className={`chip${filters.altFriendly ? " active" : ""}`} {...chipProps(filters.altFriendly, () => set(f => ({...f, altFriendly: !f.altFriendly})))}>ALT Friendly</div>
+      <div className={`chip${filters.visaOnly ? " active" : ""}`} {...chipProps(filters.visaOnly, togVisa)}><IShield size={11} />Visa sponsored</div>
+      <div className={`chip${filters.remoteOk ? " active" : ""}`} {...chipProps(filters.remoteOk, togRemote)}>Remote OK</div>
+      <div className={`chip${filters.overseasOk ? " active" : ""}`} {...chipProps(filters.overseasOk, togOverseas)}>Overseas OK</div>
+      {INDUSTRIES.map((i) => <div key={i.v} className={`chip${filters.industries.has(i.v) ? " active" : ""}`} {...chipProps(filters.industries.has(i.v), () => togInd(i.v))}>{i.l}</div>)}
     </div>);
 
 }
@@ -1099,6 +1139,7 @@ function App() {
 
   return (
     <div className="app">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       {/* NAV */}
       <nav className="nav">
         <a className="nav-brand" href="#">
@@ -1119,12 +1160,19 @@ function App() {
         </div>
         <h1>Find your next job<br /><em>in Japan</em></h1>
         <p>Opportunities for ALTs, early-career foreigners working in Japan, and English-speakers. Sourced directly from Boards of Education and companies in Japan. No recruitment agencies.</p>
-        <div className="search-row">
+        <div className="search-row" role="search">
           <div className="search-wrap">
-            <span className="search-icon"><ISearch size={14} /></span>
-            <input className="search-input" type="text" placeholder="Search jobs, employers, or cities…" value={q} onChange={(e) => setQ(e.target.value)} />
+            <span className="search-icon" aria-hidden="true"><ISearch size={14} /></span>
+            <input
+              className="search-input"
+              type="search"
+              placeholder="Search jobs, employers, or cities…"
+              aria-label="Search jobs, employers, or cities"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
           </div>
-          <button className="btn btn-primary"><ISearch size={13} />Search</button>
+          <button className="btn btn-primary" aria-label="Submit search"><ISearch size={13} aria-hidden="true" />Search</button>
         </div>
       </div>
 
@@ -1132,7 +1180,7 @@ function App() {
       <MobileChips filters={filters} set={setFilters} />
 
       {/* MAIN */}
-      <div className="main">
+      <div className="main" id="main-content" role="main">
         <Sidebar filters={filters} set={setFilters} clear={clear} />
         <div className="job-list">
           <div className="results-row">
@@ -1141,8 +1189,8 @@ function App() {
                 ? <span className="skeleton-line" style={{display:'inline-block',width:22,height:14,borderRadius:3,verticalAlign:'middle',marginRight:4}} />
                 : <strong>{list.length}</strong>}
               {' '}jobs found
-              {liveLoading && <span style={{marginLeft:'8px',fontSize:'11px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· Loading live listings…</span>}
-              {!liveLoading && liveJobs.length > 0 && <span style={{marginLeft:'8px',fontSize:'11px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· {liveJobs.length} live</span>}
+              {liveLoading && <span style={{marginLeft:'8px',fontSize:'12px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· Loading live listings…</span>}
+              {!liveLoading && liveJobs.length > 0 && <span style={{marginLeft:'8px',fontSize:'12px',color:'var(--text-3)',fontFamily:'Inter,sans-serif'}}>· {liveJobs.length} live</span>}
             </p>
             <div className="sort-row">
               <span className="sort-lbl">Sort by</span>
