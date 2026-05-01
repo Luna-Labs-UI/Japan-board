@@ -1,0 +1,142 @@
+[
+  {
+    "employer": "U.S. Embassy Tokyo",
+    "type": "embassy",
+    "domain": "jp.usembassy.gov",
+    "url": "https://jp.usembassy.gov/jobs/"
+  },
+  {
+    "employer": "Australian Embassy Tokyo (DFAT Careers)",
+    "type": "embassy",
+    "domain": "dfatcareers.nga.net.au",
+    "url": "https://dfatcareers.nga.net.au/cp/index.cfm?CurATC=LES&CurBID=62AFB35D-9273-4A11-8DCC-9DB401354197&rmuh=4F1346259FAA045638F775E366EEBACFD7524430"
+  },
+  {
+    "employer": "British Embassy Tokyo",
+    "type": "embassy",
+    "domain": "fco.tal.net",
+    "url": "https://fco.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-2/candidate/so/pm/4/pl/1/opp/en-GB",
+    "manual": true,
+    "note": "ATS portal — check for Japan/Tokyo jobs manually"
+  },
+  {
+    "employer": "Embassy of Switzerland Tokyo",
+    "type": "embassy",
+    "domain": "eda.admin.ch",
+    "url": "https://www.eda.admin.ch/countries/japan/en/home/news/open-job-vacancies.html"
+  },
+  {
+    "employer": "Embassy of Ireland Tokyo",
+    "type": "embassy",
+    "domain": "ireland.ie",
+    "url": "https://www.ireland.ie/en/japan/tokyo/about/job-opportunities/"
+  },
+  {
+    "employer": "German Embassy Tokyo",
+    "type": "embassy",
+    "domain": "japan.diplo.de",
+    "url": "https://japan.diplo.de/jp-de/service/jobs",
+    "manual": true,
+    "note": "Page requires JS rendering — check manually"
+  },
+  {
+    "employer": "EU Delegation to Japan",
+    "type": "embassy",
+    "domain": "eeas.europa.eu",
+    "url": "https://www.eeas.europa.eu/delegations/japan/jobs-traineeships_en",
+    "manual": true,
+    "note": "Page requires JS rendering — check manually"
+  },
+  {
+    "employer": "Canadian Embassy Tokyo",
+    "type": "embassy",
+    "domain": "canada.ca",
+    "url": "https://www.canada.ca/en/embassy-japan/news/jobs.html",
+    "manual": true,
+    "note": "Slow to load — check manually"
+  },
+  {
+    "employer": "New Zealand Embassy Tokyo",
+    "type": "embassy",
+    "domain": "mfat.govt.nz",
+    "url": "https://www.mfat.govt.nz/en/countries-and-regions/north-asia/japan/new-zealand-embassy-tokyo/"
+  },
+  {
+    "employer": "American Club of Tokyo",
+    "type": "club",
+    "domain": "americancluboftokyo.org",
+    "url": "https://www.americancluboftokyo.org/careers",
+    "manual": true,
+    "note": "JS-heavy site — check manually"
+  },
+  {
+    "employer": "The American School in Japan (ASIJ)",
+    "type": "school",
+    "domain": "asij.ac.jp",
+    "url": "https://www.asij.ac.jp/employment",
+    "manual": true,
+    "note": "Cloudflare blocks automated requests — check manually"
+  },
+  {
+    "employer": "British School Tokyo (BST)",
+    "type": "school",
+    "domain": "bst.ac.jp",
+    "url": "https://www.bst.ac.jp/community/working-at-bst"
+  },
+  {
+    "employer": "Yokohama International School (YIS)",
+    "type": "school",
+    "domain": "yis.ac.jp",
+    "url": "https://www.yis.ac.jp/employment"
+  },
+  {
+    "employer": "Tokyo International School",
+    "type": "school",
+    "domain": "tokyois.com",
+    "url": "https://tokyois.com/careers",
+    "manual": true,
+    "note": "URL may have changed — verify manually then update this file"
+  },
+  {
+    "employer": "Canadian Academy (Kobe)",
+    "type": "school",
+    "domain": "canadianacademy.ac.jp",
+    "url": "https://www.canadianacademy.ac.jp/about/employment",
+    "manual": true,
+    "note": "URL may have changed — verify manually then update this file"
+  },
+  {
+    "employer": "St. Maur International School",
+    "type": "school",
+    "domain": "stmaur.ac.jp",
+    "url": "https://www.stmaur.ac.jp/about/employment",
+    "manual": true,
+    "note": "URL may have changed — verify manually then update this file"
+  },
+  {
+    "employer": "International School of the Sacred Heart (ISSH)",
+    "type": "school",
+    "domain": "issh.ac.jp",
+    "url": "https://www.issh.ac.jp/about/employment"
+  },
+  {
+    "employer": "St. Michael's International School (Kobe)",
+    "type": "school",
+    "domain": "smiskobe.ac.jp",
+    "url": "https://www.smiskobe.ac.jp/admissions-employment/employment",
+    "manual": true,
+    "note": "JS-heavy site — check manually"
+  },
+  {
+    "employer": "Nagano Prefectural Board of Education",
+    "type": "boe",
+    "domain": "pref.nagano.lg.jp",
+    "url": "https://www.pref.nagano.lg.jp/kyoiku/kyogaku/koko/gaikokugo/index.html"
+  },
+  {
+    "employer": "Satte City Board of Education",
+    "type": "boe",
+    "domain": "city.satte.lg.jp",
+    "url": "https://www.city.satte.lg.jp/soshiki/shidou/1/gogakusidoujyosyu/15182.html"
+  }
+]
