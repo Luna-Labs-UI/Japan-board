@@ -103,7 +103,7 @@ async function main() {
   const manualEntries = watched.filter(e => e.manual);
 
   const isFirstRun = Object.keys(snapshots).length === 0;
-  console.log(`\n🔍 Kakehashi Jobs — checking ${autoEntries.length} employer pages…`);
+  console.log(`\n🔍 Direct Hire in Japan — checking ${autoEntries.length} employer pages…`);
   if (isFirstRun) console.log('   (First run: saving baseline. All current listings will be shown.)\n');
   else console.log('   (Showing only pages that changed since last check.)\n');
 
