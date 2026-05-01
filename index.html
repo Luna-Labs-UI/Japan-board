@@ -467,6 +467,20 @@
       margin-bottom: 10px; display: flex; flex-direction: column; gap: 11px;
     }
 
+    /* ── ACTION BUTTONS (like / share) ── */
+    .action-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+      color: var(--text-3); transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .action-btn:hover { background: var(--bg-hover); color: var(--text-1); border-color: var(--border-strong); }
+    .action-btn.liked { color: #E11D48; border-color: #FECDD3; background: #FFF1F2; }
+    [data-theme="dark"] .action-btn.liked { color: #FB7185; border-color: #9F1239; background: #1C0711; }
+    .action-btn.shared { color: #2563EB; border-color: #BFDBFE; background: #EFF6FF; }
+    [data-theme="dark"] .action-btn.shared { color: #93C5FD; border-color: #1E3A8A; background: #172554; }
+
     /* ── EMPTY STATE ── */
     .empty {
       text-align: center; padding: 64px 24px;
@@ -546,6 +560,10 @@ const IShield = ({ size = 12 }) => <Svg size={size}><path d="M12 22s8-4 8-10V5l-
 const IYen = () => <Svg size={12}><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /><line x1="5" y1="12" x2="19" y2="12" /></Svg>;
 const ISun = () => <Svg size={15}><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></Svg>;
 const IMoon = () => <Svg size={15}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></Svg>;
+const IHeart = ({ filled, size = 14 }) => <Svg size={size} fill={filled ? "currentColor" : "none"}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></Svg>;
+const IShareNode = () => <Svg size={14}><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></Svg>;
+const IReply = () => <Svg size={11}><polyline points="9 17 4 12 9 7" /><path d="M20 18v-2a4 4 0 0 0-4-4H4" /></Svg>;
+const IBuilding = () => <Svg size={12}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></Svg>;
 
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
 const TYPE_META = { education: { cls: "tag-blue", lbl: "Education" }, it: { cls: "tag-purple", lbl: "IT / Tech" }, sales: { cls: "tag-green", lbl: "Sales / BDR" }, admin: { cls: "tag-amber", lbl: "Admin / Gov" }, tourism: { cls: "tag-blue", lbl: "Tourism" }, gaming: { cls: "tag-purple", lbl: "Gaming" }, finance: { cls: "tag-green", lbl: "Finance" }, government: { cls: "tag-amber", lbl: "Government" } };
@@ -696,6 +714,17 @@ function FaviconBox({ short, domain, className, imgSize = 24 }) {
   );
 }
 
+/* ─── SHARE HELPER ───────────────────────────────────────────────────────── */
+async function shareJob(job, onShared) {
+  const url = job.url && job.url !== '#' ? job.url : window.location.href;
+  const text = `${job.titleEn} at ${job.employer} — ${job.location}`;
+  if (navigator.share) {
+    try { await navigator.share({ title: job.titleEn, text, url }); onShared(); } catch (_) {}
+  } else {
+    try { await navigator.clipboard.writeText(url); onShared(); } catch (_) {}
+  }
+}
+
 /* ─── JOB CARD ───────────────────────────────────────────────────────────── */
 function SkeletonCard() {
   return (
@@ -721,7 +750,7 @@ function SkeletonCard() {
   );
 }
 
-function JobCard({ job, sel, onClick }) {
+function JobCard({ job, sel, onClick, liked, onLike, onShare, shareFlash }) {
   const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
   return (
     <div className={`job-card${sel ? " sel" : ""}`} onClick={onClick}>
@@ -739,8 +768,11 @@ function JobCard({ job, sel, onClick }) {
         <span className="meta"><IYen />{job.salary}</span>
         <span className={`tag ${t.cls}`}>{t.lbl}</span>
         <span className="tag tag-default">{JP_PROF[job.jpLevel] || job.jpLevel}</span>
-        {job.remoteOk && <span className="tag tag-blue">Remote OK</span>}
+        {job.remoteOk
+          ? <span className="tag tag-blue">Remote OK</span>
+          : <span className="tag tag-default"><IBuilding />On-site</span>}
         {job.overseasOk && <span className="tag tag-amber">Overseas OK</span>}
+        {job.directReply && <span className="tag tag-green"><IReply />Direct reply</span>}
       </div>
       <div className="card-foot">
         <span className="posted-txt"><IClock /> Posted {job.posted}</span>
@@ -749,6 +781,14 @@ function JobCard({ job, sel, onClick }) {
           {job.isLive && !job.isVerified && <span className="tag tag-amber" style={{fontSize:'10px'}}>Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
           {job.visaRenewal && <span className="tag tag-blue" style={{fontSize:'10px'}}>Visa renewal OK</span>}
+          <button className={`action-btn${liked ? " liked" : ""}`} title={liked ? "Unlike" : "Save to liked"}
+            onClick={(e) => { e.stopPropagation(); onLike(); }}>
+            <IHeart filled={liked} size={12} />
+          </button>
+          <button className={`action-btn${shareFlash ? " shared" : ""}`} title="Share this job"
+            onClick={(e) => { e.stopPropagation(); onShare(); }}>
+            <IShareNode />
+          </button>
         </div>
       </div>
     </div>);
@@ -756,14 +796,22 @@ function JobCard({ job, sel, onClick }) {
 }
 
 /* ─── DETAIL PANEL ───────────────────────────────────────────────────────── */
-function Detail({ job, onClose }) {
+function Detail({ job, onClose, liked, onLike, onShare, shareFlash }) {
   const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
   return (
     <div className="overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="detail-panel">
         <div className="detail-hd">
           <span className="detail-hd-txt">Job details</span>
-          <button className="btn btn-ghost btn-sm" onClick={onClose} style={{ width: 28, justifyContent: "center", padding: 0 }}><IX /></button>
+          <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
+            <button className={`action-btn${liked ? " liked" : ""}`} title={liked ? "Unlike" : "Save to liked"} onClick={onLike}>
+              <IHeart filled={liked} size={13} />{liked ? "Liked" : "Like"}
+            </button>
+            <button className={`action-btn${shareFlash ? " shared" : ""}`} title="Share this job" onClick={onShare}>
+              <IShareNode />{shareFlash ? "Copied!" : "Share"}
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={onClose} style={{ width: 28, justifyContent: "center", padding: 0 }}><IX /></button>
+          </div>
         </div>
         <div className="detail-body">
           <div className="detail-employer">
@@ -783,6 +831,10 @@ function Detail({ job, onClose }) {
             {job.visa && <span className="tag tag-green"><IShield size={10} />Visa sponsored</span>}
             {job.visaRenewal && <span className="tag tag-blue">Visa renewal OK</span>}
             {job.mhlw && <span className="tag tag-blue">MHLW compliant</span>}
+            {job.directReply && <span className="tag tag-green"><IReply />Direct reply</span>}
+            {job.remoteOk
+              ? <span className="tag tag-blue">Remote OK</span>
+              : <span className="tag tag-default"><IBuilding />On-site</span>}
           </div>
 
           <div className="section">
@@ -884,6 +936,26 @@ function App() {
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [liveJobs, setLiveJobs] = useState([]);
   const [liveLoading, setLiveLoading] = useState(true);
+  const [likes, setLikes] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem("kj-likes") || "[]")); } catch { return new Set(); }
+  });
+  const [shareFlash, setShareFlash] = useState(null);
+
+  function toggleLike(id) {
+    setLikes(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      localStorage.setItem("kj-likes", JSON.stringify([...next]));
+      return next;
+    });
+  }
+
+  function triggerShare(job) {
+    shareJob(job, () => {
+      setShareFlash(job.id);
+      setTimeout(() => setShareFlash(null), 2000);
+    });
+  }
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
@@ -1007,12 +1079,12 @@ function App() {
             ? [1,2,3,4,5].map(i => <SkeletonCard key={i} />)
             : list.length === 0
               ? <div className="empty"><ISearch size={36} /><h3>No jobs found right now</h3><p>We check sources regularly — check back soon or <button className="btn-clear" onClick={clear}>clear filters</button></p></div>
-              : list.map((j) => <JobCard key={j.id} job={j} sel={sel?.id === j.id} onClick={() => setSel(j)} />)
+              : list.map((j) => <JobCard key={j.id} job={j} sel={sel?.id === j.id} onClick={() => setSel(j)} liked={likes.has(j.id)} onLike={() => toggleLike(j.id)} onShare={() => triggerShare(j)} shareFlash={shareFlash === j.id} />)
           }
         </div>
       </div>
 
-      {sel && <Detail job={sel} onClose={() => setSel(null)} />}
+      {sel && <Detail job={sel} onClose={() => setSel(null)} liked={likes.has(sel.id)} onLike={() => toggleLike(sel.id)} onShare={() => triggerShare(sel)} shareFlash={shareFlash === sel.id} />}
 
       {/* FOOTER */}
       <footer>
