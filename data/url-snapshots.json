@@ -3,35 +3,35 @@
     "employer": "Embassy of Switzerland Tokyo",
     "type": "embassy",
     "hash": "6cc0f24c",
-    "checkedAt": "2026-05-01T05:28:25.616Z",
+    "checkedAt": "2026-05-01T06:00:19.684Z",
     "signalCount": 4
   },
   "https://www.city.satte.lg.jp/soshiki/shidou/1/gogakusidoujyosyu/15182.html": {
     "employer": "Satte City Board of Education",
     "type": "boe",
     "hash": "77c294e2",
-    "checkedAt": "2026-05-01T05:28:25.752Z",
+    "checkedAt": "2026-05-01T06:00:20.766Z",
     "signalCount": 1
   },
   "https://www.mfat.govt.nz/en/countries-and-regions/north-asia/japan/new-zealand-embassy-tokyo/": {
     "employer": "New Zealand Embassy Tokyo",
     "type": "embassy",
     "hash": "0",
-    "checkedAt": "2026-05-01T05:28:25.981Z",
+    "checkedAt": "2026-05-01T06:00:20.459Z",
     "signalCount": 0
   },
   "https://www.yis.ac.jp/employment": {
     "employer": "Yokohama International School (YIS)",
     "type": "school",
     "hash": "6d916d36",
-    "checkedAt": "2026-05-01T05:28:26.141Z",
+    "checkedAt": "2026-05-01T06:00:22.211Z",
     "signalCount": 11
   },
   "https://dfatcareers.nga.net.au/cp/index.cfm?CurATC=LES&CurBID=62AFB35D-9273-4A11-8DCC-9DB401354197&rmuh=4F1346259FAA045638F775E366EEBACFD7524430": {
     "employer": "Australian Embassy Tokyo (DFAT Careers)",
     "type": "embassy",
-    "hash": "8d43e873",
-    "checkedAt": "2026-05-01T05:28:26.291Z",
+    "hash": "adcc1aa7",
+    "checkedAt": "2026-05-01T06:00:22.405Z",
     "signalCount": 97
   },
   "https://www.ireland.ie/en/japan/tokyo/about/job-opportunities/": {
@@ -45,14 +45,14 @@
     "employer": "British School Tokyo (BST)",
     "type": "school",
     "hash": "7c0a18b4",
-    "checkedAt": "2026-05-01T05:28:26.303Z",
+    "checkedAt": "2026-05-01T06:00:20.015Z",
     "signalCount": 11
   },
   "https://www.issh.ac.jp/about/employment": {
     "employer": "International School of the Sacred Heart (ISSH)",
     "type": "school",
     "hash": "34776005",
-    "checkedAt": "2026-05-01T05:28:26.701Z",
+    "checkedAt": "2026-05-01T06:00:21.243Z",
     "signalCount": 10
   }
 }
