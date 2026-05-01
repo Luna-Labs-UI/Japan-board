@@ -2,6 +2,9 @@
   "name": "japan-board",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "build": ""
+  },
   "dependencies": {
     "redis": "^4.7.0"
   }
