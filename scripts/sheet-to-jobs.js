@@ -2,37 +2,55 @@
 /**
  * sheet-to-jobs.js
  * ─────────────────────────────────────────────────────────────────
- * Converts your "Jobs Direct Japan" Google Sheet CSV export into
- * data/manual-jobs.json and (optionally) commits + pushes to GitHub.
+ * Pulls your live Google Sheet and updates data/manual-jobs.json,
+ * then optionally commits + pushes to GitHub (auto-deploys on Vercel).
  *
- * Usage:
+ * Usage (no export needed — pulls directly from Google Sheets):
+ *   node scripts/sheet-to-jobs.js
+ *
+ * Or use a local CSV if you prefer:
  *   node scripts/sheet-to-jobs.js ~/Downloads/"Jobs Direct Japan - Sheet1.csv"
- *
- * What it does:
- *   1. Reads the CSV you exported from Google Sheets
- *   2. Skips any row where the "Active" column is not "Yes"
- *   3. Converts each row into the JSON format the site expects
- *   4. Saves the result to data/manual-jobs.json
- *   5. Asks if you want to commit and push to GitHub (auto-deploys on Vercel)
  * ─────────────────────────────────────────────────────────────────
  */
 
-const fs   = require('fs');
-const path = require('path');
-const { execSync, spawnSync } = require('child_process');
+const fs      = require('fs');
+const path    = require('path');
+const https   = require('https');
+const { execSync } = require('child_process');
 
-// ── 1. Get CSV path from command line ─────────────────────────────
-const csvPath = process.argv[2];
-if (!csvPath) {
-  console.error('\n❌  Please provide the path to your CSV file.');
-  console.error('   Example: node scripts/sheet-to-jobs.js ~/Downloads/"Jobs Direct Japan - Sheet1.csv"\n');
-  process.exit(1);
+// ── Your Google Sheet ID (from the URL) ───────────────────────────
+const SHEET_ID  = '1LHUiuD9LHbDpqRtAaXHrP-ispHukQEk-t4UaJOnQ8uI';
+const SHEET_GID = '0';
+const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+
+// ── 1. Get CSV — from live sheet or local file ────────────────────
+function fetchUrl(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, res => {
+      // Follow redirects (Google issues a redirect to the actual CSV)
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        return fetchUrl(res.headers.location).then(resolve).catch(reject);
+      }
+      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve(data));
+    }).on('error', reject);
+  });
 }
 
-const resolvedCsv = csvPath.replace(/^~/, process.env.HOME);
-if (!fs.existsSync(resolvedCsv)) {
-  console.error(`\n❌  File not found: ${resolvedCsv}\n`);
-  process.exit(1);
+async function getCsv() {
+  const localPath = process.argv[2];
+  if (localPath) {
+    const resolved = localPath.replace(/^~/, process.env.HOME);
+    if (!fs.existsSync(resolved)) {
+      console.error(`\n❌  File not found: ${resolved}\n`); process.exit(1);
+    }
+    console.log(`\n📂  Reading local file: ${resolved}`);
+    return fs.readFileSync(resolved, 'utf8');
+  }
+  console.log('\n🌐  Fetching live Google Sheet…');
+  return fetchUrl(SHEET_CSV_URL);
 }
 
 // ── 2. Parse CSV ───────────────────────────────────────────────────
@@ -201,23 +219,26 @@ function toAltFriendly(type, careerLevel, label) {
   return false;
 }
 
-// ── 4. Convert rows to jobs ────────────────────────────────────────
-// Strip UTF-8 BOM if present (Google Sheets adds this to CSV exports)
-const csv = fs.readFileSync(resolvedCsv, 'utf8').replace(/^﻿/, '');
+// ── 4. Main ───────────────────────────────────────────────────────
+async function main() {
+  // Fetch CSV from live Google Sheet (or local file if path given)
+  const rawCsv = await getCsv();
 
-const rows = parseCsv(csv);
-const activeRows = rows.filter(r => /yes/i.test(r['Active'] || ''));
+  // Strip UTF-8 BOM if present (Google Sheets adds this)
+  const csv = rawCsv.replace(/^﻿/, '');
 
-console.log(`\n📄  Found ${rows.length} rows, ${activeRows.length} active.`);
+  const rows = parseCsv(csv);
+  const activeRows = rows.filter(r => /yes/i.test(r['Active'] || ''));
 
-// Safety check — never overwrite with an empty list
-if (activeRows.length === 0) {
-  console.error('\n❌  No active rows found. Check that your "Active" column contains "Yes".');
-  console.error('   Column headers detected:', rows[0] ? Object.keys(rows[0]).join(', ') : '(none)');
-  console.error('   Aborting — manual-jobs.json was NOT changed.\n');
-  process.exit(1);
-}
-console.log();
+  console.log(`📄  Found ${rows.length} rows, ${activeRows.length} active.\n`);
+
+  // Safety check — never overwrite with an empty list
+  if (activeRows.length === 0) {
+    console.error('❌  No active rows found. Check that your "Active" column contains "Yes".');
+    console.error('   Column headers detected:', rows[0] ? Object.keys(rows[0]).join(', ') : '(none)');
+    console.error('   Aborting — manual-jobs.json was NOT changed.\n');
+    process.exit(1);
+  }
 
 const jobs = activeRows.map((r, i) => {
   const title    = r['Title'] || '';
@@ -284,30 +305,36 @@ const jobs = activeRows.map((r, i) => {
   };
 });
 
-// ── 5. Save JSON ───────────────────────────────────────────────────
-const outPath = path.join(__dirname, '..', 'data', 'manual-jobs.json');
-fs.writeFileSync(outPath, JSON.stringify(jobs, null, 2) + '\n', 'utf8');
+  // ── 5. Save JSON ─────────────────────────────────────────────────
+  const outPath = path.join(__dirname, '..', 'data', 'manual-jobs.json');
+  fs.writeFileSync(outPath, JSON.stringify(jobs, null, 2) + '\n', 'utf8');
 
-console.log(`✅  Saved ${jobs.length} jobs to data/manual-jobs.json\n`);
-jobs.forEach(j => console.log(`   • ${j.titleEn} — ${j.employer} (${j.salary})`));
+  console.log(`✅  Saved ${jobs.length} jobs to data/manual-jobs.json\n`);
+  jobs.forEach(j => console.log(`   • ${j.titleEn} — ${j.employer} (${j.salary})`));
 
-// ── 6. Ask to commit & push ────────────────────────────────────────
-const readline = require('readline');
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  // ── 6. Ask to commit & push ───────────────────────────────────────
+  const readline = require('readline');
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
-rl.question('\n🚀  Commit and push to GitHub? (y/n): ', answer => {
-  rl.close();
-  if (answer.trim().toLowerCase() !== 'y') {
-    console.log('\n👍  JSON saved locally. Push when ready with: git add data/manual-jobs.json && git push origin main\n');
-    return;
-  }
-  try {
-    execSync('git add data/manual-jobs.json', { stdio: 'inherit' });
-    execSync(`git commit -m "Update manual jobs from Google Sheet (${jobs.length} active listings)"`, { stdio: 'inherit' });
-    execSync('git push origin main', { stdio: 'inherit' });
-    console.log('\n✅  Done! Vercel will deploy in about 30 seconds.\n');
-  } catch (e) {
-    console.error('\n❌  Git error:', e.message);
-    console.error('   Try running git push manually.\n');
-  }
+  rl.question('\n🚀  Commit and push to GitHub? (y/n): ', answer => {
+    rl.close();
+    if (answer.trim().toLowerCase() !== 'y') {
+      console.log('\n👍  JSON saved locally. Push when ready with: git add data/manual-jobs.json && git push origin main\n');
+      return;
+    }
+    try {
+      execSync('git add data/manual-jobs.json', { stdio: 'inherit' });
+      execSync(`git commit -m "Update manual jobs from Google Sheet (${jobs.length} active listings)"`, { stdio: 'inherit' });
+      execSync('git push origin main', { stdio: 'inherit' });
+      console.log('\n✅  Done! Vercel will deploy in about 30 seconds.\n');
+    } catch (e) {
+      console.error('\n❌  Git error:', e.message);
+      console.error('   Try running git push manually.\n');
+    }
+  });
+}
+
+main().catch(err => {
+  console.error('\n❌  Error:', err.message, '\n');
+  process.exit(1);
 });
