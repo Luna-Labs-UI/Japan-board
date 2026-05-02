@@ -546,6 +546,14 @@
     }
     @keyframes tooltipIn { from { opacity:0; transform: translateX(-50%) translateY(3px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
 
+    /* ── VIEW ROLE LINK ── */
+    .view-role-link {
+      font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 500;
+      color: var(--text-3); white-space: nowrap;
+      transition: color 0.12s;
+    }
+    .job-card:hover .view-role-link { color: var(--text-1); }
+
     /* ── SHARE / ACTION BUTTONS ── */
     .action-btn {
       display: inline-flex; align-items: center; gap: 4px;
@@ -902,7 +910,7 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
       )}
       <div className="card-foot">
         <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
-          <span className="posted-txt">Posted {job.posted}</span>
+          <span className="posted-txt"><IClock /> Posted {job.posted}</span>
           {deadlineSoon && <span className="tag tag-amber">Closes {job.deadline}</span>}
         </div>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
