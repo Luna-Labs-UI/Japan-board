@@ -466,7 +466,7 @@
       font-size: 13px; color: var(--text-3); line-height: 1.8;
       font-family: 'Geist', monospace;
     }
-    .desc { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+    .desc { font-size: 14px; color: var(--text-2); line-height: 1.7; white-space: pre-wrap; }
     .list-items { display: flex; flex-direction: column; gap: 5px; }
     .list-item {
       display: flex; align-items: flex-start; gap: 7px;
@@ -978,7 +978,7 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
           <div className="section">
             <div className="section-hd">Compensation &amp; hours</div>
             <div className="spec-grid">
-              <div className="spec-item"><span className="spec-lbl">Monthly salary</span><span className="spec-val">{job.salary}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Monthly salary</span><span className="spec-val" style={{color:'var(--salary-green)',fontWeight:700}}>{job.salary}</span></div>
               <div className="spec-item"><span className="spec-lbl">Working hours</span><span className="spec-val">{job.hours}</span></div>
               <div className="spec-item"><span className="spec-lbl">Application deadline</span><span className="spec-val">{job.deadline}</span></div>
               <div className="spec-item"><span className="spec-lbl">Source</span><span className="spec-val">{job.source}</span></div>
