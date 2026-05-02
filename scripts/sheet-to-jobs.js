@@ -202,11 +202,22 @@ function toAltFriendly(type, careerLevel, label) {
 }
 
 // ── 4. Convert rows to jobs ────────────────────────────────────────
-const csv = fs.readFileSync(resolvedCsv, 'utf8');
-const rows = parseCsv(csv);
+// Strip UTF-8 BOM if present (Google Sheets adds this to CSV exports)
+const csv = fs.readFileSync(resolvedCsv, 'utf8').replace(/^﻿/, '');
 
+const rows = parseCsv(csv);
 const activeRows = rows.filter(r => /yes/i.test(r['Active'] || ''));
-console.log(`\n📄  Found ${rows.length} rows, ${activeRows.length} active.\n`);
+
+console.log(`\n📄  Found ${rows.length} rows, ${activeRows.length} active.`);
+
+// Safety check — never overwrite with an empty list
+if (activeRows.length === 0) {
+  console.error('\n❌  No active rows found. Check that your "Active" column contains "Yes".');
+  console.error('   Column headers detected:', rows[0] ? Object.keys(rows[0]).join(', ') : '(none)');
+  console.error('   Aborting — manual-jobs.json was NOT changed.\n');
+  process.exit(1);
+}
+console.log();
 
 const jobs = activeRows.map((r, i) => {
   const title    = r['Title'] || '';
