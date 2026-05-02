@@ -912,13 +912,14 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
         <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
           <span className="posted-txt"><IClock /> Posted {job.posted}</span>
           {deadlineSoon && <span className="tag tag-amber">Closes {job.deadline}</span>}
+          <span className="card-cta">View role →</span>
         </div>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
           {job.isVerified && <span className="tag tag-green">✓ Verified</span>}
           {job.isLive && !job.isVerified && <span className="tag tag-amber">Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
           {job.visaRenewal && <span className="tag tag-blue">Visa renewal OK</span>}
-          <span className="card-cta">View role →</span>
+          <div style={{width:'1px',height:'14px',background:'var(--border)',margin:'0 4px',flexShrink:0}} />
           <LikeBtn liked={liked} count={likeCount} onLike={onLike} stopProp size={13} />
           <div className="copy-wrap">
             <button className="action-btn" title="Copy link" aria-label="Copy link to clipboard"
