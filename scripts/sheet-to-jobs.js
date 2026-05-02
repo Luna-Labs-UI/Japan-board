@@ -53,41 +53,41 @@ async function getCsv() {
   return fetchUrl(SHEET_CSV_URL);
 }
 
-// ── 2. Parse CSV ───────────────────────────────────────────────────
+// ── 2. Parse CSV (single-pass, RFC 4180 compliant) ────────────────
 function parseCsv(text) {
-  const lines = [];
-  let current = '';
-  let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (ch === '"') {
-      if (inQuotes && text[i + 1] === '"') { current += '"'; i++; }
-      else inQuotes = !inQuotes;
-    } else if (ch === '\n' && !inQuotes) {
-      lines.push(current); current = '';
+  const results = [];
+  let row = [], field = '', inQ = false;
+
+  for (let i = 0; i <= text.length; i++) {
+    const c = i < text.length ? text[i] : '\n'; // virtual newline at end
+
+    if (inQ) {
+      if (c === '"') {
+        if (i + 1 < text.length && text[i + 1] === '"') { field += '"'; i++; } // "" → "
+        else inQ = false; // closing quote
+      } else {
+        field += c;
+      }
     } else {
-      current += ch;
+      if (c === '"') {
+        inQ = true;
+      } else if (c === ',') {
+        row.push(field.trim()); field = '';
+      } else if (c === '\n') {
+        row.push(field.trim()); field = '';
+        if (row.some(f => f !== '')) results.push(row);
+        row = [];
+      } else {
+        field += c;
+      }
     }
   }
-  if (current) lines.push(current);
 
-  const rows = lines.map(line => {
-    const cells = []; let cell = ''; let q = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') { if (q && line[i+1] === '"') { cell += '"'; i++; } else q = !q; }
-      else if (c === ',' && !q) { cells.push(cell.trim()); cell = ''; }
-      else cell += c;
-    }
-    cells.push(cell.trim());
-    return cells;
-  });
-
-  if (rows.length < 2) return [];
-  const headers = rows[0];
-  return rows.slice(1).map(row => {
+  if (results.length < 1) return [];
+  const headers = results[0];
+  return results.slice(1).map(r => {
     const obj = {};
-    headers.forEach((h, i) => { obj[h.trim()] = (row[i] || '').trim(); });
+    headers.forEach((h, i) => { obj[h.trim()] = (r[i] || '').trim(); });
     return obj;
   });
 }
@@ -228,7 +228,7 @@ async function main() {
   const csv = rawCsv.replace(/^﻿/, '').replace(/\r/g, '');
 
   const rows = parseCsv(csv);
-  const activeRows = rows.filter(r => /yes/i.test(r['Active'] || ''));
+  const activeRows = rows.filter(r => /yes|true/i.test(r['Active'] || ''));
 
   console.log(`📄  Found ${rows.length} rows, ${activeRows.length} active.\n`);
 
@@ -236,6 +236,7 @@ async function main() {
   if (activeRows.length === 0) {
     console.error('❌  No active rows found. Check that your "Active" column contains "Yes".');
     console.error('   Column headers detected:', rows[0] ? Object.keys(rows[0]).join(', ') : '(none)');
+    console.error('   Active column values found:', rows.map(r => JSON.stringify(r['Active'])).join(', '));
     console.error('   Aborting — manual-jobs.json was NOT changed.\n');
     process.exit(1);
   }
