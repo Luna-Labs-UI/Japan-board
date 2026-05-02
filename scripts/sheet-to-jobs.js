@@ -224,8 +224,8 @@ async function main() {
   // Fetch CSV from live Google Sheet (or local file if path given)
   const rawCsv = await getCsv();
 
-  // Strip UTF-8 BOM if present (Google Sheets adds this)
-  const csv = rawCsv.replace(/^﻿/, '');
+  // Strip UTF-8 BOM and normalize Windows line endings (\r\n → \n)
+  const csv = rawCsv.replace(/^﻿/, '').replace(/\r/g, '');
 
   const rows = parseCsv(csv);
   const activeRows = rows.filter(r => /yes/i.test(r['Active'] || ''));
