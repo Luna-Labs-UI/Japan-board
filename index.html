@@ -376,8 +376,25 @@
       display: flex; align-items: center; gap: 3px;
       font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif;
     }
+    .card-req {
+      font-size: 13px; color: var(--text-3); line-height: 1.4;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .tag-more {
+      font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 500;
+      color: var(--text-3); padding: 2px 6px; border-radius: 99px;
+      background: var(--bg-muted); border: 1px solid var(--border);
+      white-space: nowrap;
+    }
     .card-foot    { display: flex; align-items: center; justify-content: space-between; }
     .posted-txt   { font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif; }
+    .card-cta {
+      font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 500;
+      color: var(--text-3); opacity: 0; transition: opacity 0.15s, color 0.15s;
+      white-space: nowrap; pointer-events: none;
+    }
+    .job-card:hover .card-cta { opacity: 1; color: var(--text-1); }
+    @media (max-width: 768px) { .card-cta { opacity: 1; } }
 
     /* ── TAGS ── */
     .tag {
@@ -838,35 +855,62 @@ function SkeletonCard() {
 
 function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFlash }) {
   const t = TYPE_META[job.type] || { cls: "tag-default", lbl: job.type };
+
+  // Tag list — cap at 3, collapse the rest
+  const allTags = [
+    { key: 'contract', el: <span className="tag tag-default">{job.contract === "full-time" ? "Full-time" : "Contract"}</span> },
+    { key: 'type',     el: <span className={`tag ${t.cls}`}>{t.lbl}</span> },
+    { key: 'jp',       el: <span className="tag tag-default">{JP_PROF[job.jpLevel] || job.jpLevel}</span> },
+    { key: 'remote',   el: job.remoteOk ? <span className="tag tag-blue">Remote OK</span> : <span className="tag tag-default"><IBuilding />On-site</span> },
+    job.overseasOk  ? { key: 'overseas', el: <span className="tag tag-amber">Overseas OK</span> }   : null,
+    job.directReply ? { key: 'direct',   el: <span className="tag tag-green"><IReply />Direct reply</span> } : null,
+  ].filter(Boolean);
+  const MAX_TAGS = 3;
+  const hiddenCount = Math.max(0, allTags.length - MAX_TAGS);
+
+  // Requirements / benefits teaser
+  const reqCount = job.req      ? job.req.length      : 0;
+  const benCount = job.benefits ? job.benefits.length : 0;
+  const teaserParts = [];
+  if (reqCount > 0) teaserParts.push(`${reqCount} requirement${reqCount !== 1 ? 's' : ''}`);
+  if (benCount > 0) teaserParts.push(`${benCount} benefit${benCount !== 1 ? 's' : ''}`);
+
+  // Deadline urgency — show if within 14 days
+  const deadlineSoon = job.deadline && job.deadline !== 'Open' && (() => {
+    const d = new Date(job.deadline);
+    if (isNaN(d)) return false;
+    const days = (d - Date.now()) / 86400000;
+    return days >= 0 && days <= 14;
+  })();
+
   return (
     <div className={`job-card${sel ? " sel" : ""}`} onClick={onClick}>
       <div className="card-top">
         <FaviconBox short={job.short} domain={job.domain} className="logo-box" imgSize={22} />
-        <div>
+        <div style={{flex:1,minWidth:0}}>
           <div className="card-title">{job.titleEn}</div>
           {job.titleJp && <div className="card-jp">{job.titleJp}</div>}
           <div className="card-employer">{job.employer}</div>
         </div>
       </div>
       <div className="card-meta">
-        <span className="meta"><IPin />{job.location}</span>
-        <span className="meta"><IBriefcase />{job.contract === "full-time" ? "Full-time" : "Contract"}</span>
-        <span className="meta"><IBanknote /><strong style={{color:'var(--salary-green)'}}>{job.salary}</strong></span>
-        <span className={`tag ${t.cls}`}>{t.lbl}</span>
-        <span className="tag tag-default">{JP_PROF[job.jpLevel] || job.jpLevel}</span>
-        {job.remoteOk
-          ? <span className="tag tag-blue">Remote OK</span>
-          : <span className="tag tag-default"><IBuilding />On-site</span>}
-        {job.overseasOk && <span className="tag tag-amber">Overseas OK</span>}
-        {job.directReply && <span className="tag tag-green"><IReply />Direct reply</span>}
+        {allTags.slice(0, MAX_TAGS).map(tag => <React.Fragment key={tag.key}>{tag.el}</React.Fragment>)}
+        {hiddenCount > 0 && <span className="tag-more">+{hiddenCount} more</span>}
       </div>
+      {teaserParts.length > 0 && (
+        <div className="card-req">{teaserParts.join(' · ')} →</div>
+      )}
       <div className="card-foot">
-        <span className="posted-txt"><IClock /> Posted {job.posted}</span>
+        <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
+          <span className="posted-txt">Posted {job.posted}</span>
+          {deadlineSoon && <span className="tag tag-amber">Closes {job.deadline}</span>}
+        </div>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
           {job.isVerified && <span className="tag tag-green">✓ Verified</span>}
           {job.isLive && !job.isVerified && <span className="tag tag-amber">Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
           {job.visaRenewal && <span className="tag tag-blue">Visa renewal OK</span>}
+          <span className="card-cta">View role →</span>
           <LikeBtn liked={liked} count={likeCount} onLike={onLike} stopProp size={13} />
           <div className="copy-wrap">
             <button className="action-btn" title="Copy link" aria-label="Copy link to clipboard"
