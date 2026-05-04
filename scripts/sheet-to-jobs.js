@@ -242,12 +242,12 @@ async function main() {
   }
 
 const jobs = activeRows.map((r, i) => {
-  const title    = r['Title'] || '';
-  const employer = r['Employer'] || '';
-  const label    = r['Label'] || '';
-  const location = r['Location'] || 'Tokyo, Japan';
-  const url      = r['URL'] || '';
-  const salary   = r['Salary'] || 'See listing';
+  const title          = r['Title'] || '';
+  const employer       = r['Employer'] || '';
+  const label          = r['Label'] || '';
+  const location       = r['Location'] || 'Tokyo, Japan';
+  const url            = r['URL'] || '';
+  const salary         = r['Salary'] || 'See listing';
   const jpRaw          = r['Japanese Level'] || '';
   const visaRaw        = r['Visa Sponsored'] || '';
   const forVisaHolders = r['For work visa holders'] || '';
@@ -276,6 +276,7 @@ const jobs = activeRows.map((r, i) => {
   return {
     titleEn:      title,
     titleJp:      '',
+    label:        label,
     employer:     employer,
     short:        toShort(employer),
     domain:       toDomain(employer, url),
@@ -288,6 +289,7 @@ const jobs = activeRows.map((r, i) => {
     altFriendly:  toAltFriendly(type, careerLevel, label),
     jlpt:         jlpt,
     jpLevel:      jpLevel,
+    japaneseLevel: jpRaw.replace(/\s+/g, ' ').trim(),
     enLevel:      'native',
     otherLangs:   [],
     industry:     toIndustry(label, title),
@@ -308,7 +310,7 @@ const jobs = activeRows.map((r, i) => {
     req:          reqItems,
     benefits:     [],
     hours:        jobType,
-    forVisaHolders: forVisaHolders,
+    forVisaHolders: forVisaHolders.replace(/\s+/g, ' ').trim(),
     aiNote:       aiNoteCleaned,
   };
 });
