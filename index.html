@@ -387,7 +387,7 @@
       white-space: nowrap;
     }
     .card-foot    { display: flex; align-items: center; justify-content: space-between; }
-    .posted-txt   { font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif; }
+    .posted-txt   { font-size: 12px; color: var(--text-3); font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 4px; }
     .card-cta {
       font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 500;
       color: var(--text-3); opacity: 0; transition: opacity 0.15s, color 0.15s;
@@ -408,6 +408,8 @@
     .tag-blue   { background: var(--tag-blue-bg);   color: var(--tag-blue-fg);   border-color: var(--tag-blue-bd); }
     .tag-amber  { background: var(--tag-amber-bg);  color: var(--tag-amber-fg);  border-color: var(--tag-amber-bd); }
     .tag-purple { background: var(--tag-purple-bg); color: var(--tag-purple-fg); border-color: var(--tag-purple-bd); }
+    .tag-urgent { background: #FEF2F2; color: #991B1B; border-color: #FECACA; }
+    [data-theme="dark"] .tag-urgent { background: #2D0A0A; color: #FCA5A5; border-color: #7F1D1D; }
 
     /* ── DETAIL PANEL ── */
     .overlay {
@@ -650,6 +652,7 @@ const ICopy = ({ size = 13 }) => <Svg size={size}><rect x="9" y="9" width="13" h
 const IBanknote = () => <Svg size={13} strokeWidth={1.75}><rect x="2" y="6" width="20" height="12" rx="2" /><circle cx="12" cy="12" r="2.5" /><path d="M6 12h.01M18 12h.01" /></Svg>;
 const IReply = () => <Svg size={11}><polyline points="9 17 4 12 9 7" /><path d="M20 18v-2a4 4 0 0 0-4-4H4" /></Svg>;
 const IBuilding = () => <Svg size={12}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></Svg>;
+const IHourglass = () => <Svg size={11}><path d="M5 2h14" /><path d="M5 22h14" /><path d="M17 2v4l-5 5 5 5v4" /><path d="M7 2v4l5 5-5 5v4" /></Svg>;
 
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
 const TYPE_META = { education: { cls: "tag-blue", lbl: "Education" }, it: { cls: "tag-purple", lbl: "IT / Tech" }, sales: { cls: "tag-green", lbl: "Sales / BDR" }, admin: { cls: "tag-amber", lbl: "Admin / Gov" }, tourism: { cls: "tag-blue", lbl: "Tourism" }, gaming: { cls: "tag-purple", lbl: "Gaming" }, finance: { cls: "tag-green", lbl: "Finance" }, government: { cls: "tag-amber", lbl: "Government" } };
@@ -663,6 +666,22 @@ function parsePostedDate(posted) {
   const m = posted.match(/^(\w+)\s+(\d{4})$/);
   if (m) return new Date(`${m[1]} 15, ${m[2]}`).getTime();
   return Date.now() - 86400000;
+}
+
+/* ─── DEADLINE COUNTDOWN ─────────────────────────────────────────────────── */
+function DeadlineCountdown({ deadline }) {
+  if (!deadline || deadline === 'Open' || deadline === 'Rolling' || deadline === 'N/A' || deadline === 'TBD') return null;
+  const d = new Date(deadline);
+  if (isNaN(d.getTime())) return null;
+  const days = Math.ceil((d - Date.now()) / 86400000);
+  if (days < 0) return null;
+  let cls, label;
+  if (days === 0)       { cls = 'tag-urgent'; label = 'Closes today'; }
+  else if (days <= 3)   { cls = 'tag-urgent'; label = `${days}d left`; }
+  else if (days <= 7)   { cls = 'tag-amber';  label = `${days}d left`; }
+  else if (days <= 30)  { cls = 'tag-default'; label = `${days}d left`; }
+  else return null;
+  return <span className={`tag ${cls}`}><IHourglass />{label}</span>;
 }
 
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
@@ -883,14 +902,6 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
   if (reqCount > 0) teaserParts.push(`${reqCount} requirement${reqCount !== 1 ? 's' : ''}`);
   if (benCount > 0) teaserParts.push(`${benCount} benefit${benCount !== 1 ? 's' : ''}`);
 
-  // Deadline urgency — show if within 14 days
-  const deadlineSoon = job.deadline && job.deadline !== 'Open' && (() => {
-    const d = new Date(job.deadline);
-    if (isNaN(d)) return false;
-    const days = (d - Date.now()) / 86400000;
-    return days >= 0 && days <= 14;
-  })();
-
   return (
     <div className={`job-card${sel ? " sel" : ""}`} onClick={onClick}>
       <div className="card-top">
@@ -911,10 +922,9 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
       <div className="card-foot">
         <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
           <span className="posted-txt"><IClock /> Posted {job.posted}</span>
-          {deadlineSoon && <span className="tag tag-amber">Closes {job.deadline}</span>}
-          <span className="card-cta">View role →</span>
         </div>
         <div style={{display:'flex',gap:'6px',alignItems:'center'}}>
+          <DeadlineCountdown deadline={job.deadline} />
           {job.isVerified && <span className="tag tag-green">✓ Verified</span>}
           {job.isLive && !job.isVerified && <span className="tag tag-amber">Live</span>}
           {job.visa && <span className="tag tag-green"><IShield />Visa sponsored</span>}
