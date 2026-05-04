@@ -991,16 +991,13 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
           </div>
 
           <div className="section">
-            <div className="section-hd">Compensation &amp; hours</div>
             <div className="spec-grid">
-              <div className="spec-item"><span className="spec-lbl">Monthly salary</span><span className="spec-val" style={{color:'var(--salary-green)',fontWeight:700}}>{job.salary}</span></div>
-              <div className="spec-item"><span className="spec-lbl">Working hours</span><span className="spec-val">{job.hours}</span></div>
-              <div className="spec-item"><span className="spec-lbl">Application deadline</span><span className="spec-val">{job.deadline}</span></div>
-              <div className="spec-item"><span className="spec-lbl">Source</span><span className="spec-val">{job.source}</span></div>
-              <div className="spec-item"><span className="spec-lbl">Visa sponsorship</span><span className="spec-val">{job.visa ? '✓ Sponsored' : job.visaRenewal ? 'Pre-existing visa req.' : 'Not sponsored'}</span></div>
-              <div className="spec-item"><span className="spec-lbl">Career level</span><span className="spec-val">{CAREER_LBL[job.careerLevel] || job.careerLevel}</span></div>
-              <div className="spec-item"><span className="spec-lbl">English required</span><span className="spec-val">{EN_PROF[job.enLevel] || job.enLevel}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Salary</span><span className="spec-val" style={{color:'var(--salary-green)',fontWeight:700}}>{job.salary}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Job Type</span><span className="spec-val">{job.hours}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Closing date</span><span className="spec-val">{job.deadline}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Posted Date</span><span className="spec-val">{job.posted}</span></div>
               <div className="spec-item"><span className="spec-lbl">Location</span><span className="spec-val">{job.location}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Japanese Level</span><span className="spec-val">{JP_PROF[job.jpLevel] || job.jpLevel}</span></div>
               {job.forVisaHolders && <div className="spec-item" style={{gridColumn:'1/-1'}}><span className="spec-lbl">For work visa holders</span><span className="spec-val">{job.forVisaHolders}</span></div>}
             </div>
           </div>
