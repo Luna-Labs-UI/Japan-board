@@ -997,8 +997,9 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
               <div className="spec-item"><span className="spec-lbl">Closing date</span><span className="spec-val">{job.deadline}</span></div>
               <div className="spec-item"><span className="spec-lbl">Posted Date</span><span className="spec-val">{job.posted}</span></div>
               <div className="spec-item"><span className="spec-lbl">Location</span><span className="spec-val">{job.location}</span></div>
-              <div className="spec-item"><span className="spec-lbl">Japanese Level</span><span className="spec-val">{JP_PROF[job.jpLevel] || job.jpLevel}</span></div>
-              {job.forVisaHolders && <div className="spec-item" style={{gridColumn:'1/-1'}}><span className="spec-lbl">For work visa holders</span><span className="spec-val">{job.forVisaHolders}</span></div>}
+              {job.label && <div className="spec-item"><span className="spec-lbl">Label</span><span className="spec-val">{job.label}</span></div>}
+              <div className="spec-item" style={{gridColumn:'1/-1'}}><span className="spec-lbl">Japanese Level</span><span className="spec-val">{job.japaneseLevel || job.jpLevel}</span></div>
+              {job.forVisaHolders && job.forVisaHolders !== 'No' && job.forVisaHolders !== 'Not Specified' && <div className="spec-item" style={{gridColumn:'1/-1'}}><span className="spec-lbl">For work visa holders</span><span className="spec-val">{job.forVisaHolders}</span></div>}
             </div>
           </div>
 
