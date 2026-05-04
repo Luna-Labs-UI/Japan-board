@@ -248,13 +248,15 @@ const jobs = activeRows.map((r, i) => {
   const location = r['Location'] || 'Tokyo, Japan';
   const url      = r['URL'] || '';
   const salary   = r['Salary'] || 'See listing';
-  const jpRaw    = r['Japanese Level'] || '';
-  const visaRaw  = r['Visa Sponsored'] || '';
-  const jobType  = r['Job Type'] || 'Full Time';
-  const desc     = r['Description'] || '';
-  const aiNote   = r['AI Note (AI can make mistakes)'] || '';
-  const deadline = r['Closing date'] || 'See listing';
-  const posted   = r['Posted Date'] || 'Recently';
+  const jpRaw          = r['Japanese Level'] || '';
+  const visaRaw        = r['Visa Sponsored'] || '';
+  const forVisaHolders = r['For work visa holders'] || '';
+  const jobType        = r['Job Type'] || 'Full Time';
+  const desc           = r['Description'] || '';
+  const aiNote         = r['AI Note (AI can make mistakes)'] || '';
+  const confirmRaw     = r['Things to confirm with hiring manager'] || '';
+  const deadline       = r['Closing date'] || 'See listing';
+  const posted         = r['Posted Date'] || 'Recently';
 
   const { jlpt, jpLevel } = toJpLevel(jpRaw);
   const { visa, visaRenewal } = toVisa(visaRaw);
@@ -263,10 +265,13 @@ const jobs = activeRows.map((r, i) => {
   const contract    = toContract(jobType);
   const salaryClean = salary.replace(/\s+/g, ' ').trim();
 
-  const reqItems = [];
-  if (visaRenewal) reqItems.push('Pre-existing work rights in Japan required');
-  if (!visa && !visaRenewal && /no|not available/i.test(visaRaw)) reqItems.push('Visa sponsorship not available');
-  if (aiNote && !/ai can make/i.test(aiNote)) reqItems.push(aiNote.replace(/\.$/, ''));
+  const reqItems = confirmRaw
+    ? confirmRaw.split(/\n|•|·/).map(s => s.trim()).filter(Boolean)
+    : [];
+
+  const aiNoteCleaned = (aiNote && !/^ai can make/i.test(aiNote.trim()))
+    ? aiNote.replace(/\.$/, '').trim()
+    : '';
 
   return {
     titleEn:      title,
@@ -303,6 +308,8 @@ const jobs = activeRows.map((r, i) => {
     req:          reqItems,
     benefits:     [],
     hours:        jobType,
+    forVisaHolders: forVisaHolders,
+    aiNote:       aiNoteCleaned,
   };
 });
 
