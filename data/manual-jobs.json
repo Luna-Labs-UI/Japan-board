@@ -2,7 +2,6 @@
   {
     "titleEn": "SEA3000 Logistics Support Officer (Defence)",
     "titleJp": "",
-    "label": "Defence / Logistics",
     "employer": "Australian Embassy",
     "short": "AE",
     "domain": "dfat.gov.au",
@@ -13,9 +12,8 @@
     "visa": false,
     "visaRenewal": false,
     "altFriendly": true,
-    "jlpt": "n2",
-    "jpLevel": "business",
-    "japaneseLevel": "Japanese language skills (Japanese-Language Proficiency Test (JLPT) minimum level 2 or equivalent).",
+    "jlpt": "none",
+    "jpLevel": "none",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -33,16 +31,17 @@
     "desc": "Coordinating personnel transfers (housing, schools, banking) for SEA3000 staff; bilingual admin support and stakeholder liaison.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["The specific level of security clearance needed and any citizenship requirements/restrictions associated with it."],
+    "req": [
+      "The specific level of security clearance needed and any citizenship requirements/restrictions associated with it."
+    ],
     "benefits": [],
     "hours": "Ongoing, Full time",
     "forVisaHolders": "Non-Japanese citizens must have an appropriate category visa to work in Japan.",
-    "aiNote": "Specifically supports the \"General Purpose Frigate Project.\" Requires eligibility for an Australian Security clearance."
+    "aiNote": "Specifically supports the \"General Purpose Frigate Project.\" Requires eligibility for an Australian Security clearance"
   },
   {
     "titleEn": "Driver",
     "titleJp": "",
-    "label": "Gov",
     "employer": "Australian Embassy",
     "short": "AE",
     "domain": "dfat.gov.au",
@@ -55,7 +54,6 @@
     "altFriendly": true,
     "jlpt": "n2",
     "jpLevel": "business",
-    "japaneseLevel": "Business",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -73,16 +71,17 @@
     "desc": "Safe transport for officials; vehicle maintenance; admin and property support.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["The role involves after-hours and weekend work; how far in advance are these shifts typically scheduled, and what is the average amount of overtime expected per month?"],
+    "req": [
+      "The role involves after-hours and weekend work; how far in advance are these shifts typically scheduled, and what is the average amount of overtime expected per month?"
+    ],
     "benefits": [],
     "hours": "Ongoing, Full Time",
     "forVisaHolders": "Pre-existing rights required",
-    "aiNote": "As you will be transporting \"Embassy officials and visiting guests,\" a high standard of client service and professional conduct is mandatory."
+    "aiNote": "As you will be transporting \"Embassy officials and visiting guests,\" a high standard of client service and professional conduct is mandatory"
   },
   {
     "titleEn": "Communications and Culture Officer",
     "titleJp": "",
-    "label": "Gov",
     "employer": "Embassy of Switzerland",
     "short": "EOS",
     "domain": "eda.admin.ch",
@@ -93,9 +92,8 @@
     "visa": false,
     "visaRenewal": false,
     "altFriendly": true,
-    "jlpt": "n1",
-    "jpLevel": "fluent",
-    "japaneseLevel": "Fluency and strong editorial skills in English and Japanese",
+    "jlpt": "none",
+    "jpLevel": "none",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -113,16 +111,17 @@
     "desc": "Social media strategy, content creation, and cultural event promotion.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Is this a permanent job?"],
+    "req": [
+      "Is this a permanent job?"
+    ],
     "benefits": [],
     "hours": "Full Time",
     "forVisaHolders": "Pre-existing rights required",
-    "aiNote": "The Embassy emphasizes a \"high spirit of initiative\" and the ability to work under fast-paced conditions, suggesting a high-autonomy environment."
+    "aiNote": "The Embassy emphasizes a \"high spirit of initiative\" and the ability to work under fast-paced conditions, suggesting a high-autonomy environment"
   },
   {
     "titleEn": "Science and Technology Officer",
     "titleJp": "",
-    "label": "Gov",
     "employer": "British Embassy",
     "short": "BE",
     "domain": "gov.uk",
@@ -135,7 +134,6 @@
     "altFriendly": true,
     "jlpt": "n2",
     "jpLevel": "business",
-    "japaneseLevel": "Written and spoken proficiency in both English and Japanese. Fluency (minimum C2 level) in one language and business level (minimum high B2) in the other.",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -153,16 +151,17 @@
     "desc": "Managing UK-Japan tech collaboration and policy research.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["How is the success of \"science diplomacy\" measured in this role?"],
+    "req": [
+      "How is the success of \"science diplomacy\" measured in this role?"
+    ],
     "benefits": [],
     "hours": "Permanent",
     "forVisaHolders": "All candidates must be legally able to work and reside in Japan with the correct visa/work permit status or demonstrate eligibility to obtain the relevant permit. Any costs related to obtaining or renewing permits and visas are the responsibility of the successful applicant.",
-    "aiNote": "The role requires the ability to summarize complex technical discussions and explain viewpoints on topical issues without strain."
+    "aiNote": "The role requires the ability to summarize complex technical discussions and explain viewpoints on topical issues without strain"
   },
   {
     "titleEn": "Residence Manager",
     "titleJp": "",
-    "label": "Gov",
     "employer": "U.S. Embassy",
     "short": "UE",
     "domain": "jp.usembassy.gov",
@@ -175,7 +174,6 @@
     "altFriendly": false,
     "jlpt": "n2",
     "jpLevel": "business",
-    "japaneseLevel": "Professional",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -193,16 +191,17 @@
     "desc": "Managing household operations; staff supervision; event logistics.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Is this a permanent job?"],
+    "req": [
+      "Is this a permanent job?"
+    ],
     "benefits": [],
     "hours": "Full Time",
     "forVisaHolders": "Not Specified",
-    "aiNote": "Subject to a 6-month trial period for the first contract with the employer."
+    "aiNote": "Subject to a 6-month trial period for the first contract with the employer"
   },
   {
     "titleEn": "Chef/Server/Kitchen Helper",
     "titleJp": "",
-    "label": "Gov",
     "employer": "Suji’s Cafeteria (U.S. Embassy)",
     "short": "SCU",
     "domain": "jp.usembassy.gov",
@@ -215,7 +214,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified (English required)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -233,16 +231,17 @@
     "desc": "Preparing and serving American diner cuisine (breakfast/lunch) within the embassy cafeteria. Includes transportation allowance and requires a security background check.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Is this a permanent job?"],
+    "req": [
+      "Is this a permanent job?"
+    ],
     "benefits": [],
     "hours": "Full-time (Up to 40 hrs/wk)",
     "forVisaHolders": "Must have valid working visa",
-    "aiNote": "Must speak English, have passed high school, have chef/service experience and reside in Japan. Working holiday visas and student visas will not be accepted."
+    "aiNote": "Must speak English, have passed high school, have chef/service experience and reside in Japan. Working holiday visas and student visas will not be accepted"
   },
   {
     "titleEn": "Residence Staff",
     "titleJp": "",
-    "label": "Gov",
     "employer": "U.S. Embassy Residence",
     "short": "UER",
     "domain": "jp.usembassy.gov",
@@ -255,7 +254,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -273,16 +271,17 @@
     "desc": "Cleaning, laundry, and ironing; setting up and serving at official events (breakfast/lunch/dinner). Requires physical fitness and discretion.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Is this a permanent job?"],
+    "req": [
+      "Is this a permanent job?"
+    ],
     "benefits": [],
     "hours": "Part-Time (30 hrs/wk)",
     "forVisaHolders": "No",
-    "aiNote": "One year, renewable. Subject to 6-month trial period for the first contract with the employer."
+    "aiNote": "One year, renewable. Subject to 6-month trial period for the first contract with the employer"
   },
   {
     "titleEn": "Administrative Staff",
     "titleJp": "",
-    "label": "Gov",
     "employer": "German Embassy",
     "short": "GE",
     "domain": "japan.diplo.de",
@@ -293,9 +292,8 @@
     "visa": false,
     "visaRenewal": false,
     "altFriendly": true,
-    "jlpt": "n2",
-    "jpLevel": "business",
-    "japaneseLevel": "German language skills, as well as excellent Japanese and English language proficiency (written and spoken).",
+    "jlpt": "none",
+    "jpLevel": "none",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "government",
@@ -313,16 +311,17 @@
     "desc": "Assist the legal and consular section with administrative tasks.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Is there a possibility of contract renewal or conversion to permanent employment after March 31, 2028?"],
+    "req": [
+      "Is there a possibility of contract renewal or conversion to permanent employment after March 31, 2028?"
+    ],
     "benefits": [],
     "hours": "Full-time (40 hrs/wk), fixed-term until March 31, 2028",
     "forVisaHolders": "Applicants holding the nationality of a third country must have obtained a valid residence permit and a valid work permit in Japan by the time of employment.",
-    "aiNote": "Initially a fixed-term contract until March 31, 2028."
+    "aiNote": "Initially a fixed-term contract until March 31, 2028"
   },
   {
     "titleEn": "Social Media and Content Manager",
     "titleJp": "",
-    "label": "Marketing/ Comms",
     "employer": "International School of the Sacred Heart (ISSH)",
     "short": "ISO",
     "domain": "isshtokyo.org",
@@ -335,7 +334,6 @@
     "altFriendly": true,
     "jlpt": "n2",
     "jpLevel": "business",
-    "japaneseLevel": "Strong Business",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "sales",
@@ -353,16 +351,17 @@
     "desc": "Managing social media, capturing photo/video at events, creating content, and hiring/managing professional videographers.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["The average expected weekly hours and the frequency of weekend/evening work for school events."],
+    "req": [
+      "The average expected weekly hours and the frequency of weekend/evening work for school events."
+    ],
     "benefits": [],
     "hours": "Part-Time (Irregular hours)",
     "forVisaHolders": "Not Specified (Likely No for part-time/irregular roles)",
-    "aiNote": "The schedule is noted as \"irregular hours,\" which usually means fluctuating weekly hours based on school events."
+    "aiNote": "The schedule is noted as \"irregular hours,\" which usually means fluctuating weekly hours based on school events"
   },
   {
     "titleEn": "Admissions & Marketing Director",
     "titleJp": "",
-    "label": "Edu",
     "employer": "St. Michael's International School",
     "short": "SMI",
     "domain": "teachapply.com",
@@ -370,12 +369,11 @@
     "pref": "japan",
     "type": "education",
     "contract": "full-time",
-    "visa": true,
+    "visa": false,
     "visaRenewal": false,
     "altFriendly": true,
     "jlpt": "n2",
     "jpLevel": "business",
-    "japaneseLevel": "Professional",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -393,56 +391,17 @@
     "desc": "Lead and deliver an integrated admissions and marketing strategy to drive growth, strengthen retention, and ensure the school's visibility and positioning.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["What are the criteria and process for contract renewal after the initial 2-year term?"],
+    "req": [
+      "What are the criteria and process for contract renewal after the initial 2-year term?"
+    ],
     "benefits": [],
-    "hours": "Full time, 2 year fixed term, renewable. Starts July 2026 or earlier",
+    "hours": "Full time, 2 year fixed term, renewable. Starts July 2026 or eariler",
     "forVisaHolders": "Yes, supports work visa",
-    "aiNote": "2 year fixed term, renewable. Annual bonus linked to enrolment growth and admissions targets. Furnished housing, relocation support, and return flights every two years for eligible overseas hires. Tuition discount for two eligible dependants."
-  },
-  {
-    "titleEn": "Admissions & Marketing Director",
-    "titleJp": "",
-    "label": "Edu",
-    "employer": "St. Michael's International School",
-    "short": "SMI",
-    "domain": "teachapply.com",
-    "location": "Kobe, Japan",
-    "pref": "japan",
-    "type": "education",
-    "contract": "full-time",
-    "visa": true,
-    "visaRenewal": false,
-    "altFriendly": true,
-    "jlpt": "n2",
-    "jpLevel": "business",
-    "japaneseLevel": "Professional",
-    "enLevel": "native",
-    "otherLangs": [],
-    "industry": "education",
-    "careerLevel": "executive",
-    "employerType": "company",
-    "remoteOk": false,
-    "overseasOk": false,
-    "salary": "¥400,000 per month (starting)",
-    "salaryRank": 1,
-    "posted": "Recently",
-    "deadline": "March 31",
-    "url": "https://teachapply.com/smiskobe/job_desc/1771466049Admissions-Marketing-Director-Recruitment-2026%20.pdf",
-    "source": "St. Michael's International School",
-    "mhlw": false,
-    "desc": "Lead and deliver an integrated admissions and marketing strategy, owning the full admissions journey from first enquiry to successful onboarding, and strengthening the school's brand presence and retention.",
-    "descJp": "",
-    "responsibilities": [],
-    "req": [],
-    "benefits": [],
-    "hours": "Full time, 2 year fixed term, renewable",
-    "forVisaHolders": "Yes, supports work visa",
-    "aiNote": ""
+    "aiNote": "2 year fixed term, renewable. Annual bonus linked to enrolment growth and admissions targets. Furnished housing, relocation support, and return flights every two years for eligible overseas hires. Tuition discount for two eligible dependants"
   },
   {
     "titleEn": "Accountant",
     "titleJp": "",
-    "label": "Accounting / Education",
     "employer": "The American School in Japan (ASIJ)",
     "short": "TAS",
     "domain": "asij.ac.jp",
@@ -455,7 +414,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Bilingual English/Japanese (Required for external agencies/compliance)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -473,16 +431,17 @@
     "desc": "Managing daily accounting operations, cash handling (JPY/Foreign currency), banking liaison, expense reimbursement, and financial support for faculty and PTA.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Whether the school provides visa sponsorship for non-residents and the specific \"Seishokuin\" salary bracket for this experience level."],
+    "req": [
+      "Whether the school provides visa sponsorship for non-residents and the specific \"Seishokuin\" salary bracket for this experience level."
+    ],
     "benefits": [],
     "hours": "Full-time (Seishokuin), 8:00am–4:30pm",
     "forVisaHolders": "Not explicitly stated (Enrolled in Japanese social insurance)",
-    "aiNote": "Specifically handles school-wide cash management, PTA coordination, and banking. Requires 5+ years of English-based accounting experience."
+    "aiNote": "Specifically handles school-wide cash management, PTA coordination, and banking. Requires 5+ years of English-based accounting experience"
   },
   {
     "titleEn": "Middle School PE / Health Teacher (40%)",
     "titleJp": "",
-    "label": "Education / Physical Education",
     "employer": "The American School in Japan (ASIJ)",
     "short": "TAS",
     "domain": "asij.ac.jp",
@@ -495,7 +454,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified (English primary)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -513,16 +471,17 @@
     "desc": "Teaching Middle School PE/Health using SHAPE standards; includes Advisory roles and coaching/co-curricular activities. Requires a student-centered, inclusive approach.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["The exact schedule for a \"40%\" role and if any specific Japanese language skills are needed for local safety/lifeguarding liaison."],
+    "req": [
+      "The exact schedule for a \"40%\" role and if any specific Japanese language skills are needed for local safety/lifeguarding liaison."
+    ],
     "benefits": [],
     "hours": "Part-time, Contract (Starts Aug 1, 2026)",
     "forVisaHolders": "Requires residency in Japan at time of application",
-    "aiNote": "Part-time role (40%). Requires residency in Japan at the time of application. Includes heavy focus on co-curricular/coaching."
+    "aiNote": "Part-time role (40%). Requires residency in Japan at the time of application. Includes heavy focus on co-curricular/coaching"
   },
   {
     "titleEn": "Multilingual Language Specialist",
     "titleJp": "",
-    "label": "Education / EAL / ESL",
     "employer": "The American School in Japan (ASIJ)",
     "short": "TAS",
     "domain": "asij.ac.jp",
@@ -535,7 +494,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified (English primary)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -553,16 +511,17 @@
     "desc": "Leading linguistic audits, coaching secondary teachers in disciplinary literacy, and advocating for asset-based multilingual practices. Includes high-level involvement in PLCs and co-curriculars.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Whether this role involves a dedicated classroom caseload or if it is strictly a coaching/co-teaching position for other faculty."],
+    "req": [
+      "Whether this role involves a dedicated classroom caseload or if it is strictly a coaching/co-teaching position for other faculty."
+    ],
     "benefits": [],
     "hours": "Full-time (Starts August 2026)",
     "forVisaHolders": "Not explicitly stated (Check website)",
-    "aiNote": "Requires 5+ years experience. This is a \"coach-of-coaches\" role focused on upskilling other teachers in linguistic equity and translanguaging."
+    "aiNote": "Requires 5+ years experience. This is a \"coach-of-coaches\" role focused on upskilling other teachers in linguistic equity and translanguaging"
   },
   {
     "titleEn": "Occupational Therapist (PK-5)",
     "titleJp": "",
-    "label": "Education / Therapy",
     "employer": "The American School in Japan (ASIJ)",
     "short": "TAS",
     "domain": "asij.ac.jp",
@@ -575,7 +534,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Bilingual English/Japanese (Required for family communication)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -593,16 +551,17 @@
     "desc": "Supporting elementary students (PK-5) by removing sensory/physical barriers, collaborating with teachers, and translating clinical data into classroom goals. Includes co-curricular/coaching duties.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["Whether the role requires a Japanese OT license in addition to home-country certification, and specific visa support for clinicians."],
+    "req": [
+      "Whether the role requires a Japanese OT license in addition to home-country certification, and specific visa support for clinicians."
+    ],
     "benefits": [],
     "hours": "Full-time (Starts August 2026)",
     "forVisaHolders": "Not explicitly stated (Check website)",
-    "aiNote": "Requires MS/MA in OT and 3+ years experience. Strong focus on neurodiversity, UDL, and classroom collaboration."
+    "aiNote": "Requires MS/MA in OT and 3+ years experience. Strong focus on neurodiversity, UDL, and classroom collaboration"
   },
   {
     "titleEn": "Primary Supply Educational Assistant",
     "titleJp": "",
-    "label": "Edu",
     "employer": "The British School in Tokyo",
     "short": "TBS",
     "domain": "bst.ac.jp",
@@ -615,7 +574,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified (English required)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -633,16 +591,17 @@
     "desc": "To cover for absent or otherwise engaged teaching assistants during the school day. Supply Teaching Assistants have the same duties and responsibilities as regular Teaching Assistants as outlined below.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["What are the biggest challenges a supply assistant typically faces at BST, and how can I best support the team in overcoming them?"],
+    "req": [
+      "What are the biggest challenges a supply assistant typically faces at BST, and how can I best support the team in overcoming them?"
+    ],
     "benefits": [],
     "hours": "Not specified",
     "forVisaHolders": "For Teaching Assistant and Business Group roles we are only able to consider applications from candidates who are in Japan and have a university degree (or have valid permission to work in Japan).",
-    "aiNote": "Specific visa/location requirements vary by role: Classroom Teachers can apply from overseas; Teaching Assistant and Business Group roles require applicants to be in Japan with a university degree or valid work permission. Only successful candidates will be contacted after initial application confirmation."
+    "aiNote": "Specific visa/location requirements vary by role: Classroom Teachers can apply from overseas; Teaching Assistant and Business Group roles require applicants to be in Japan with a university degree or valid work permission. Only successful candidates will be contacted after initial application confirmation"
   },
   {
     "titleEn": "PA to the Head of the Secondary School",
     "titleJp": "",
-    "label": "Edu",
     "employer": "The British School in Tokyo",
     "short": "TBS",
     "domain": "bst.ac.jp",
@@ -655,7 +614,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified (English required)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -673,16 +631,17 @@
     "desc": "To provide comprehensive support to the Head of Secondary, working at The Showa Women's University campus in Sangenjaya, Tokyo.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["How does the PA to the Head of Secondary collaborate with the wider administrative teams across the Primary and Whole School departments?"],
+    "req": [
+      "How does the PA to the Head of Secondary collaborate with the wider administrative teams across the Primary and Whole School departments?"
+    ],
     "benefits": [],
     "hours": "Full-time",
     "forVisaHolders": "Not Specified",
-    "aiNote": "For Teaching Assistant and Business Group roles, only candidates already in Japan with a university degree or valid work permission are considered. For Classroom Teacher positions, applications from overseas are accepted, implying potential visa sponsorship."
+    "aiNote": "For Teaching Assistant and Business Group roles, only candidates already in Japan with a university degree or valid work permission are considered. For Classroom Teacher positions, applications from overseas are accepted, implying potential visa sponsorship"
   },
   {
     "titleEn": "Membership Marketing Specialist",
     "titleJp": "",
-    "label": "Marketing/ Comms",
     "employer": "Tokyo American Club",
     "short": "TAC",
     "domain": "hireplanner.com",
@@ -695,7 +654,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "Not specified (English required)",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "sales",
@@ -713,16 +671,17 @@
     "desc": "This position is responsible for developing and executing marketing strategies to attract and sell new members and retain existing members for the Club.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["What are the monthly targets for new member acquisitions?"],
+    "req": [
+      "What are the monthly targets for new member acquisitions?"
+    ],
     "benefits": [],
     "hours": "Full-Time (7.5 hrs/day, 5 days/week, some Saturdays)",
-    "forVisaHolders": "Applicants must hold valid working eligibility in Japan at the time of lodging the applications.",
-    "aiNote": "You will be the link between the Communications Department and prospective members. The \"Advanced English\" requirement implies that a significant portion of the membership or the internal leadership is international."
+    "forVisaHolders": "Applicants hold valid working eligibility in Japan at the time of lodging the applications.",
+    "aiNote": "You will be the link between the Communications Department and prospective members. The \"Advanced English\" requirement implies that a significant portion of the membership or the internal leadership is international"
   },
   {
     "titleEn": "Direct Hire Assistant Language Teacher (ALT)",
     "titleJp": "",
-    "label": "Edu",
     "employer": "Nagano Prefecture Board of Education",
     "short": "NPB",
     "domain": "pref.nagano.lg.jp",
@@ -735,7 +694,6 @@
     "altFriendly": true,
     "jlpt": "none",
     "jpLevel": "none",
-    "japaneseLevel": "English required",
     "enLevel": "native",
     "otherLangs": [],
     "industry": "education",
@@ -753,10 +711,12 @@
     "desc": "Assist in English language instruction within Nagano Prefecture schools.",
     "descJp": "",
     "responsibilities": [],
-    "req": ["What are the expected weekly working hours and is there a possibility of contract renewal?"],
+    "req": [
+      "What are the expected weekly working hours and is there a possibility of contract renewal?"
+    ],
     "benefits": [],
     "hours": "Fixed-term (August 1, 2026 - July 31, 2027)",
-    "forVisaHolders": "A valid visa to live and/or work in Japan is required",
-    "aiNote": "Fixed-term contract (August 1, 2026 - July 31, 2027). Requires English teaching experience."
+    "forVisaHolders": "A valid visa to live and /or work in Japan is required",
+    "aiNote": "Fixed-term contract (August 1, 2026 - July 31, 2027). Requires English teaching experience"
   }
 ]
