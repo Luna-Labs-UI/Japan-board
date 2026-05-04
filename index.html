@@ -653,11 +653,15 @@ const IBanknote = () => <Svg size={13} strokeWidth={1.75}><rect x="2" y="6" widt
 const IReply = () => <Svg size={11}><polyline points="9 17 4 12 9 7" /><path d="M20 18v-2a4 4 0 0 0-4-4H4" /></Svg>;
 const IBuilding = () => <Svg size={12}><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></Svg>;
 const IHourglass = () => <Svg size={11}><path d="M5 2h14" /><path d="M5 22h14" /><path d="M17 2v4l-5 5 5 5v4" /><path d="M7 2v4l5 5-5 5v4" /></Svg>;
+const IInfo = ({ size = 14 }) => <Svg size={size}><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="8" strokeWidth={3} strokeLinecap="round"/><line x1="12" y1="12" x2="12" y2="16" /></Svg>;
+const ISparkle = ({ size = 11 }) => <Svg size={size}><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="currentColor" stroke="none" /></Svg>;
 
 /* ─── HELPERS ────────────────────────────────────────────────────────────── */
 const TYPE_META = { education: { cls: "tag-blue", lbl: "Education" }, it: { cls: "tag-purple", lbl: "IT / Tech" }, sales: { cls: "tag-green", lbl: "Sales / BDR" }, admin: { cls: "tag-amber", lbl: "Admin / Gov" }, tourism: { cls: "tag-blue", lbl: "Tourism" }, gaming: { cls: "tag-purple", lbl: "Gaming" }, finance: { cls: "tag-green", lbl: "Finance" }, government: { cls: "tag-amber", lbl: "Government" } };
 const JLPT_LBL = { n5: "N5", n4: "N4", n3: "N3", n2: "N2", n1: "N1" };
 const JP_PROF = { none: "No Japanese req.", basic: "Casual Japanese", conversational: "JLPT N3+", business: "JLPT N2", fluent: "JLPT N1+", native: "JLPT N1" };
+const EN_PROF = { basic: "Basic English", conversational: "Conversational", business: "Business level", fluent: "Fluent", native: "Native / fluent" };
+const CAREER_LBL = { entry: "Entry level", mid: "Mid-career", senior: "Senior", manager: "Manager", executive: "Director / Executive" };
 
 function parsePostedDate(posted) {
   if (!posted || posted === 'Recently') return Date.now() - 86400000;
@@ -891,6 +895,7 @@ function JobCard({ job, sel, onClick, liked, likeCount, onLike, onShare, shareFl
     { key: 'remote',   el: job.remoteOk ? <span className="tag tag-blue">Remote OK</span> : <span className="tag tag-default"><IBuilding />On-site</span> },
     job.overseasOk  ? { key: 'overseas', el: <span className="tag tag-amber">Overseas OK</span> }   : null,
     job.directReply ? { key: 'direct',   el: <span className="tag tag-green"><IReply />Direct reply</span> } : null,
+    job.aiNote      ? { key: 'ainote',   el: <span className="tag tag-purple"><ISparkle />AI note</span> } : null,
   ].filter(Boolean);
   const MAX_TAGS = 3;
   const hiddenCount = Math.max(0, allTags.length - MAX_TAGS);
@@ -992,6 +997,11 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
               <div className="spec-item"><span className="spec-lbl">Working hours</span><span className="spec-val">{job.hours}</span></div>
               <div className="spec-item"><span className="spec-lbl">Application deadline</span><span className="spec-val">{job.deadline}</span></div>
               <div className="spec-item"><span className="spec-lbl">Source</span><span className="spec-val">{job.source}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Visa sponsorship</span><span className="spec-val">{job.visa ? '✓ Sponsored' : job.visaRenewal ? 'Pre-existing visa req.' : 'Not sponsored'}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Career level</span><span className="spec-val">{CAREER_LBL[job.careerLevel] || job.careerLevel}</span></div>
+              <div className="spec-item"><span className="spec-lbl">English required</span><span className="spec-val">{EN_PROF[job.enLevel] || job.enLevel}</span></div>
+              <div className="spec-item"><span className="spec-lbl">Location</span><span className="spec-val">{job.location}</span></div>
+              {job.forVisaHolders && <div className="spec-item" style={{gridColumn:'1/-1'}}><span className="spec-lbl">For work visa holders</span><span className="spec-val">{job.forVisaHolders}</span></div>}
             </div>
           </div>
 
@@ -999,6 +1009,11 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
             <div className="section-hd">Role overview</div>
             {job.descJp && <div className="notice"><IGlobe /><div>This description has been <strong>translated from Japanese</strong>. See original below.</div></div>}
             <p className="desc">{job.desc}</p>
+            {job.aiNote && (
+              <div className="notice" style={{marginTop:'12px',background:'var(--tag-purple-bg)',borderColor:'var(--tag-purple-bd)',color:'var(--tag-purple-fg)'}}>
+                <ISparkle size={13} /><div><strong>AI note:</strong> {job.aiNote}</div>
+              </div>
+            )}
           </div>
 
           {job.descJp && (
@@ -1017,7 +1032,7 @@ function Detail({ job, onClose, liked, likeCount, onLike, onShare, shareFlash })
 
           {job.req && job.req.length > 0 && (
             <div className="section">
-              <div className="section-hd">Requirements</div>
+              <div className="section-hd">Things to confirm with hiring manager</div>
               <div className="list-items">{job.req.map((r, i) => <div key={i} className="list-item">{r}</div>)}</div>
             </div>
           )}
